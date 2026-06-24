@@ -1,0 +1,6 @@
+{
+  "doc_kind": "research-assistant",
+  "lang": "no",
+  "source_sha256": "ef9c0af518a6bd2ababd6b93bfd4303e4c6e1b7f56bcd90c862f3821807a6e66",
+  "model": "mistral-small-latest"
+}

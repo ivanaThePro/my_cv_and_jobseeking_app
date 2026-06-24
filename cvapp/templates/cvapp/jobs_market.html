@@ -1,0 +1,79 @@
+{% extends "cvapp/dashboard_base.html" %}
+
+{% block title %}Browse jobs{% endblock %}
+
+{% block body_class %}jobs-hub-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}?v=63">
+{% endblock %}
+
+{% block content %}
+{% if message %}
+<div class="flash flash-ok page-flash">{{ message }}</div>
+{% endif %}
+{% if error %}
+<div class="flash flash-err page-flash">{{ error }}</div>
+{% endif %}
+
+<div id="jobs-market-banner" class="jobs-market-banner" aria-live="polite">
+    {% if source_issues %}
+    <p class="jobs-banner-warn">
+        Some sources returned few listings on last Search:
+        {% for issue in source_issues|slice:":3" %}
+            <span class="jobs-banner-source">{{ issue.source }}{% if issue.error %} &mdash; {{ issue.error|truncatechars:60 }}{% elif issue.status == 'empty' %} (empty){% endif %}</span>{% if not forloop.last %}; {% endif %}
+        {% endfor %}
+    </p>
+    {% elif cache_raw_total == 0 and not pipeline_running %}
+    <p class="jobs-banner-info">
+        Welcome &mdash; click <strong>Find jobs</strong> in the top bar to load jobs from Arbeitsagentur, EURES, and Arbeitnow.
+    </p>
+    {% endif %}
+</div>
+
+<div class="jobs-workspace">
+    <div class="jobs-split" id="jobs-split">
+        <aside class="jobs-list-panel">
+            <div class="jobs-list-head" id="jobs-list-head">
+                <span class="jobs-list-head-label">Roles &middot; English</span>
+                <span class="jobs-list-head-count" id="jobs-list-count">&mdash;</span>
+            </div>
+            <div class="jobs-list-scroll" id="jobs-list" role="listbox" aria-label="Job listings"></div>
+        </aside>
+        <section class="jobs-detail-panel" id="jobs-detail">
+            <div class="jobs-detail-inner" id="jobs-detail-content"></div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+{{ jobs_list|json_script:"jobs-data" }}
+<script>
+window.JOBS_HUB = {
+    selectedId: "{{ selected_job_id|escapejs }}",
+    view: "{{ view|escapejs }}",
+    viewLabel: "{{ view_label|escapejs }}",
+    statusUrl: "{{ status_url }}",
+    marketDataUrl: "{% url 'jobs_market_data' %}",
+    liveDataUrl: "{{ live_data_url }}",
+    appliedToggleUrl: "{{ applied_toggle_url }}",
+    generateMaterialsUrl: "{{ generate_materials_url }}",
+    refineMaterialsUrl: "{{ refine_materials_url }}",
+    importJobUrl: "{{ import_job_url }}",
+    scoreOneUrl: "{{ score_one_url }}",
+    appliedPageUrl: "{{ applied_page_url }}",
+    browsePageUrl: "{{ browse_page_url }}",
+    lazyLoadJobs: {% if jobs_lazy_load %}true{% else %}false{% endif %},
+    cacheRawTotal: {{ cache_raw_total|default:"0" }},
+    jobsTotalCount: {{ jobs_total_count|default:"0" }},
+    scoredTotal: {{ scored_total|default:"0" }},
+    goodFitsTotal: {{ good_fits_total|default:"0" }},
+    unscoredTotal: {{ unscored_total|default:"0" }},
+    csrfToken: "{{ csrf_token }}",
+    appliedIds: {{ applied_ids_json|safe }}
+};
+</script>
+<script src="{% url 'serve_asset' 'js/job-hub.js' %}?v=75"></script>
+{% endblock %}

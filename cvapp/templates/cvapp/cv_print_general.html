@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ person_name }} — {{ cv.label }} (Print)</title>
+    {% if cv_css_inline %}<style>{{ cv_css_inline|safe }}</style>{% else %}
+    <link rel="stylesheet" href="/assets/css/style.css?v=11">
+    <link rel="stylesheet" href="/assets/css/cv_print.css?v=5">
+    {% endif %}
+    <style>
+        body.print-cv.print-general .print-page-break { display: none !important; }
+        body.print-cv.print-general .section { margin-bottom: 7px; }
+        body.print-cv.print-general .entry { margin-bottom: 4px; }
+        body.print-cv.print-general li { font-size: 8.5pt; line-height: 1.2; }
+    </style>
+</head>
+<body class="print-cv print-general">
+    {% if show_print_hint %}
+    <p class="print-note">Tip: Use <strong>Print</strong> &rarr; <strong>Save as PDF</strong>. Enable &quot;Background graphics&quot;.</p>
+    {% endif %}
+    <div class="cv-container print-compact">
+        <header class="cv-header cv-header-compact">
+            <h1 class="cv-job-title"><span class="cv-label-inline">CV</span> {{ cv.label }}</h1>
+            <p class="cv-person-name">{{ person_name }}</p>
+            <p class="contact-line">{{ cv.location }} &nbsp;|&nbsp; {{ person_email }} &nbsp;|&nbsp; {{ person_phone }}</p>
+        </header>
+
+        <div class="section">
+            <div class="section-title">PROFILE</div>
+            <div class="section-content">
+                <p>{{ cv.print_summary|safe }}</p>
+                <ul class="summary-points">
+                    {% for point in cv.print_summary_points %}<li>{{ point|safe }}</li>{% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">PROFESSIONAL EXPERIENCE</div>
+            <div class="section-content">
+                {% for job in cv.experience %}{% include "cvapp/partials/cv_experience_entry.html" %}{% endfor %}
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">EDUCATIONAL BACKGROUND</div>
+            <div class="section-content">
+                <ul class="course-rows">
+                    {% for edu in cv.education_entries %}
+                    <li>
+                        <span class="course-name"><strong>{{ edu.title }}</strong> &mdash; {{ edu.org }}{% if edu.note %} ({{ edu.note }}){% endif %}</span>
+                        <span class="course-date">{{ edu.date }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">SKILLS</div>
+            <div class="section-content">
+                <div class="skills-grid skills-grid-print">
+                    {% for category in cv.print_skill_categories %}
+                    <div class="skill-category">
+                        <h3>{{ category.title }}</h3>
+                        <ul class="skill-list">
+                            {% for item in category.items %}<li>{{ item }}</li>{% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">COURSES, GRANTS &amp; LANGUAGES</div>
+            <div class="section-content">
+                <ul class="tight-list">
+                    {% for award in cv.awards %}<li><strong>{{ award }}</strong></li>{% endfor %}
+                    <li><strong>Languages:</strong> {{ cv.languages }}</li>
+                    <li><strong>References:</strong> {{ cv.references_note|default:"Upon request" }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cv-footer">Curriculum Vitae | {{ person_name }} | Updated: June 2026</div>
+    </div>
+</body>
+</html>

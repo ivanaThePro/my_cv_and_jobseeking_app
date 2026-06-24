@@ -1,0 +1,20 @@
+{
+  "_comment": "Input for scrapapi/indeed-scraper — single combined run.",
+  "country": "Germany",
+  "keywords": [
+    "Python Developer",
+    "Software Developer",
+    "IT Support",
+    "Helpdesk",
+    "Junior Developer",
+    "QA Engineer"
+  ],
+  "locations": [
+    "Frankfurt",
+    "Köln",
+    "Cologne",
+    "Düsseldorf",
+    "Bonn"
+  ],
+  "maxItems": 100
+}

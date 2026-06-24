@@ -1,0 +1,6 @@
+{
+  "doc_kind": "commerzbank-trainee",
+  "lang": "de",
+  "source_sha256": "22ed26f80c1abb6567e036df7aff6343f1b3baea922a597214c6565c5ce8affe",
+  "model": "mistral-small-latest"
+}

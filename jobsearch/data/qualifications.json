@@ -1,0 +1,136 @@
+{
+  "candidate": "Ivana Jovic",
+  "matching_mode": "requirements_based_not_title",
+  "education": {
+    "level": "bachelor_plus_pedagogy",
+    "degrees": [
+      "BA International Development (HiOA, 2013)",
+      "Practical-Pedagogical Education — authorized teacher (University of Oslo, 2015)",
+      "Spanish language and culture studies (Telemark University College, 2014)",
+      "Scandinavian Languages and Literature (University of Belgrade, 2008)",
+      "Labor law studies in progress (University of Oslo)"
+    ]
+  },
+  "work_authorization": {
+    "eu_citizen": true,
+    "germany_eligible": true,
+    "notes": "Based in Frankfurt am Main, Germany — open to Rhine-Main and NRW"
+  },
+  "locations": ["Germany", "Frankfurt", "Hanau", "Offenbach", "Mainz", "Wiesbaden", "Darmstadt", "Hesse", "NRW", "Remote Germany/EU"],
+  "languages": {
+    "native": ["Serbo-Croatian"],
+    "fluent": ["Norwegian", "English", "Spanish"],
+    "intermediate": ["Russian"],
+    "basic": ["Macedonian"]
+  },
+  "teaching_qualifications": [
+    "Authorized teacher — pre-school through adult level (University of Oslo)",
+    "Career counseling and adult education",
+    "Norwegian instruction for foreign-speaking adults",
+    "Spanish substitute teaching (grades 2–10)",
+    "Classroom management and lesson delivery"
+  ],
+  "counseling_and_ngo_qualifications": [
+    "Career guidance (Hero Kompetanse)",
+    "Anti-trafficking awareness training and victim support (Hope for Justice)",
+    "Course facilitation and program coordination",
+    "Intercultural communication and stakeholder networking"
+  ],
+  "office_and_service_qualifications": [
+    "Reception and customer care (six years hospitality)",
+    "Check-in/out, billing, kiosk sales",
+    "Protel and Opera booking systems",
+    "Crisis management (fire, theft, damage)",
+    "Microsoft Office, correspondence, scheduling"
+  ],
+  "digital_qualifications": [
+    "Microsoft Office",
+    "Protel and Opera booking systems",
+    "Ad Opus",
+    "Karriere Pro",
+    "Python and JavaScript (beginner)"
+  ],
+  "people_qualifications": [
+    "Multilingual communication (five languages)",
+    "Intercultural understanding",
+    "Documentation and reporting",
+    "Training facilitation",
+    "Customer and client relations"
+  ],
+  "experience_years_approx": {
+    "career_counseling_teaching": 4,
+    "substitute_spanish_teaching": 10,
+    "reception_hospitality": 6,
+    "ngo_anti_trafficking": 1.5,
+    "adult_norwegian_teaching": 1.5
+  },
+  "certifications_and_awards": [
+    "Pedagogical authorization — University of Oslo",
+    "Student role model grant (2011)",
+    "First Aid Course — Oslo Red Cross (2014)",
+    "Anti-trafficking training — Belgrade (2007)"
+  ],
+  "role_families_eligible": [
+    "Teacher",
+    "Substitute Teacher",
+    "Language Teacher",
+    "Norwegian Teacher",
+    "Spanish Teacher",
+    "Adult Education Teacher",
+    "Career Counselor",
+    "Career Advisor",
+    "Education Coordinator",
+    "Training Coordinator",
+    "Program Coordinator",
+    "Project Coordinator",
+    "Project Assistant",
+    "NGO Program Assistant",
+    "Social Program Coordinator",
+    "Receptionist",
+    "Front Desk Agent",
+    "Customer Service Representative",
+    "Customer Care Specialist",
+    "Client Advisor",
+    "Service Coordinator",
+    "Office Administrator",
+    "Administrative Assistant",
+    "Sachbearbeiter",
+    "Office Coordinator",
+    "HR Assistant",
+    "HR Coordinator",
+    "People Operations Assistant",
+    "Research Assistant",
+    "Junior Analyst",
+    "Documentation Specialist",
+    "Communications Assistant",
+    "International Office Assistant",
+    "Translation Coordinator",
+    "Graduate Trainee",
+    "Trainee",
+    "Berufseinsteiger",
+    "Werkstudent",
+    "General Graduate Program"
+  ],
+  "title_aliases_to_recognize": [
+    "Teacher", "Lehrer", "Lehrerin", "Pädagog", "Pädagogin",
+    "Sprachlehrer", "Norwegian Teacher", "Spanish Teacher",
+    "Career Counselor", "Karriereberater", "Berufsberater",
+    "Adult Education", "Voksenopplæring", "Weiterbildung",
+    "Receptionist", "Empfang", "Front Office",
+    "Customer Service", "Kundenservice", "Kundenberater",
+    "Sachbearbeiter", "Sachbearbeiterin", "Verwaltung",
+    "Office Administrator", "Bürokaufmann", "Bürokauffrau",
+    "HR Assistant", "Personalreferent", "Recruiting Coordinator",
+    "Program Coordinator", "Project Assistant", "Coordinator",
+    "NGO", "Social Work Assistant", "Case Worker",
+    "Trainee", "Werkstudent", "Praktikant", "Berufseinsteiger",
+    "Hochschulabsolvent", "University Graduate"
+  ],
+  "hard_gaps": [
+    "Licensed medical or clinical roles",
+    "Native German C1+ mandatory (candidate is multilingual but German level not certified C1+)",
+    "Senior management 5+ years in unrelated domain",
+    "US security clearance",
+    "Dedicated senior software engineering role requiring 3+ years production coding"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "_comment": "Apify actors the app can run (APIFY_AUTO_RUN=true) or run manually in Apify Console, then paste dataset IDs into APIFY_DATASET_IDS in .env.",
+  "actors": [
+    {
+      "key": "indeed",
+      "actorId": "mukeshrana90/indeed-jobs-scraper",
+      "enabled": true,
+      "sourceLabel": "Apify Indeed DE",
+      "inputConfig": "apify_indeed_germany.json",
+      "runMode": "searches",
+      "notes": "Pay-per-run on Apify. Each search in apify_indeed_germany.json is one actor run."
+    },
+    {
+      "key": "indeed_scrapapi",
+      "actorId": "scrapapi/indeed-scraper",
+      "enabled": false,
+      "sourceLabel": "Apify Indeed (scrapapi)",
+      "inputConfig": "apify_indeed_scrapapi.json",
+      "runMode": "single",
+      "notes": "Alternative Indeed actor — enable and add apify_indeed_scrapapi.json if you prefer it."
+    },
+    {
+      "key": "linkedin",
+      "actorId": "",
+      "enabled": false,
+      "sourceLabel": "Apify LinkedIn DE",
+      "inputConfig": "apify_linkedin_germany.json",
+      "runMode": "single",
+      "notes": "Set actorId to YOUR LinkedIn actor from Apify Console (e.g. curious_coder/linkedin-jobs-scraper). Or run manually and use APIFY_DATASET_IDS only."
+    }
+  ]
+}

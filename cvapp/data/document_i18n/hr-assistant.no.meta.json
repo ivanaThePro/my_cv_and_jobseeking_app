@@ -1,0 +1,6 @@
+{
+  "doc_kind": "hr-assistant",
+  "lang": "no",
+  "source_sha256": "dad3109f72c7e63552888c6db226a7149cd26a3f44331d62adf7b7485dbb1f83",
+  "model": "mistral-small-latest"
+}

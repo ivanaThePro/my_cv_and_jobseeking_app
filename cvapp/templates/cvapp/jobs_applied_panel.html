@@ -1,0 +1,57 @@
+<div class="applied-panel">
+    <header class="applied-panel-head">
+        <div>
+            <h2 class="applied-panel-title">Your applications</h2>
+            <p class="applied-panel-sub">{{ total }} tracked — company, role, country, and date applied</p>
+        </div>
+        <a href="{% url 'jobs_market' %}?view=all" class="applied-back-link">← Job list</a>
+    </header>
+
+    {% if entries %}
+    <div class="applied-table-wrap">
+        <table class="applied-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Country</th>
+                    <th>Applied</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in entries %}
+                <tr>
+                    <td class="applied-num">{{ row.number }}</td>
+                    <td class="applied-company">{{ row.company }}</td>
+                    <td class="applied-role">
+                        {% if row.apply_url %}
+                        <a href="{{ row.apply_url }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>
+                        {% else %}
+                        {{ row.title }}
+                        {% endif %}
+                    </td>
+                    <td>{{ row.country|default:row.location|default:"—" }}</td>
+                    <td>{{ row.applied_date }}</td>
+                    <td>
+                        <form method="post" action="{% url 'jobs_applied_toggle' %}" class="applied-remove-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="job_id" value="{{ row.job_id }}">
+                            <button type="submit" class="applied-remove-btn">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="applied-empty-state">
+        <div class="applied-empty-icon" aria-hidden="true">✓</div>
+        <h3>No applications yet</h3>
+        <p>Open the <strong>All</strong> tab, pick a job, apply on the company site, then click <strong>I applied</strong>.</p>
+        <a href="{% url 'jobs_market' %}?view=all" class="topbar-btn topbar-btn-search applied-empty-cta">Browse jobs</a>
+    </div>
+    {% endif %}
+</div>

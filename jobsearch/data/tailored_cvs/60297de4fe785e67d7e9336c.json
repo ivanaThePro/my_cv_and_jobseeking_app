@@ -1,0 +1,24 @@
+{
+  "job_id": "abc123snapshot01",
+  "title": "Business Analyst (m/w/d)",
+  "company": "DFB",
+  "base_slug": "python-developer",
+  "language": "auto",
+  "generated_at": "2026-06-23T12:52:59.766860",
+  "ai_payload": {
+    "header_job_title": "Business Analyst",
+    "profile_intro": "Intro",
+    "profile_highlights": [
+      "A"
+    ],
+    "skill_boxes": [
+      {
+        "title": "Skills",
+        "items": [
+          "Python"
+        ]
+      }
+    ],
+    "interests": "Tech"
+  }
+}

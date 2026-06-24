@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ cv_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <title>{{ picker.picker_title }} &mdash; Ivana Jovic</title>
+    <link rel="stylesheet" href="/assets/css/style.css?v=10">
+    <style>
+        .cv-picker { max-width: 820px; margin: 40px auto; padding: 0 16px 40px; }
+        .cv-picker h1 { color: #1a3d5a; font-size: 1.6rem; margin: 0 0 8px 0; }
+        .cv-picker > p { color: #555; margin: 0 0 16px 0; line-height: 1.5; }
+        .cv-picker h2.section-label {
+            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em;
+            color: #64748b; margin: 24px 0 10px 0;
+        }
+        .cv-picker-grid { display: grid; gap: 12px; }
+        .cv-picker-card {
+            display: block; padding: 16px 18px; background: #fff;
+            border: 1px solid #d8e3ef; border-radius: 10px; text-decoration: none;
+            color: inherit; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .cv-picker-card:hover { border-color: #0f766e; box-shadow: 0 4px 14px rgba(15,118,110,0.12); }
+        .cv-picker-card h3 { margin: 0 0 5px 0; font-size: 1.05rem; color: #1a3d5a; }
+        .cv-picker-card p { margin: 0; font-size: 0.9rem; color: #555; line-height: 1.45; }
+        .cv-picker-card.is-pro { border-style: dashed; }
+        .cv-picker-back { display: inline-block; margin-bottom: 20px; color: #1a3d5a; text-decoration: none; font-weight: 600; }
+        .cv-picker-note { font-size: 0.88rem; color: #64748b; background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 10px 12px; }
+        .cv-picker-card.is-transcript {
+            border-color: #0f766e; background: linear-gradient(135deg, #f0fdfa 0%, #fff 100%);
+        }
+        .cv-picker-card.is-transcript h3 { color: #0f766e; }
+        .cv-lang-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; align-items: center; }
+        .cv-lang-row span { font-size: 0.85rem; color: #64748b; margin-right: 4px; }
+        .cv-lang-pill {
+            display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.82rem;
+            text-decoration: none; color: #0f766e; border: 1px solid #99f6e4; background: #fff;
+        }
+        .cv-lang-pill.is-active { background: #0f766e; color: #fff; border-color: #0f766e; }
+    </style>
+</head>
+<body>
+    <div class="cv-picker">
+        <a href="{% url 'dashboard_home' %}" class="cv-picker-back">{{ picker.picker_back }}</a>
+        <h1>{{ picker.picker_title }}</h1>
+        <p class="cv-picker-note">{{ picker.tailored_hint }}</p>
+
+        <div class="cv-lang-row">
+            <span>{{ picker.picker_lang_label }}</span>
+            {% for code, label in cv_langs.items %}
+            <a href="?lang={{ code }}" class="cv-lang-pill{% if cv_lang == code %} is-active{% endif %}">{{ label }}</a>
+            {% endfor %}
+        </div>
+
+        <h2 class="section-label">{{ picker.picker_section_base }}</h2>
+        <p style="font-size:0.9rem;color:#64748b;margin:0 0 10px;">{{ picker.picker_section_base_hint }}</p>
+        <div class="cv-picker-grid">
+            {% for cv in standalone_cvs %}
+            <a href="{% url 'cv_standalone' cv.slug %}?lang={{ cv_lang }}" class="cv-picker-card" target="_blank" rel="noopener">
+                <h3>{{ cv.label }}</h3>
+                <p>{{ cv.description }}</p>
+            </a>
+            {% endfor %}
+        </div>
+
+        <h2 class="section-label">{{ picker.picker_section_academic }}</h2>
+        <div class="cv-picker-grid">
+            <a href="{% url 'academic_transcript' %}?lang={{ cv_lang }}" class="cv-picker-card is-transcript" target="_blank" rel="noopener">
+                <h3>{{ picker.picker_transcript_title }}</h3>
+                <p>{{ picker.picker_transcript_desc }}</p>
+            </a>
+            {% if professional_cv %}
+            <a href="{% url 'cv_standalone' professional_cv.slug %}?lang={{ cv_lang }}" class="cv-picker-card is-pro" target="_blank" rel="noopener">
+                <h3>{{ professional_cv.label }}</h3>
+                <p>{{ professional_cv.description }}</p>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+{% load static cv_links %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivana Jovic &mdash; {{ cv.label }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css?v=12">
+    <script src="/assets/js/site.js?v=8" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-brand">
+            <div class="site-title">{{ cv.label }}</div>
+            <div class="site-subtitle">Ivana Jovic</div>
+        </div>
+        <nav class="site-nav">
+            <ul>
+                <li><a href="#summary">Summary</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="{% url 'cv_select' %}">Other CV versions</a></li>
+                <li><a href="{% url 'cv_download_pdf' cv.slug %}">Download PDF</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-content">
+        <div class="cv-container" id="top">
+            <div class="cv-header">
+                {% include "cvapp/partials/cv_header_main.html" %}
+                <p class="cv-download-wrap">
+                    <a href="{% url 'cv_download_pdf' cv.slug %}" class="cv-download-btn">Download PDF CV</a>
+                    <a href="{% url 'cv_page' cv.slug %}" class="cv-download-btn cv-download-alt" target="_blank" rel="noopener">Print-friendly view</a>
+                    <a href="{% url 'cv_select' %}" class="cv-download-btn cv-download-alt">Switch CV version</a>
+                </p>
+            </div>
+
+            <div class="section" id="summary">
+                <div class="section-title">PERSONAL SUMMARY</div>
+                <div class="section-content">
+                    <p>{{ cv.summary }}</p>
+                    <div class="highlight">
+                        {% for line in cv.highlights %}<div class="highlight-line">{{ line|safe }}</div>{% endfor %}
+                    </div>
+                    <p>{{ cv.closing }}</p>
+                </div>
+            </div>
+
+            <div class="section" id="experience">
+                <div class="section-title">WORK EXPERIENCE</div>
+                <div class="section-content">
+                    {% for job in cv.experience %}{% include "cvapp/partials/cv_experience_entry.html" %}{% endfor %}
+                </div>
+            </div>
+
+            {% if cv.voluntary_work %}
+            <div class="section" id="voluntary">
+                <div class="section-title">VOLUNTARY WORK</div>
+                <div class="section-content">
+                    {% for job in cv.voluntary_work %}{% include "cvapp/partials/cv_experience_entry.html" %}{% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="section" id="education">
+                <div class="section-title">EDUCATION</div>
+                <div class="section-content">
+                    {% for edu in cv.education_entries %}{% include "cvapp/partials/cv_education_entry.html" %}{% endfor %}
+                </div>
+            </div>
+
+            <div class="section" id="skills">
+                <div class="section-title">SKILLS</div>
+                <div class="section-content">
+                    <div class="skills-grid">
+                        {% for category in cv.skill_categories %}
+                        <div class="skill-category">
+                            <h3>{{ category.title }}</h3>
+                            <ul class="skill-list">
+                                {% for item in category.items %}<li>{{ item }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="additional">
+                <div class="section-title">AWARDS, LANGUAGES &amp; MORE</div>
+                <div class="section-content">
+                    <div class="entry">
+                        <div class="subsection-title">Awards</div>
+                        <ul>{% for award in cv.awards %}<li>{{ award }}</li>{% endfor %}</ul>
+                    </div>
+                    <div class="entry">
+                        <div class="subsection-title">Languages</div>
+                        <p>{{ cv.languages }}</p>
+                    </div>
+                    {% if cv.hobbies %}
+                    <div class="entry">
+                        <div class="subsection-title">Hobbies</div>
+                        <p>{{ cv.hobbies|join:", " }}</p>
+                    </div>
+                    {% endif %}
+                    <div class="entry">
+                        <div class="subsection-title">References</div>
+                        <p>{{ cv.references_note|default:"Available on request" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-footer">Curriculum Vitae | Ivana Jovic | Updated: May 2026</div>
+        </div>
+    </main>
+</body>
+</html>

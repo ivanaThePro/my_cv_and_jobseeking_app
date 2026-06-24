@@ -1,0 +1,337 @@
+/* Print / PDF export — compact header, course dates, 2-page layout */
+
+body.print-cv {
+    background: #f5f5f5;
+    padding: 8px 0;
+}
+
+body.print-cv .cv-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px 18px;
+}
+
+/* Compact header (no job-dashboard block, no verification box) */
+.cv-header-compact {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a3d5a;
+}
+
+.cv-header-compact .cv-label,
+.cv-header-compact .verification-section {
+    display: none;
+}
+
+.cv-header-compact h1,
+.cv-header-compact .cv-job-title {
+    margin: 0 0 4px 0;
+    font-size: 20pt;
+    font-weight: 800;
+    color: #1a3d5a;
+    line-height: 1.15;
+}
+.cv-header-compact .cv-person-name {
+    margin: 0 0 4px 0;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #555;
+}
+
+.cv-label-inline {
+    background-color: #1a3d5a;
+    color: #fff;
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 2px 8px;
+    margin-right: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+}
+
+.contact-line {
+    font-size: 9.5pt;
+    color: #555;
+    margin: 0 0 4px 0;
+}
+
+.verify-line-compact {
+    font-size: 8.5pt;
+    margin: 0;
+    color: #1a3d5a;
+    line-height: 1.3;
+}
+
+.verify-line-compact a {
+    color: #1a3d5a;
+    text-decoration: none;
+}
+
+.print-page-break {
+    display: none;
+}
+
+.print-compact .section {
+    margin-bottom: 9px;
+}
+
+.print-compact .subsection {
+    margin-top: 6px;
+    padding-top: 4px;
+}
+
+.print-edu-block {
+    margin-top: 4px;
+    padding-top: 2px;
+}
+
+.print-edu-block .subsection-title {
+    margin: 4px 0 2px 0;
+    padding: 4px 8px;
+    font-size: 9pt;
+}
+
+.print-edu-block .course-rows li {
+    margin-bottom: 1px;
+    font-size: 8pt;
+    line-height: 1.18;
+}
+
+.print-edu-block .course-date {
+    font-size: 7.5pt;
+}
+
+.print-compact .subsection-title {
+    margin: 6px 0 4px 0;
+    font-size: 9.5pt;
+    padding: 5px 10px;
+}
+
+.print-compact .section-content {
+    padding: 8px 12px;
+}
+
+.summary-points {
+    margin: 6px 0 0 0;
+    padding: 8px 10px 8px 14px;
+    background-color: #f0f7ff;
+    border-left: 2px solid #1a3d5a;
+    list-style: none;
+}
+
+.summary-points li {
+    margin-bottom: 4px;
+    font-size: 8.5pt;
+    line-height: 1.28;
+    position: relative;
+    padding-left: 10px;
+}
+
+.summary-points li::before {
+    content: "\25B8";
+    color: #1a3d5a;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.summary-points li:last-child {
+    margin-bottom: 0;
+}
+
+.print-compact .section-title {
+    padding: 6px 12px;
+    font-size: 10.5pt;
+}
+
+.print-compact li {
+    margin-bottom: 1px;
+    font-size: 9pt;
+    line-height: 1.22;
+}
+
+.print-compact .entry {
+    margin-bottom: 6px;
+}
+
+.print-compact .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 2px;
+}
+
+.print-compact .entry-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+.print-compact .date {
+    float: none;
+    flex-shrink: 0;
+    text-align: right;
+    white-space: nowrap;
+    min-width: 96px;
+    font-size: 8.5pt;
+}
+
+.print-compact .skill-category h3 {
+    margin: 4px 0 2px 0;
+    font-size: 9pt;
+}
+
+.print-compact .skill-list li {
+    font-size: 8.5pt;
+    margin-bottom: 0;
+}
+
+.skills-grid-print {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+}
+
+.also-line {
+    font-size: 8.5pt;
+    color: #444;
+    margin: 2px 0 0 0;
+    line-height: 1.25;
+}
+
+.print-awards-block {
+    margin-top: 6px;
+}
+
+.print-compact .cv-footer {
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+.tight-list {
+    margin: 0;
+    padding-left: 16px;
+}
+
+/* Course name left, dates right */
+ul.course-rows {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.course-rows li {
+    display: table;
+    width: 100%;
+    margin-bottom: 2px;
+    font-size: 9pt;
+    line-height: 1.22;
+}
+
+.course-name,
+.course-date {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.course-name {
+    width: 68%;
+    padding-right: 6px;
+}
+
+.course-name strong {
+    color: #1a3d5a;
+}
+
+.edu-note {
+    font-size: 8.5pt;
+    color: #555;
+    margin: 8px 0 0 0;
+    line-height: 1.3;
+    font-style: italic;
+}
+
+.course-date {
+    width: 32%;
+    text-align: right;
+    color: #555;
+    font-size: 8.5pt;
+    white-space: nowrap;
+}
+
+.print-note {
+    max-width: 800px;
+    margin: 0 auto 10px auto;
+    padding: 8px 12px;
+    background: #ebf5ff;
+    border-radius: 6px;
+    font-size: 9.5pt;
+    text-align: center;
+}
+
+.chronology-lead,
+.chronology-foot {
+    font-size: 8.5pt;
+    color: #444;
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+}
+
+.chronology-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 8px;
+}
+
+.chronology-table th,
+.chronology-table td {
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.chronology-table th {
+    background: #eef4f8;
+    font-weight: 700;
+}
+
+.chronology-period {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.chronology-note {
+    color: #555;
+    font-size: 7.5pt;
+    font-weight: 400;
+}
+
+.chronology-links {
+    font-size: 8pt;
+}
+
+.chronology-gap .chronology-title {
+    font-style: italic;
+}
+
+@media print {
+    .print-note {
+        display: none !important;
+    }
+
+    body.print-cv {
+        background: #fff;
+        padding: 0;
+    }
+
+    body.print-cv .cv-container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+    }
+
+}

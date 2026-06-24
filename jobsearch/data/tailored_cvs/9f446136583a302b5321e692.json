@@ -1,0 +1,32 @@
+{
+  "job_id": "f2db16e7fef0816b",
+  "title": "Sachbearbeiter (m/w/d)",
+  "company": "Leonardo PersonalKonzept GmbH",
+  "base_slug": "python-developer",
+  "language": "en",
+  "generated_at": "2026-06-23T12:33:05.312912",
+  "ai_payload": {
+    "header_job_title": "Sachbearbeiter (m/w/d) Administration",
+    "profile_intro": "Interdisciplinary educational background with strong intercultural communication skills and a Bachelor’s in International Development. Experienced in administrative coordination, multilingual documentation, and structured case management. Available for immediate start in the Frankfurt/Rhine-Main area.",
+    "profile_highlights": [
+      "<strong>Structured & detail-oriented</strong> professional with proven ability to manage multiple administrative tasks and documentation workflows.",
+      "<strong>Multilingual communicator</strong> fluent in English, Norwegian, and Spanish with experience in cross-cultural advisory roles.",
+      "<strong>Service-oriented team player</strong> with a track record in customer-facing roles and collaborative project environments."
+    ],
+    "skill_boxes": [
+      {
+        "heading": "Administrative & Organizational Skills",
+        "content": "Document management, case processing, workflow coordination, multilingual communication, stakeholder liaison"
+      },
+      {
+        "heading": "Technical & Digital Competencies",
+        "content": "Microsoft Office (proficient), data entry and validation, digital system navigation, basic Python for data handling"
+      },
+      {
+        "heading": "Education & Training",
+        "content": "Practical-Pedagogical Education (authorized teacher), BA International Development, intercultural pedagogy"
+      }
+    ],
+    "interests": "Cross-cultural education, language instruction, and process optimization in administrative settings"
+  }
+}

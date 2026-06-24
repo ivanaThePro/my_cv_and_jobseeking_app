@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=0
+      - SECRET_KEY=django-insecure-change-this-secret-key
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+    volumes:
+      - .:/app
+    command: gunicorn cvsite.wsgi:application --bind 0.0.0.0:8000

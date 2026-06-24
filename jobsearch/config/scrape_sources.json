@@ -1,0 +1,37 @@
+﻿{
+  "_comment": "Reference list for Apify LinkedIn actor + future scrapers. Wired in code: Arbeitsagentur API (DE government), EURES EU portal, Arbeitnow API, StepStone/Indeed/Adzuna RSS (when reachable), Jooble (JOOBLE_API_KEY).",
+  "target_cities": [
+    "Frankfurt am Main",
+    "K├Âln",
+    "Cologne",
+    "Bonn",
+    "D├╝sseldorf"
+  ],
+  "linkedin_search_urls": [
+    "https://www.linkedin.com/jobs/search?keywords=&location=Frankfurt",
+    "https://www.linkedin.com/jobs/search?keywords=&location=Cologne",
+    "https://www.linkedin.com/jobs/search?keywords=&location=D├╝sseldorf",
+    "https://www.linkedin.com/jobs/search?keywords=&location=Bonn"
+  ],
+  "indeed_de_search_urls": [
+    "https://de.indeed.com/jobs?q=Python+Developer&l=Frankfurt",
+    "https://de.indeed.com/jobs?q=Python+Developer&l=K├Âln",
+    "https://de.indeed.com/jobs?q=Python+Developer&l=D├╝sseldorf",
+    "https://de.indeed.com/jobs?q=Python+Developer&l=Bonn"
+  ],
+  "regional_boards": [
+    "https://www.stepstone.de/rss/stellenangebote-in-frankfurt",
+    "https://www.stepstone.de/rss/stellenangebote-in-koeln",
+    "https://www.stepstone.de/rss/stellenangebote-in-bonn",
+    "https://www.stepstone.de/rss/stellenangebote-in-duesseldorf",
+    "https://www.jobware.de/",
+    "https://www.stellenanzeigen.de/jobs/",
+    "https://www.jobrapido.de/",
+    "https://www.xing.com/jobs/search?location=Frankfurt"
+  ],
+  "notes": {
+    "apify": "Use apify_linkedin_germany.json for actor input; set APIFY_DATASET_ID to the new DE dataset.",
+    "indeed_rss": "Indeed blocks RSS (403) ÔÇö use Apify or Jooble instead.",
+    "stepstone_rss": "StepStone RSS URLs often 404 ÔÇö Arbeitnow expanded fetch is the main free source today."
+  }
+}

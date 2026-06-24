@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex, nofollow, noarchive, nosnippet, noimageindex" name="robots"/>
+<title>Ivana Jovic - HR Assistant CV</title>
+<style>
+:root {
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #cbd5e1;
+  --teal: #0f766e;
+  --teal-2: #0d9488;
+  --green: #059669;
+  --deep: #064e3b;
+  --white: #ffffff;
+  --tl-green: #0f766e;
+  --tl-green-dark: #064e3b;
+  --tl-green-soft: #ecfdf5;
+  --tl-mint: #ccfbf1;
+  --tl-line: #cbd5e1;
+  --tl-ink: #052e2b;
+  --light-border: #bdeee2;
+  --light-border-strong: #99f6e4;
+  --light-ink: #064e3b;
+  --light-muted: #334155;
+}
+@page { size: A4; margin: 7mm 7.5mm; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #eef8f6;
+  color: var(--ink);
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 8.9pt;
+  line-height: 1.205;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: none; margin: 0 auto; background: white; padding: 0; }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 82px;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 13px;
+  margin-bottom: 7px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #064e3b 0%, #0f766e 48%, #14b8a6 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,.28);
+  break-inside: avoid;
+}
+.hero-main { min-width: 0; }
+.hero h1 {
+  margin: 0 0 4px;
+  font-size: 24.4pt;
+  line-height: .95;
+  letter-spacing: -1.2px;
+  font-weight: 900;
+  color: #ffffff !important;
+}
+.role-title {
+  font-size: 14.4pt;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -.15px;
+  color: #ffffff !important;
+  margin-bottom: 4px;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
+  color: #ecfeff !important;
+  font-size: 8.5pt;
+  font-weight: 760;
+  line-height: 1.15;
+}
+.meta-item { display: inline-flex; align-items: center; white-space: nowrap; color: #ffffff !important; }
+.meta-item + .meta-item::before {
+  content: "|";
+  color: rgba(255,255,255,.55);
+  margin: 0 7px;
+  font-weight: 500;
+}
+.meta-status { font-weight: 950; text-transform: uppercase; letter-spacing: .45px; }
+.qr-card {
+  max-width: 76px;
+  background: rgba(255,255,255,.96);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 5px 4px;
+  text-align: center;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.8);
+}
+.qr-card img { width: 52px; height: 52px; margin: 0 auto 3px; display: block; }
+.qr-card p {
+  margin: 0;
+  font-size: 5.8pt;
+  line-height: 1.02;
+  color: #0f172a;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: .35px;
+}
+
+/* Verify bar */
+.verify-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 5px;
+  margin-bottom: 5px;
+  border: 1px solid #99f6e4;
+  background: linear-gradient(90deg, #ecfdf5, #f0fdfa);
+  border-radius: 9px;
+  break-inside: avoid;
+}
+.verify-label {
+  color: #064e3b;
+  font-size: 7pt;
+  font-weight: 950;
+  letter-spacing: .45px;
+  text-transform: uppercase;
+  padding: 2px 4px 2px 1px;
+  white-space: nowrap;
+}
+.verify-bar a {
+  color: #065f46;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 6.85pt;
+  background: rgba(255,255,255,.76);
+  border: 1px solid rgba(15,118,110,.16);
+  padding: 1.8px 5px 2.2px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.verify-bar a.priority-education-link {
+  font-size: 7.65pt !important;
+  font-weight: 900 !important;
+  padding: 2px 7px 2.3px !important;
+  background: #d1fae5 !important;
+  border: 1.15px solid #34d399 !important;
+  color: #064e3b !important;
+}
+
+/* Sections */
+.section { margin: 0 0 6.8px; }
+.section-title {
+  width: 100%;
+  background: #0f766e !important;
+  color: white;
+  border-radius: 7px;
+  padding: 3.5px 7px;
+  margin: 0 0 3.7px;
+  font-size: 9.2pt;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: .95px;
+  font-weight: 900;
+}
+.profile-box {
+  border: 1px solid #99f6e4;
+  background: #ffffff !important;
+  border-left: 4px solid var(--green);
+  border-radius: 9px;
+  padding: 5.6px 7px;
+  color: #1e293b;
+  font-size: 9.3pt;
+  box-shadow: none !important;
+}
+
+/* Skills */
+.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4.8px; }
+.skill-card {
+  border: 1px solid #99f6e4 !important;
+  border-top: 1px solid #99f6e4 !important;
+  background: #ffffff !important;
+  border-radius: 8px;
+  padding: 4.8px 5.5px;
+  break-inside: avoid;
+  box-shadow: none !important;
+}
+.skill-card h3 { margin: 0 0 4px; font-size: 8.8pt; color: #064e3b; line-height: 1.08; font-weight: 900; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 3.5px 4.5px; margin-top: 2px; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  background: #ecfdf5 !important;
+  color: #064e3b;
+  padding: 1.15px 4.8px 1.45px;
+  font-size: 6.7pt;
+  line-height: 1.05;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: none !important;
+}
+a.tag, a.skill-link { text-decoration: none !important; color: #064e3b; }
+a.skill-link::after { content: "↗"; font-size: 5.6pt; margin-left: 3px; opacity: .58; font-weight: 900; }
+
+/* Education snapshot */
+.education-snapshot-section { break-inside: avoid; }
+.edu-snapshot { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 6px; }
+.edu-card {
+  border: 1px solid #99f6e4 !important;
+  border-top: 1px solid #99f6e4 !important;
+  background: #fafffc !important;
+  border-radius: 9px;
+  padding: 4.8px 5.5px;
+  break-inside: avoid;
+  box-shadow: none !important;
+}
+.edu-badge {
+  display: inline-block;
+  margin: 0 0 3px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #064e3b;
+  color: #ffffff;
+  font-size: 5.9pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .55px;
+}
+.edu-card h3 { margin: 0 0 2px; font-size: 8.65pt; line-height: 1.05; color: #064e3b; font-weight: 900; }
+.edu-card p { margin: 0; color: #334155; font-size: 7.35pt; line-height: 1.18; }
+.edu-card a, a.web-link, a.course-record-cta {
+  color: #065f46 !important;
+  font-weight: 900;
+  text-decoration: underline;
+}
+a.course-record-cta {
+  display: inline-block !important;
+  background: #ecfdf5 !important;
+  border: 1px solid #86efac !important;
+  border-radius: 999px !important;
+  padding: 2.2px 8px 2.6px !important;
+  font-size: 8.05pt !important;
+  text-decoration: none !important;
+}
+a.course-record-cta::after { content: " ↗"; font-size: 6pt; opacity: .7; }
+
+/* Timeline */
+.timeline-note {
+  margin: 0 0 3.6px;
+  color: #475569;
+  font-size: 7.35pt;
+  font-weight: 650;
+  line-height: 1.18;
+  padding: 3.7px 6px;
+}
+body.cv-two-page-balanced .timeline-row {
+  display: grid;
+  grid-template-columns: 116px 1fr !important;
+  gap: 7px !important;
+  align-items: stretch !important;
+  margin-bottom: 4.2px !important;
+}
+.date-col {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+.date-badge {
+  width: 111px;
+  min-height: 0;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3.4px 4.6px !important;
+  border: 1px solid var(--light-border-strong) !important;
+  border-radius: 999px !important;
+  background: #ecfdf5 !important;
+  color: var(--light-ink) !important;
+  text-align: center;
+  box-shadow: none !important;
+}
+.date-label { display: none !important; }
+.date-range {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  font-size: 7.05pt !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  letter-spacing: -.12px !important;
+  font-variant-numeric: tabular-nums !important;
+  white-space: nowrap !important;
+}
+.date-separator {
+  color: #0f766e !important;
+  font-size: 6.4pt !important;
+  font-weight: 950 !important;
+}
+.timeline-card,
+.continuity-card,
+.timeline-card.education-card {
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--light-border) !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 .45px rgba(15,118,110,.12), 0 1.2px 2.4px rgba(15,23,42,.055) !important;
+  break-inside: avoid;
+}
+.timeline-card.education-card {
+  background: linear-gradient(90deg, #f0fdfa 0%, #ffffff 54%) !important;
+}
+.row-head,
+.continuity-card .row-head {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 3.7px 7px 3.2px !important;
+  background: linear-gradient(90deg, #fbfefd 0%, #ffffff 100%) !important;
+  border-bottom: 1px solid #d9eee9 !important;
+}
+.row-head h3 {
+  margin: 0 !important;
+  color: var(--tl-ink) !important;
+  font-size: 8.9pt !important;
+  line-height: 1.07 !important;
+  font-weight: 900 !important;
+}
+.entry-tag,
+.continuity-tag,
+.auto-entry-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: #ecfdf5 !important;
+  color: #065f46 !important;
+  border: 1px solid #99f6e4 !important;
+  border-radius: 999px !important;
+  padding: 1px 6px 1.3px !important;
+  font-size: 5.55pt !important;
+  font-weight: 950 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .48px !important;
+  white-space: nowrap !important;
+}
+.entry-details,
+.continuity-details {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 3.5px !important;
+  margin: 0 !important;
+  padding: 3px 7px !important;
+  background: #fcfffe !important;
+  border-bottom: 1px solid #d9eee9 !important;
+}
+.detail-pill {
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 4px !important;
+  padding: 1.7px 5px 1.9px !important;
+  border: 1px solid #dbeafe !important;
+  border-radius: 7px !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+  font-size: 6.82pt !important;
+  line-height: 1.08 !important;
+  font-weight: 760 !important;
+  box-shadow: none !important;
+}
+.detail-pill + .detail-pill { border-left: 1px solid #dbeafe !important; padding-left: 5.8px !important; }
+.detail-pill b {
+  flex: 0 0 auto !important;
+  color: #047857 !important;
+  font-size: 5.7pt !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .3px !important;
+}
+.detail-location b { color: #64748b !important; }
+.timeline-card .entry-body,
+.timeline-card ul {
+  margin: 0 !important;
+  padding: 3.2px 8px 3.5px 18px !important;
+  background: #ffffff !important;
+}
+.timeline-card li {
+  color: #334155 !important;
+  font-size: 7.55pt !important;
+  line-height: 1.13 !important;
+  margin: 0 0 .7px !important;
+}
+.timeline-card li::marker { color: var(--tl-green) !important; }
+.full-timeline-separator {
+  display: block !important;
+  width: 100% !important;
+  height: 1.65px !important;
+  min-height: 1.65px !important;
+  margin: 1.2px 0 2.2px !important;
+  background: #0f766e !important;
+  border: 0 !important;
+  clear: both !important;
+}
+
+/* Bottom info cards */
+.bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; align-items: stretch; }
+.info-card {
+  border: 1px solid #b7f4e3 !important;
+  border-left: 4px solid #0f766e !important;
+  border-radius: 9px !important;
+  background: #ffffff !important;
+  padding: 4.2px 6px !important;
+  break-inside: avoid;
+  box-shadow: none !important;
+}
+.info-card h3 { margin: 0 0 2px; color: #064e3b !important; font-size: 8pt; font-weight: 900; }
+.info-card ul { margin: 0; padding-left: 11px; }
+.info-card li { margin-bottom: 0; color: #334155; font-size: 7.3pt; line-height: 1.08; }
+.info-card strong { color: #047857 !important; font-weight: 900; }
+.info-card li::marker { color: #0f766e !important; }
+
+/* No shadows globally for role CV */
+body.final-no-shadow-cv,
+body.final-no-shadow-cv * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+body.final-no-shadow-cv .timeline-card,
+body.final-no-shadow-cv .info-card {
+  box-shadow: 0 0 0 .45px rgba(15,118,110,.12) !important;
+}
+
+/* Screen polish */
+@media screen {
+  body.cv-edge-polished {
+    background:
+      radial-gradient(circle at 10% 0%, rgba(20, 184, 166, .14) 0 18%, transparent 28%),
+      radial-gradient(circle at 92% 4%, rgba(6, 78, 59, .10) 0 14%, transparent 25%),
+      linear-gradient(135deg, #e9fbf6 0%, #f7fffc 48%, #eaf7ff 100%);
+    padding: 26px 14px 34px;
+  }
+  body.cv-edge-polished.cv-two-page-balanced .page {
+    max-width: 915px;
+    margin: 0 auto;
+    padding: 18px 20px 21px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 118, 110, .24);
+    border-radius: 22px;
+    box-shadow: 0 28px 60px rgba(15, 23, 42, .13);
+    position: relative;
+    overflow: hidden;
+  }
+  body.cv-edge-polished.cv-two-page-balanced .page::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0; height: 8px;
+    background: linear-gradient(90deg, #064e3b, #0f766e, #14b8a6);
+  }
+}
+
+@media print {
+  body { background: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.cv-edge-polished { background: white !important; padding: 0 !important; }
+  body.cv-edge-polished.cv-two-page-balanced .page {
+    max-width: none !important; margin: 0 !important; padding: 0 !important;
+    border: none !important; border-radius: 0 !important; box-shadow: none !important;
+  }
+  body.cv-edge-polished.cv-two-page-balanced .page::before { display: none !important; }
+  .page { padding: 0 !important; }
+  .timeline-row, .timeline-card, .skill-card, .edu-card { break-inside: avoid; page-break-inside: avoid; }
+  a { color: inherit; }
+  a.web-link, a.course-record-cta { color: #047857 !important; text-decoration: underline; }
+  body.final-no-shadow-cv .full-timeline-separator {
+    height: 1.55px !important;
+    background: #0f766e !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; }
+  .skills-grid, .edu-snapshot, .bottom-grid { grid-template-columns: 1fr; }
+  body.cv-two-page-balanced .timeline-row { grid-template-columns: 1fr !important; }
+  .hero-meta { flex-wrap: wrap; gap: 4px 8px; }
+  .meta-item + .meta-item::before { display: none; }
+  .verify-bar { flex-wrap: wrap !important; }
+}
+
+</style>
+</head>
+<body class="cv-two-page-balanced cv-edge-polished timeline-polished-v3 timeline-light-v4 timeline-clean-v5 final-no-shadow-cv">
+<main class="page">
+<header class="hero">
+<div class="hero-main">
+<h1>Ivana Jovic</h1>
+<div class="role-title">HR-Assistentin</div>
+<div class="hero-meta">
+<span class="meta-item meta-status">Frankfurt am Main</span>
+<span class="meta-item">E-Mail: ivanatjovic@gmail.com</span>
+<span class="meta-item">Telefon: +47 47 313 788</span>
+</div>
+</div>
+<aside class="qr-card">
+<img alt="QR code — education record" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=%2Ftranscript%2F"/>
+<p>Scannen für<br/>Bildungsnachweis</p>
+</aside>
+</header>
+<nav aria-label="Verification links" class="verify-bar">
+<span class="verify-label">Links &rarr;</span>
+<a href="/transcript/" rel="noopener noreferrer" target="_blank">Konsolidierter Bildungsnachweis</a>
+<a class="priority-education-link course-record-cta" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="Open detailed education and course record">Ausführlicher Bildungs- und Kursnachweis</a>
+</nav>
+<section class="section">
+<h2 class="section-title">Berufsprofil</h2>
+<div class="profile-box">Mehrsprachige Absolventin mit menschenorientierter Berufserfahrung in Beratung, Rezeption, Lehre und NGO-Unterstützung. Organisiert und diskret – geeignet für HR-Koordination und Personalwesen.</div>
+
+</section>
+<section class="section">
+<h2 class="section-title">FÄHIGKEITEN &amp; KOMPETENZEN</h2>
+<div class="skills-grid"><article class="skill-card"><h3>Personal &amp; HR-Unterstützung</h3><div class="tag-list"><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Kandidatenkoordination</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Terminplanung</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">vertrauliche Behandlung</a></div></article><article class="skill-card"><h3>Kommunikation</h3><div class="tag-list"><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Mehrsprachige Beratung</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">professionelle Korrespondenz</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Stakeholder-Support</a></div></article><article class="skill-card"><h3>Bürokompetenzen</h3><div class="tag-list"><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Dokumentation</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Microsoft Office</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Prozessnachverfolgung</a></div></article><article class="skill-card"><h3>Sprachen &amp; Kommunikation</h3><div class="tag-list"><span class="tag">Serbokroatisch (Muttersprache)</span><span class="tag">Norwegisch</span><span class="tag">Englisch</span><span class="tag">Spanisch (fließend)</span><span class="tag">Russisch (fortgeschritten)</span><span class="tag">Mazedonisch (Grundkenntnisse)</span></div></article></div>
+</section>
+<section class="section education-snapshot-section">
+<h2 class="section-title">Bildung &amp; Qualifikationen im Überblick</h2>
+<div class="edu-snapshot"><article class="edu-card"><div class="edu-badge">Bildung</div><h3>BA Internationale Entwicklung</h3><p>Dissertation über die Ausbeutung von Migrantenarbeiter:innen in Golfstaaten; Feldforschung in Mexiko.</p><div class="tag-list"><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Internationale Entwicklung</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Migrationsstudien</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Forschungsmethoden</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Feldforschung</a></div></article><article class="edu-card"><div class="edu-badge">Bildung</div><h3>Praktisch-Pädagogische Ausbildung</h3><p>Lehrbefähigung für Vorschule, Grundschule, Sekundarstufe und Erwachsenenbildung (Universität Oslo).</p><div class="tag-list"><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Pädagogik</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Erwachsenenbildung</a><a class="tag skill-link" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="View detailed education and course record">Lehrbefähigung</a></div></article><article class="edu-card"><div class="edu-badge">Verifikation</div><h3>Verifizierter Bildungsnachweis</h3><p>Rekrutierungsfreundliche Bildungs- und Kursdetails: <a class="web-link priority-education-link course-record-cta" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="Open detailed education and course record">Ausführlicher Bildungs- und Kursnachweis anzeigen</a>.</p></article></div>
+</section>
+<section class="section">
+<h2 class="section-title">Vollständige Berufs- und Bildungschronologie (MM/JJJJ – MM/JJJJ)</h2>
+<p class="timeline-note">Die vollständige Chronologie wird beibehalten, um Kontinuität zu zeigen. Bildungseinträge sind im Zeitstrahl markiert, sodass sie sichtbar bleiben, ohne die Chronologie zu unterbrechen.</p>
+<div><article class="timeline-row"><div class="date-col" data-date="09/2020 - present"><span aria-label="09/2020 - present" class="date-badge"><span class="date-range"><span class="date-start">09/2020</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">laufend</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Berufsberaterin / Lehrerin</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Hero Kompetanse</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Berufsberatung und Norwegischunterricht für fremdsprachige Erwachsene bei Hero Kompetanse.</li><li>Vertretungslehrerin für Spanisch an der Rudolf Steiner Schule; tätig in Frankfurt am Main, Deutschland.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="11/2014 - present"><span aria-label="11/2014 - present" class="date-badge"><span class="date-range"><span class="date-start">11/2014</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">laufend</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Vertretungslehrerin (Spanisch)</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Rudolf Steiner Schule</span><span class="detail-pill detail-location"><b>Standort</b> Lørenskog, Norwegen</span></div><ul class="entry-body"><li>Spanischunterricht für die Klassen 2–10; Klassenmanagement und Unterrichtsgestaltung.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="01/2020 - 06/2020"><span aria-label="01/2020 - 06/2020" class="date-badge"><span class="date-range"><span class="date-start">01/2020</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">06/2020</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Lehrerin (Spanisch)</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Hersleb High School</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Spanischunterricht.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="02/2017 - 07/2018"><span aria-label="02/2017 - 07/2018" class="date-badge"><span class="date-range"><span class="date-start">02/2017</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">07/2018</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Fallmanagerin / Trainerin</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Hope for Justice</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Vernetzung und Kursaktivitäten zu Menschenhandel.</li><li>Unterstützungsarbeit mit Opfern von Menschenhandel.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2015 - 11/2016"><span aria-label="08/2015 - 11/2016" class="date-badge"><span class="date-range"><span class="date-start">08/2015</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">11/2016</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Lehrerin (Norwegisch, Erwachsenenbildung)</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Caritas</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Norwegisch auf mittlerem Niveau für fremdsprachige Erwachsene.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="03/2011 - 01/2017"><span aria-label="03/2011 - 01/2017" class="date-badge"><span class="date-range"><span class="date-start">03/2011</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">01/2017</span></span></span></div><div class="timeline-card three-part-card"><div class="row-head"><h3>Rezeptionistin</h3><span class="entry-tag">Berufserfahrung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Olympiatoppen Sportshotell</span><span class="detail-pill detail-location"><b>Standort</b> Oslo, Norwegen</span></div><ul class="entry-body"><li>Kundenbetreuung und Rezeption für Einzelpersonen, Gruppen und Organisationen.</li><li>Check-in/out, Abrechnung, Kioskverkauf, Buchungssysteme Protel und Opera.</li><li>Tages-/Nachtabrechnung und Krisenmanagement.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2020 - present"><span aria-label="08/2020 - present" class="date-badge"><span class="date-range"><span class="date-start">08/2020</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">laufend</span></span></span></div><div class="timeline-card three-part-card education-card"><div class="row-head"><h3>Arbeitsrecht (ein-semestriger Kurs)</h3><span class="entry-tag">Bildung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Universität Oslo</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Laufend.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2014 - 06/2015"><span aria-label="08/2014 - 06/2015" class="date-badge"><span class="date-range"><span class="date-start">08/2014</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">06/2015</span></span></span></div><div class="timeline-card three-part-card education-card"><div class="row-head"><h3>Praktisch-Pädagogische Ausbildung</h3><span class="entry-tag">Bildung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Universität Oslo</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Lehrbefähigung: Vorschule, Grundschule, Sekundarstufe und Erwachsenenbildung.</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2013 - 06/2014"><span aria-label="08/2013 - 06/2014" class="date-badge"><span class="date-range"><span class="date-start">08/2013</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">06/2014</span></span></span></div><div class="timeline-card three-part-card education-card"><div class="row-head"><h3>Spanische Sprache und Kultur in Lateinamerika</h3><span class="entry-tag">Bildung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Telemark University College</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li>Spanische Sprache und lateinamerikanische Kultur.</li><li>Austausch: Costa Rican Language Academy, San José (6 Monate).</li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2010 - 06/2013"><span aria-label="08/2010 - 06/2013" class="date-badge"><span class="date-range"><span class="date-start">08/2010</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">06/2013</span></span></span></div><div class="timeline-card three-part-card education-card"><div class="row-head"><h3>BA Internationale Entwicklung</h3><span class="entry-tag">Bildung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Oslo and Akershus University College</span><span class="detail-pill detail-location"><b>Standort</b> Norwegen</span></div><ul class="entry-body"><li><strong>Schwerpunkte:</strong> Internationale Entwicklung, Praktisch-Pädagogische Ausbildung, Spanischstudium, skandinavische Sprachen und Arbeitsrecht (laufend).</li><li>Dissertation über die Ausbeutung von Migrantenarbeiter:innen in Golfstaaten; Feldforschung in Mexiko.</li><li><a class="web-link priority-education-link course-record-cta" href="/cv/html/professional/" rel="noopener noreferrer" target="_blank" title="Open detailed education and course record">Ausführlicher Bildungs- und Kursnachweis anzeigen</a></li></ul></div></article>
+<div class="full-timeline-separator"></div>
+<article class="timeline-row"><div class="date-col" data-date="08/2000 - 08/2008"><span aria-label="08/2000 - 08/2008" class="date-badge"><span class="date-range"><span class="date-start">08/2000</span><span aria-hidden="true" class="date-separator">–</span><span class="date-end">08/2008</span></span></span></div><div class="timeline-card three-part-card education-card"><div class="row-head"><h3>Skandinavische Sprachen und Literatur (Norwegisch)</h3><span class="entry-tag">Bildung</span></div><div class="entry-details"><span class="detail-pill detail-org"><b>Organisation</b> Universität Belgrad</span><span class="detail-pill detail-location"><b>Standort</b> Serbien</span></div><ul class="entry-body"><li>Norwegische Sprache und skandinavische Literatur.</li></ul></div></article></div>
+</section>
+<section class="section">
+<h2 class="section-title">Auszeichnungen &amp; Zusätzliche Informationen</h2>
+<div class="bottom-grid">
+<article class="info-card"><h3>Auszeichnungen &amp; Anerkennung</h3><ul><li><strong>BA Internationale Entwicklung (HiOA, 2013):</strong> Dissertation über die Ausbeutung von Migrantenarbeiter:innen in Golfstaaten; Feldforschung in Mexiko.</li><li><strong>Mehrsprachige Fachkraft:</strong> Unterricht, Berufsberatung, Rezeption und NGO-Programmerfahrung in Norwegen und Deutschland.</li></ul></article>
+<article class="info-card"><h3>Zusätzliche Informationen</h3>
+<ul>
+<li><strong>Verfügbarkeit:</strong> Frankfurt am Main, Deutschland | Offen für Rhein-Main &amp; NRW | EU-Arbeitserlaubnis</li>
+<li><strong>Interessen:</strong> Sprachen, Lehre, Wandern, Lesen, Gemeinschaftsarbeit.</li>
+<li><strong>Verifikation:</strong> Bildung und Berufserfahrung gemäß konsolidiertem Lebenslauf.</li>
+</ul></article>
+</div>
+</section>
+</main>
+</body>
+</html>

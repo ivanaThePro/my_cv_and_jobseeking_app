@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ person_name }} — CV</title>
+    <link rel="stylesheet" href="/assets/css/style.css?v=12">
+</head>
+<body>
+    <main class="page-content" style="max-width:820px;margin:2rem auto;padding:0 1rem;">
+        <h1>{{ person_name }}</h1>
+        <p>{{ cv.label }} | {{ person_email }} | {{ person_phone }} | {{ cv.location }}</p>
+        <p>{{ cv.summary }}</p>
+        <p><a href="{% url 'cv_variant' cv.slug %}">Open full CV</a> · <a href="{% url 'cv_download_pdf' cv.slug %}">Download PDF</a></p>
+    </main>
+</body>
+</html>

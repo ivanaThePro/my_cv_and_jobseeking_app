@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Private site — sign in</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=11">
+
+    <style>
+
+        .unlock-wrap {
+
+            max-width: 440px;
+
+            margin: 60px auto;
+
+            padding: 28px;
+
+            background: #fff;
+
+            border: 1px solid #ddd;
+
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+
+            text-align: center;
+
+        }
+
+        .unlock-wrap h1 { color: #1a3d5a; font-size: 1.4rem; margin: 0 0 8px 0; }
+
+        .unlock-wrap p { color: #555; font-size: 0.95rem; margin: 0 0 18px 0; line-height: 1.45; }
+
+        .unlock-wrap input[type="password"] {
+
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 1rem;
+
+            margin-bottom: 12px;
+
+            box-sizing: border-box;
+
+        }
+
+        .unlock-wrap button {
+
+            width: 100%;
+
+            padding: 10px 16px;
+
+            background: #0f3460;
+
+            color: #fff;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+        .unlock-error { color: #b00020; font-size: 0.9rem; margin-bottom: 10px; }
+
+        .unlock-back { display: inline-block; margin-top: 16px; color: #1a3d5a; text-decoration: none; font-size: 0.9rem; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="unlock-wrap">
+
+        <h1>Private site</h1>
+
+        <p>This is your personal job search and CV workspace. Enter your password to continue. Your session stays active until you sign out.</p>
+
+        {% if signed_out %}<p class="unlock-error" style="color:#0f766e;">{{ signed_out_msg }}</p>{% endif %}
+
+        {% if error %}<p class="unlock-error">{{ error }}</p>{% endif %}
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <input type="hidden" name="next" value="{{ next_url }}">
+
+            <input type="password" name="password" placeholder="Password" autofocus required autocomplete="current-password">
+
+            <button type="submit">Sign in</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
+

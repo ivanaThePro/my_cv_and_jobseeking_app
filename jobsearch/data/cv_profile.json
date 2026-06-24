@@ -1,0 +1,96 @@
+{
+  "candidate": "Ivana Jovic",
+  "analyzed_at": "2026-06-18",
+  "seniority_level": "Mid-level education and counseling professional",
+  "education_level": "Bachelor + pedagogical qualification",
+  "visa_work_eligibility": "Based in Frankfurt am Main, Germany — eligible to work in Germany/EU",
+  "location_preferences": [
+    "Germany",
+    "Frankfurt am Main",
+    "Frankfurt",
+    "Hanau",
+    "Offenbach",
+    "Wiesbaden",
+    "Mainz",
+    "Köln",
+    "Bonn",
+    "Düsseldorf",
+    "Remote Germany",
+    "Remote EU"
+  ],
+  "technical_skills": {
+    "languages": ["Python (beginner)", "JavaScript (beginner)"],
+    "tools": ["Microsoft Office", "Protel", "Opera", "Ad Opus", "Karriere Pro"],
+    "domains": ["Adult education systems", "Booking and reception systems"]
+  },
+  "soft_skills": [
+    "Communication",
+    "Intercultural understanding",
+    "Classroom management",
+    "Career counseling",
+    "Multitasking",
+    "Training facilitation",
+    "Customer care"
+  ],
+  "responsibilities_history": [
+    "Career counseling and Norwegian instruction for adults",
+    "Substitute Spanish teaching (grades 2-10)",
+    "Norwegian language teaching for foreign-speaking adults",
+    "Anti-trafficking casework and training",
+    "Hotel reception, booking, and customer care",
+    "Course activities on human trafficking"
+  ],
+  "industries": [
+    "Education",
+    "Adult learning",
+    "Career services",
+    "Non-profit / human rights",
+    "Hospitality"
+  ],
+  "transferable_skills": [
+    "Teaching → language teacher, substitute teacher, adult education",
+    "Counseling → career guidance, competence services, program support",
+    "Reception → customer service, front desk, coordinator roles",
+    "Training → workshop facilitator, course organizer",
+    "Languages → multilingual communication roles"
+  ],
+  "certifications_training": [
+    "Practical-Pedagogical Education, University of Oslo",
+    "First Aid Course, Oslo Red Cross",
+    "Red Cross history and values",
+    "Basic course in social care",
+    "Course in gender-based violence and human trafficking"
+  ],
+  "strengths": [
+    "Authorized teacher with classroom and adult education experience",
+    "Career counselor with Norwegian language instruction background",
+    "Five languages including native Serbo-Croatian",
+    "Strong intercultural and communication skills",
+    "Based in Frankfurt am Main — targeting Rhine-Main and NRW roles"
+  ],
+  "gaps": [
+    "Not a software developer profile",
+    "Limited advanced digital/IT production experience"
+  ],
+  "qualified_role_families": [
+    "Teacher",
+    "Substitute teacher",
+    "Spanish teacher",
+    "Norwegian teacher",
+    "Language teacher",
+    "Career counselor",
+    "Adult education teacher",
+    "Pedagog",
+    "Vikar",
+    "Training facilitator",
+    "Receptionist",
+    "Customer service representative",
+    "Program coordinator",
+    "Case worker",
+    "Office administrator",
+    "HR assistant",
+    "Project coordinator"
+  ],
+  "matching_mode": "requirements_based_not_title",
+  "qualifications_file": "data/qualifications.json"
+}

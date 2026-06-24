@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="theme-color" content="#0c4a6e">
+    <title>{% block title %}Jobs{% endblock %} · Job search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    {% include "cvapp/dashboard_styles.html" %}
+    <!-- ui-v14 applied-table -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body
+    class="app-shell {% block body_class %}{% endblock %}"
+    data-status-url="{% url 'jobs_status_api' %}"
+    {% if pipeline_status.state == 'running' %}data-pipeline-running="1"{% endif %}
+>
+<header class="app-topbar">
+    {% include "cvapp/dashboard_topbar.html" %}
+</header>
+
+<div id="pipeline-live-banner" class="pipeline-live-banner" hidden role="status" aria-live="polite">
+    <div class="pipeline-live-banner-inner">
+        <strong id="pipeline-banner-title">Working…</strong>
+        <span id="pipeline-banner-detail" class="pipeline-live-banner-detail"></span>
+        <span class="pipeline-live-banner-hint">Safe to refresh, browse, or open Applied — search runs on the server.</span>
+    </div>
+</div>
+
+    <main class="page">
+        {% block content %}{% endblock %}
+    </main>
+
+    <aside
+        id="pipeline-sidebar"
+        class="pipeline-sidebar"
+        {% if pipeline_status.state != 'running' %}hidden{% endif %}
+        aria-label="Progress"
+    >
+        <div class="pipeline-sidebar-head">
+            <span id="pipeline-status-label" class="pipeline-sidebar-title">Working…</span>
+            <span id="pipeline-status-clock" class="pipeline-sidebar-clock">00:00</span>
+        </div>
+        <div class="pipeline-track pipeline-track-compact">
+            <div id="pipeline-status-fill" class="pipeline-fill"></div>
+        </div>
+        <p id="pipeline-progress-text" class="pipeline-sidebar-pct">0%</p>
+        <p id="pipeline-status-message" class="pipeline-sidebar-msg">Starting…</p>
+        <p id="pipeline-sidebar-hint" class="pipeline-sidebar-hint" hidden></p>
+        <ul id="pipeline-source-list" class="pipeline-source-list"></ul>
+        <form method="post" action="{% url 'jobs_reset_pipeline' %}" class="async-form pipeline-sidebar-cancel">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-ghost btn-xs">Cancel</button>
+        </form>
+    </aside>
+
+    <div id="pipeline-toast" class="pipeline-toast" hidden role="status"></div>
+
+    <div id="pipeline-modal" class="pipeline-modal" hidden role="dialog" aria-modal="true" aria-labelledby="pipeline-modal-title">
+        <div class="pipeline-modal-backdrop" data-modal-dismiss></div>
+        <div class="pipeline-modal-card">
+            <div id="pipeline-modal-icon" class="pipeline-modal-icon" aria-hidden="true">✓</div>
+            <h2 id="pipeline-modal-title" class="pipeline-modal-title">Done</h2>
+            <p id="pipeline-modal-message" class="pipeline-modal-message"></p>
+            <button type="button" class="pipeline-modal-btn" id="pipeline-modal-ok">OK — refresh list</button>
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay" hidden>
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+            <p id="overlay-clock" class="loading-clock">00:00</p>
+            <p id="loading-text">Please wait…</p>
+        </div>
+    </div>
+
+<script src="{% url 'serve_asset' 'js/pipeline-progress.js' %}?v=24"></script>
+<script src="{% url 'serve_asset' 'js/site.js' %}?v=14"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.page-flash').forEach(function (el) {
+            setTimeout(function () { el.style.display = 'none'; }, 8000);
+        });
+
+        var overlay = document.getElementById("loading-overlay");
+        if (overlay) overlay.hidden = true;
+
+        var overlayStart = null;
+        var overlayTimer = null;
+
+        function formatClock(s) {
+            s = Math.max(0, s | 0);
+            var m = Math.floor(s / 60);
+            var sec = s % 60;
+            return String(m).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+        }
+
+        function tickOverlay() {
+            if (!overlayStart) return;
+            var el = document.getElementById("overlay-clock");
+            if (el) el.textContent = formatClock((Date.now() - overlayStart) / 1000);
+        }
+
+        function hideOverlay() {
+            if (overlay) overlay.hidden = true;
+            overlayStart = null;
+            if (overlayTimer) {
+                clearInterval(overlayTimer);
+                overlayTimer = null;
+            }
+        }
+
+        document.querySelectorAll('form.async-form').forEach(function (form) {
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                var btn = form.querySelector('button[type="submit"]');
+                if (btn) btn.disabled = true;
+                hideOverlay();
+                var isCancel =
+                    form.classList.contains("topbar-cancel-form") ||
+                    form.classList.contains("pipeline-sidebar-cancel");
+                if (!isCancel) {
+                    document.body.setAttribute("data-pipeline-running", "1");
+                } else {
+                    document.body.removeAttribute("data-pipeline-running");
+                }
+                var fd = new FormData(form);
+                fetch(form.action, {
+                    method: "POST",
+                    body: fd,
+                    credentials: "same-origin",
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
+                    .then(function (res) {
+                        if (!res.ok && res.status >= 400) {
+                            throw new Error("Request failed");
+                        }
+                        if (isCancel) {
+                            document.body.removeAttribute("data-pipeline-running");
+                            document.dispatchEvent(new CustomEvent("jobs-pipeline-cancelled"));
+                            if (window.JOBS_HUB && typeof window.JOBS_HUB.onPipelineCancelled === "function") {
+                                window.JOBS_HUB.onPipelineCancelled();
+                            }
+                            if (btn) btn.disabled = false;
+                        } else {
+                            document.dispatchEvent(new CustomEvent("jobs-pipeline-started"));
+                        }
+                    })
+                    .catch(function () {
+                        document.body.removeAttribute("data-pipeline-running");
+                        if (btn) btn.disabled = false;
+                        alert("Could not complete — try again or refresh the page.");
+                    });
+            });
+        });
+
+        document.querySelectorAll('form[method="post"]:not(.async-form)').forEach(function (form) {
+            form.addEventListener("submit", function () {
+                if (!overlay) return;
+                var btn = form.querySelector('button[type="submit"]');
+                overlay.hidden = false;
+                if (btn) btn.disabled = true;
+                overlayStart = Date.now();
+                tickOverlay();
+                if (overlayTimer) clearInterval(overlayTimer);
+                overlayTimer = setInterval(tickOverlay, 1000);
+            });
+        });
+    })();
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

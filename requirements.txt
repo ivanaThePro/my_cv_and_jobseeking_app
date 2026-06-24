@@ -1,0 +1,9 @@
+Django==5.2.14
+python-decouple==3.8
+whitenoise==6.5.0
+gunicorn==22.0.0
+requests==2.32.5
+pypdf==3.16.0
+reportlab>=3.6.15
+xhtml2pdf>=0.2.16
+playwright>=1.49.0

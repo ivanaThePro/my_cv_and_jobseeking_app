@@ -1,0 +1,139 @@
+﻿{% extends "cvapp/dashboard_base.html" %}
+
+{% block title %}Job Results{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">AI-scored results</h1>
+    <p class="page-subtitle">
+        <strong>{{ current_filter_label }}</strong> &middot; {{ displayed_count }} shown
+        &middot; {{ broad_count }} broad matches &middot; {{ qualified_count }} apply list
+        &middot; {{ run_total }} scored &middot; <a href="{% url 'jobs_market' %}">{{ market_count }} in job market</a> (full mass list)
+    </p>
+</div>
+
+{% if message %}<div class="alert alert-success"><span class="alert-icon">&#10003;</span><div>{{ message }}</div></div>{% endif %}
+{% if scoring_in_progress %}
+<div class="alert alert-warning"><span class="alert-icon">&#9203;</span><div>
+    <strong>{{ pipeline_status.label|default:"Scoring" }}</strong> in progress:
+    {{ pipeline_status.progress|default:0 }}/{{ pipeline_status.total|default:"?" }} &mdash;
+    {{ pipeline_status.message }}
+    Refresh this page to see new jobs. Use <strong>Score jobs</strong> (not Generate materials) for faster listing-only runs.
+</div></div>
+{% endif %}
+{% if run_total and displayed_count == 0 and filter_type == 'apply' %}
+<div class="alert alert-warning"><span class="alert-icon">&#8505;</span><div>
+    {{ run_total }} jobs scored in this run, but none match the strict <strong>Apply list</strong> filter yet.
+    <a href="?run={{ selected_run }}&filter=review">Show review ({{ review_count }})</a> or
+    <a href="?run={{ selected_run }}&filter=all">all scored ({{ run_total }})</a>.
+    Cache has {{ cache_info.count }} listings &mdash; run <strong>Score jobs</strong> on the dashboard to score more.
+</div></div>
+{% endif %}
+{% if not run_total %}
+<div class="alert alert-warning"><span class="alert-icon">&#9888;</span><div>
+    No scoring run yet. On the <a href="{% url 'dashboard_home' %}">dashboard</a>: <strong>Refresh listings</strong> &rarr; <strong>Score jobs</strong> (uses your CV + requirements from each posting).
+</div></div>
+{% endif %}
+
+<div class="stats-grid">
+    <a href="{% url 'jobs_market' %}" class="stat-box success stat-link"><div class="stat-value">{{ market_count }}</div><div class="stat-label">Job market</div></a>
+    <a href="?run={{ selected_run }}&filter=broad" class="stat-box success stat-link"><div class="stat-value">{{ broad_count }}</div><div class="stat-label">Opportunities</div></a>
+    <a href="?run={{ selected_run }}&filter=apply" class="stat-box stat-link"><div class="stat-value">{{ qualified_count }}</div><div class="stat-label">Apply list</div></a>
+    <a href="?run={{ selected_run }}&filter=all" class="stat-box stat-link"><div class="stat-value">{{ run_total }}</div><div class="stat-label">All scored</div></a>
+    <a href="?run={{ selected_run }}&filter=skip" class="stat-box danger stat-link"><div class="stat-value">{{ skip_count }}</div><div class="stat-label">Skipped</div></a>
+</div>
+
+<div class="card">
+    <form method="get" class="form-row" style="align-items: end;">
+        {% if runs %}
+        <div class="form-group">
+            <label class="form-label">Run</label>
+            <select name="run" class="form-control">
+                {% for r in runs %}
+                <option value="{{ r }}" {% if r == selected_run %}selected{% endif %}>{{ r }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <label class="form-label">Show</label>
+            <select name="filter" class="form-control">
+                <option value="broad" {% if filter_type == 'broad' %}selected{% endif %}>Opportunities (mass, score &ge; 32)</option>
+                <option value="apply" {% if filter_type == 'apply' %}selected{% endif %}>Apply list</option>
+                <option value="strict" {% if filter_type == 'strict' %}selected{% endif %}>Strict only (few)</option>
+                <option value="review" {% if filter_type == 'review' %}selected{% endif %}>Review</option>
+                <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All scored</option>
+                <option value="skip" {% if filter_type == 'skip' %}selected{% endif %}>Skipped</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Skill / requirement search</label>
+            <input class="form-control" type="text" name="query" value="{{ requirements_query }}" placeholder="Python, helpdesk&hellip;">
+        </div>
+        <div class="form-group">
+            <label class="form-label">City</label>
+            <input class="form-control" type="text" name="location" value="{{ location_query }}" placeholder="Frankfurt, K&ouml;ln&hellip;">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Source</label>
+            <input class="form-control" type="text" name="source" value="{{ source_query }}" placeholder="Arbeitsagentur, Arbeitnow&hellip;">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a href="{% url 'jobs_results' %}?filter=apply" class="btn btn-outline">Reset to apply list</a>
+    </form>
+</div>
+
+<div class="btn-group">
+    <a href="{% url 'dashboard_home' %}" class="btn btn-secondary">&#8592; Dashboard</a>
+    <a href="{% url 'jobs_control' %}" class="btn btn-outline">Control panel</a>
+</div>
+
+{% if jobs %}
+<p style="margin-bottom: 16px; color: var(--text-muted);">Average match score (this view): <strong>{{ average_score }}%</strong></p>
+{% for job in jobs %}
+<div class="job-card">
+    <div class="job-card-header">
+        <div>
+            <div class="job-card-title">{{ job.title }}</div>
+            <div class="job-card-company">{{ job.company }}{% if job.location %} &middot; {{ job.location }}{% endif %}</div>
+            {% if job.source %}<span class="badge" style="background: var(--border); color: var(--text-muted);">{{ job.source }}</span>{% endif %}
+            {% if job.match.role_category %}<span class="badge badge-info">{{ job.match.role_category }}</span>{% endif %}
+            {% if job.match.qualified_to_apply %}<span class="badge badge-apply">qualified</span>{% endif %}
+        </div>
+        <div style="text-align: right;">
+            <div class="job-score">{{ job.match.match_score|default:"&mdash;" }}%</div>
+            {% if job.match.must_have_total %}
+            <div style="font-size: 12px; color: var(--text-muted);">
+                Must-haves: {{ job.match.must_have_met_count }}/{{ job.match.must_have_total }}
+            </div>
+            {% endif %}
+            {% if job.match.recommendation == 'apply' %}<span class="badge badge-apply">apply</span>
+            {% elif job.match.recommendation == 'review' %}<span class="badge badge-review">review</span>
+            {% else %}<span class="badge badge-skip">skip</span>{% endif %}
+        </div>
+    </div>
+    {% if job.match.required_met or job.match.required_missing %}
+    <div style="font-size: 13px; margin: 12px 0; display: grid; gap: 8px;">
+        {% if job.match.required_met %}
+        <div><strong style="color: var(--success);">Skills met:</strong> {{ job.match.required_met|join:", "|truncatewords:20 }}</div>
+        {% endif %}
+        {% if job.match.required_missing %}
+        <div><strong style="color: var(--danger);">Gaps:</strong> {{ job.match.required_missing|join:", "|truncatewords:15 }}</div>
+        {% endif %}
+    </div>
+    {% endif %}
+    <div class="job-card-footer">
+        <span style="font-size: 13px; color: var(--text-muted);">{{ job.match.reasoning|truncatewords:30 }}</span>
+        <a href="{% url 'job_detail' selected_run job.folder_name %}" class="btn btn-primary btn-small">Requirements &rarr;</a>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="card">
+    <p style="color: var(--text-muted);">
+        No jobs in this view{% if run_total %} &mdash; try <a href="?run={{ selected_run }}&filter=review">Review</a> or <a href="?run={{ selected_run }}&filter=all">All scored</a>{% endif %}.
+        Matching is strict: location (Frankfurt / K&ouml;ln / Bonn / D&uuml;sseldorf) + CV keywords + requirement coverage from the posting.
+    </p>
+</div>
+{% endif %}
+{% endblock %}

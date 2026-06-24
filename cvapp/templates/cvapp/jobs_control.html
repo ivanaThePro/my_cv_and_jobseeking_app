@@ -1,0 +1,107 @@
+{% extends "cvapp/dashboard_base.html" %}
+
+{% block title %}Options — Job search helper{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Options</h1>
+    <p class="page-subtitle">
+        Fine-tune how many jobs are checked and how strict the match must be.
+        Everyday actions (search, AI check, apply) are on <a href="{% url 'dashboard_home' %}">Start here</a>.
+    </p>
+</div>
+
+{% if message %}<div class="alert alert-success"><span class="alert-icon">✓</span><div>{{ message }}</div></div>{% endif %}
+{% if error %}<div class="alert alert-error"><span class="alert-icon">✕</span><div>{{ error }}</div></div>{% endif %}
+
+<div class="dashboard-grid">
+    <div class="card">
+        <div class="card-header"><h3 class="card-title">Matching preferences</h3></div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="max_jobs">How many jobs to check per run</label>
+                    <input class="form-control" type="number" id="max_jobs" name="max_jobs" value="{{ max_jobs }}" min="1" max="500">
+                    <small style="color: var(--text-muted);">Higher = more jobs, longer wait. Max {{ web_max_jobs }} in the browser.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="min_score">Minimum match % for PDF letters</label>
+                    <input class="form-control" type="number" id="min_score" name="min_score" value="{{ min_score }}" min="0" max="100">
+                    <small style="color: var(--text-muted);">Only used when generating cover letters / CV PDFs. Lower = more jobs.</small>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save preferences</button>
+        </form>
+        <p style="margin-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
+            Match mode: <strong>{{ match_mode }}</strong> —
+            {% if match_mode == 'broad' %}shows more “worth applying” jobs{% else %}stricter must-have requirements{% endif %}.
+            Set <code>JOB_MATCH_MODE=broad</code> or <code>strict</code> in <code>.env</code>.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h3 class="card-title">Connections</h3></div>
+        <div style="display: grid; gap: 10px;">
+            <div class="status-pill {% if mistral_key %}status-ok{% else %}status-missing{% endif %}">
+                <span>AI scoring (Mistral)</span><strong>{% if mistral_key %}Connected{% else %}Missing key{% endif %}</strong>
+            </div>
+            <div class="status-pill {% if cache_info.exists %}status-ok{% else %}status-missing{% endif %}">
+                <span>Job listings saved</span><strong>{% if cache_info.exists %}{{ cache_info.count }} jobs{% else %}Empty{% endif %}</strong>
+            </div>
+            <div class="status-pill {% if jooble_configured %}status-ok{% else %}status-missing{% endif %}">
+                <span>Jooble (extra listings)</span><strong>{% if jooble_configured %}On{% else %}Optional{% endif %}</strong>
+            </div>
+            <div class="status-pill {% if apify_token %}status-ok{% else %}status-missing{% endif %}">
+                <span>Apify (LinkedIn / Indeed)</span><strong>{% if apify_token %}On{% else %}Optional{% endif %}</strong>
+            </div>
+        </div>
+        {% if not mistral_key %}
+        <p style="margin-top: 12px; font-size: 13px; color: var(--warning);">
+            Add <code>MISTRAL_API_KEY</code> to <code>.env</code> and restart the server.
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header"><h3 class="card-title">Quick actions</h3></div>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Same as the Start here page — included here for convenience.</p>
+    <div class="btn-group">
+        <form method="post" action="{% url 'jobs_refresh_cache' %}">{% csrf_token %}
+            <button type="submit" class="btn btn-primary">Search for jobs</button>
+        </form>
+        <form method="post" action="{% url 'jobs_run_pipeline' %}">{% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Check all with AI</button>
+        </form>
+        <form method="post" action="{% url 'jobs_run_full_pipeline' %}">{% csrf_token %}
+            <button type="submit" class="btn btn-outline">Create PDF letters (slow)</button>
+        </form>
+    </div>
+</div>
+
+{% if job_engine_available %}
+<details class="card settings-fold" style="margin-top: 20px;">
+    <summary>For developers: command-line tools</summary>
+    <p style="margin: 16px 0; color: var(--text-muted); font-size: 14px;">
+        Folder: <code>{{ job_engine_path }}</code>
+    </p>
+    <div class="btn-group">
+        <form method="post" action="{% url 'jobs_external_refresh' %}">{% csrf_token %}
+            <button class="btn btn-secondary btn-small">CLI: refresh cache</button>
+        </form>
+        <form method="post" action="{% url 'jobs_external_dry_run' %}">{% csrf_token %}
+            <button class="btn btn-secondary btn-small">CLI: test run</button>
+        </form>
+        <form method="post" action="{% url 'jobs_external_generate' %}">{% csrf_token %}
+            <button class="btn btn-outline btn-small">CLI: generate PDFs</button>
+        </form>
+    </div>
+</details>
+{% endif %}
+
+<div style="margin-top: 24px;">
+    <a href="{% url 'dashboard_home' %}" class="btn btn-outline">← Back to Start here</a>
+    <a href="{% url 'jobs_market' %}" class="btn btn-success" style="margin-left: 10px;">My job matches →</a>
+</div>
+{% endblock %}

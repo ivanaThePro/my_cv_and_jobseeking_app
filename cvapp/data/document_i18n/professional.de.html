@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurse & Qualifikationsnachweise | Ivana Jovic</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #059669;
+            --bg-light: #f0fdfa;
+            --border-light: #99f6e4;
+            --text-dark: #111827;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text-dark);
+            background: #f8fafc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px 35px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .header h1 { margin: 0; color: var(--primary); font-size: 24pt; font-weight: 700; }
+        .header .subtitle { margin: 5px 0 10px; color: var(--text-muted); font-size: 11pt; }
+        .contact-info { font-size: 10pt; color: var(--text-muted); }
+        .verify-bar { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 12px; font-size: 9.5pt; }
+        .verify-bar a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .section-title {
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            color: white; padding: 8px 14px; font-size: 12pt; font-weight: 600;
+            border-radius: 6px; margin: 24px 0 14px;
+        }
+        .course-card {
+            border: 1px solid #e2e8f0; border-left: 4px solid var(--primary);
+            border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; background: #fafafa;
+        }
+        .course-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+        .course-header h4 { margin: 0; font-size: 11pt; color: var(--text-dark); }
+        .course-date { font-size: 9.5pt; color: var(--text-muted); white-space: nowrap; }
+        .course-desc { margin: 8px 0 0; font-size: 10pt; color: var(--text-muted); }
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+        .skill-box {
+            background: var(--bg-light); border: 1px solid var(--border-light);
+            border-radius: 6px; padding: 10px 12px;
+        }
+        .skill-box h5 { margin: 0 0 4px; color: var(--primary); font-size: 10pt; }
+        .skill-box p { margin: 0; font-size: 9.5pt; color: var(--text-muted); }
+        .footer {
+            margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0;
+            font-size: 9pt; color: var(--text-muted);
+        }
+        @media print { body { background: white; } .container { box-shadow: none; padding: 0; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Kurse & Qualifikationsnachweise</h1>
+        <div class="subtitle">Ivana Jovic | Ausbildung, Fortbildungen & Berufliche Qualifikationen</div>
+        <div class="contact-info">
+            ivanatjovic@gmail.com | +47 47 313 788 | Frankfurt am Main, Deutschland
+        </div>
+        <div class="verify-bar">
+            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Zusammengefasster Bildungsnachweis</a>
+        </div>
+    </div>
+
+    <div class="section-title" id="higher-education">Hochschulbildung</div>
+
+    <div class="course-card">
+        <div class="course-header"><h4>Praktisch-Pädagogische Ausbildung (einjähriger Lehrgang)</h4><span class="course-date">2014 – 2015</span></div>
+        <p class="course-desc">Universität Oslo, Norwegen. Staatlich anerkannte Lehrkraft: Vorschule, Grundschule, Sekundarstufe und Erwachsenenbildung. Praktikum: Kongshavn-Gymnasium — Spanisch (mittlere Stufe) und Norwegisch für Schüler mit Migrationshintergrund.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>BA Internationale Entwicklung</h4><span class="course-date">2010 – 2013</span></div>
+        <p class="course-desc">Hochschule Oslo und Akershus, Norwegen. Abschlussarbeit: Ausbeutung von Migrantenarbeitern in Golfstaaten. Feldstudie in Puebla, Mexiko-Stadt und Oaxaca, Mexiko.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Spanische Sprache und Kultur in Lateinamerika</h4><span class="course-date">2013 – 2014</span></div>
+        <p class="course-desc">Hochschule Telemark, Norwegen. Austausch: Costa Rican Language Academy, San José (6 Monate).</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Skandinavische Sprachen und Literatur (Norwegisch)</h4><span class="course-date">2000 – 2008</span></div>
+        <p class="course-desc">Universität Belgrad, Serbien.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Arbeitsrecht (einsemestriger Lehrgang)</h4><span class="course-date">2020 – present</span></div>
+        <p class="course-desc">Universität Oslo, Norwegen. Laufend.</p>
+    </div>
+
+    <div class="section-title" id="professional-courses">Berufliche Kurse & Zertifizierungen</div>
+
+    <div class="course-card">
+        <div class="course-header"><h4>Erste-Hilfe-Kurs</h4><span class="course-date">September 2014</span></div>
+        <p class="course-desc">Osloer Rotes Kreuz.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Geschichte und Werte des Roten Kreuzes</h4><span class="course-date">Februar 2014</span></div>
+        <p class="course-desc">Osloer Rotes Kreuz.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Grundkurs Sozialarbeit</h4><span class="course-date">Februar 2014</span></div>
+        <p class="course-desc">Osloer Rotes Kreuz.</p>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4>Gewalt gegen Frauen und Menschenhandel</h4><span class="course-date">2007</span></div>
+        <p class="course-desc">Anti-Trafficking Zentrum, Belgrad.</p>
+    </div>
+
+    <div class="section-title" id="skills">Fähigkeiten & Sprachen</div>
+    <div class="skills-grid">
+        <div class="skill-box">
+            <h5>Sprachen</h5>
+            <p>Serbisch-Kroatisch (Muttersprache); Norwegisch, Englisch, Spanisch (fließend); Russisch (fortgeschritten); Mazedonisch (Grundkenntnisse)</p>
+        </div>
+        <div class="skill-box">
+            <h5>Lehren & Beratung</h5>
+            <p>Berufsberatung, Norwegisch- und Spanischunterricht, Erwachsenenbildung, Klassenmanagement</p>
+        </div>
+        <div class="skill-box">
+            <h5>Büro- & Gastgewerbesysteme</h5>
+            <p>Microsoft Office, Protel, Opera Buchungssysteme, Abrechnung, Korrespondenz</p>
+        </div>
+        <div class="skill-box">
+            <h5>Berufs- & Programmtools</h5>
+            <p>Ad Opus, Karriere Pro; Python und JavaScript (Anfänger)</p>
+        </div>
+    </div>
+
+    <div class="section-title" id="awards">Auszeichnungen & Anerkennung</div>
+    <div class="course-card">
+        <div class="course-header"><h4>Stipendium für studentische Vorbilder</h4><span class="course-date">2011</span></div>
+        <p class="course-desc">Reidar- und Gunnar-Holst-Stiftung — studentisches Vorbild mit Migrationshintergrund.</p>
+    </div>
+
+    <div class="footer">
+        <p>Bildungs- und Qualifikationsnachweis für Ivana Jovic. Ansässig in Frankfurt am Main, Deutschland (Stellensuche: Rhein-Main-Gebiet und NRW). Norwegische Berufs- und Ausbildungserfahrung wie oben aufgeführt.</p>
+    </div>
+</div>
+</body>
+</html>

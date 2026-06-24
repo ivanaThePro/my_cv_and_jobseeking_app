@@ -1,0 +1,154 @@
+<div class="topbar-inner">
+    <div class="topbar-row topbar-row-main">
+        <nav class="topbar-main-nav" aria-label="Main">
+            {% if nav_section == 'browse' and browse_view %}
+            <div class="topbar-menu-wrap">
+                <button type="button" class="topbar-nav-link topbar-browse-btn {% if nav_section == 'browse' %}is-active{% endif %}" id="browse-menu-btn" aria-expanded="false" aria-haspopup="true" aria-controls="browse-menu" data-tip="All list filters — counts overlap; ready tabs are scored 50%+ only">
+                    Browse: {{ browse_view_label }} <span class="topbar-caret">&#9662;</span>
+                </button>
+                <div class="topbar-dropdown browse-dropdown browse-dropdown-compact" id="browse-menu" hidden>
+                    <div class="browse-chip-list" role="group" aria-label="Browse views">
+                        <a href="?view=good{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip browse-chip-good {% if browse_view == 'good' %}is-active{% endif %}" data-tip="Best matches — scored 50%+ by AI">Good<span class="browse-count{% if browse_good_total %} is-positive{% endif %}">{{ browse_good_total }}</span></a>
+                        <a href="?view=it_good{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip browse-chip-good {% if browse_view == 'it_good' %}is-active{% endif %}" data-tip="IT roles ready to apply (50%+)">IT ready<span class="browse-count{% if browse_it_good_total %} is-positive{% endif %}">{{ browse_it_good_total }}</span></a>
+                        <a href="?view=non_it_good{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip browse-chip-good {% if browse_view == 'non_it_good' %}is-active{% endif %}" data-tip="Non-tech roles ready to apply (50%+)">Non-tech ready<span class="browse-count{% if browse_non_it_good_total %} is-positive{% endif %}">{{ browse_non_it_good_total }}</span></a>
+                        <div class="browse-chip-sep" aria-hidden="true"></div>
+                        <a href="?view=all{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'all' %}is-active{% endif %}" data-tip="All jobs from search — best scores first">All jobs<span class="browse-count{% if browse_all_total %} is-positive{% endif %}">{{ browse_all_total }}</span></a>
+                        <a href="?view=it{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'it' %}is-active{% endif %}" data-tip="All IT listings">IT &amp; tech<span class="browse-count{% if browse_it_total %} is-positive{% endif %}">{{ browse_it_total }}</span></a>
+                        <a href="?view=non_it{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'non_it' %}is-active{% endif %}" data-tip="Office, analyst, admin roles">Non-tech<span class="browse-count{% if browse_non_it_total %} is-positive{% endif %}">{{ browse_non_it_total }}</span></a>
+                        <a href="?view=unscored{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'unscored' %}is-active{% endif %}" data-tip="Not scored yet — click Score AI">Awaiting score<span class="browse-count{% if browse_unscored_total %} is-positive{% endif %}">{{ browse_unscored_total }}</span></a>
+                        <div class="browse-chip-sep" aria-hidden="true"></div>
+                        <a href="?view=degree{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'degree' %}is-active{% endif %}" data-tip="Degree requirement met">Degree-ready<span class="browse-count{% if browse_degree_total %} is-positive{% endif %}">{{ browse_degree_total }}</span></a>
+                        <a href="?view=full{{ browse_filter_qs }}" class="topbar-dropdown-link browse-chip {% if browse_view == 'full' %}is-active{% endif %}" data-tip="50%+ score and all key requirements met">Full match<span class="browse-count{% if browse_full_total %} is-positive{% endif %}">{{ browse_full_total }}</span></a>
+                    </div>
+
+                    <p class="browse-dropdown-note" data-tip="Counts overlap — not separate buckets">{{ browse_scored_total }} scored &middot; {{ browse_unscored_total }} wait &middot; {{ browse_all_total }} total</p>
+
+                    <form method="get" action="" class="browse-filter-form browse-filter-inline">
+                        <input type="hidden" name="view" value="{{ browse_view }}">
+                        <label class="browse-filter-mini" data-tip="Hide jobs that require fluent German">
+                            <input type="checkbox" name="english_ok" value="1" {% if browse_english_ok %}checked{% endif %}>
+                            <span>English</span>
+                        </label>
+                        <label class="browse-filter-mini" data-tip="Trainee, graduate, and junior roles only">
+                            <input type="checkbox" name="entry" value="1" {% if browse_entry_only %}checked{% endif %}>
+                            <span>Entry</span>
+                        </label>
+                        <label class="browse-filter-mini browse-filter-mini-select" data-tip="Filter by trainee or Werkstudent programs">
+                            <span class="browse-filter-mini-label">Program</span>
+                            <select name="program" aria-label="Program filter">
+                                <option value="" {% if not browse_program %}selected{% endif %}>Any</option>
+                                <option value="trainee" {% if browse_program == 'trainee' %}selected{% endif %}>Trainee</option>
+                                <option value="werkstudent" {% if browse_program == 'werkstudent' %}selected{% endif %}>Werkstudent</option>
+                            </select>
+                        </label>
+                        <button type="button" class="browse-filter-done">Done</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'jobs_market' %}?view=all" class="topbar-nav-link {% if nav_section == 'browse' %}is-active{% endif %}">
+                Browse jobs
+            </a>
+            {% endif %}
+            <a href="{% url 'jobs_applied' %}" class="topbar-nav-link topbar-nav-applied {% if nav_section == 'applied' %}is-active{% endif %}" data-tip="Jobs you marked as applied">
+                Applied <span class="topbar-nav-count">{{ nav_applied_count|default:"0" }}</span>
+            </a>
+        </nav>
+
+        <div class="topbar-end">
+            <div class="topbar-actions">
+                {% if nav_section == 'browse' %}
+                <button type="button" class="topbar-btn topbar-btn-secondary" id="add-job-link-btn" data-import-url="{% url 'jobs_import_url' %}" data-tip="Paste a job link — we fetch the posting and score it against your CV">
+                    <span class="topbar-btn-inner">
+                        <span class="btn-icon" aria-hidden="true">+</span>
+                        <span class="btn-label">Import URL</span>
+                    </span>
+                </button>
+                {% endif %}
+                <form method="post" action="{% url 'jobs_refresh_cache' %}" class="async-form topbar-action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="topbar-btn topbar-btn-primary" data-pipeline-btn="search" {% if nav_pipeline_running %}disabled{% endif %} data-tip="Fetch new listings from job boards">
+                        <span class="topbar-btn-fill" aria-hidden="true"></span>
+                        <span class="topbar-btn-inner">
+                            <span class="btn-icon" aria-hidden="true">&#8635;</span>
+                            <span class="btn-label">Find jobs</span>
+                            <span class="topbar-btn-status" hidden aria-live="polite"></span>
+                        </span>
+                    </button>
+                </form>
+                {% if nav_mistral_key %}
+                <form method="post" action="{% url 'jobs_run_pipeline' %}" class="async-form topbar-action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="topbar-btn topbar-btn-accent" data-pipeline-btn="score" data-label-default="{% if nav_waiting_for_ai > 0 %}Score {{ nav_waiting_for_ai }}{% else %}Score AI{% endif %}" {% if nav_pipeline_running or nav_waiting_for_ai == 0 %}disabled{% endif %} data-tip="{% if nav_pipeline_running %}Wait until Find jobs finishes, then score{% elif nav_waiting_for_ai == 0 %}All jobs scored — run Find jobs for new listings{% else %}Score unscored jobs against your CV{% endif %}">
+                        <span class="topbar-btn-fill" aria-hidden="true"></span>
+                        <span class="topbar-btn-inner">
+                            <span class="btn-icon" aria-hidden="true">&#10022;</span>
+                            <span class="btn-label">{% if nav_waiting_for_ai > 0 %}Score {{ nav_waiting_for_ai }}{% else %}Score AI{% endif %}</span>
+                            <span class="topbar-btn-status" hidden aria-live="polite"></span>
+                        </span>
+                    </button>
+                </form>
+                {% elif nav_waiting_for_ai > 0 %}
+                <span class="topbar-hint" data-tip="Add MISTRAL_API_KEY to .env">API key missing</span>
+                {% endif %}
+                <form method="post" action="{% url 'jobs_reset_pipeline' %}" class="async-form topbar-cancel-form" id="topbar-pipeline-cancel" {% if not nav_pipeline_running %}hidden{% endif %}>
+                    {% csrf_token %}
+                    <button type="submit" class="topbar-cancel-btn" data-tip="Stop search or scoring">Cancel</button>
+                </form>
+            </div>
+            <div class="topbar-menu-wrap">
+                <button type="button" class="topbar-menu-btn" id="topbar-menu-btn" aria-expanded="false" aria-haspopup="true" aria-controls="topbar-menu" data-tip="Grades, CVs, and sign out">
+                    My CVs &#9662;
+                </button>
+                <div class="topbar-dropdown topbar-dropdown-end topbar-dropdown-cv" id="topbar-menu" hidden>
+                    <p class="topbar-dropdown-heading">Documents</p>
+                    <a href="{% url 'academic_transcript' %}" class="topbar-dropdown-link cv-menu-link" target="_blank" rel="noopener">
+                        <span class="cv-menu-link-text">Grades &amp; courses</span>
+                        <span class="cv-menu-link-badge">Transcript</span>
+                    </a>
+                    <a href="{% url 'cv_select' %}" class="topbar-dropdown-link cv-menu-link">
+                        <span class="cv-menu-link-text">CV by job role</span>
+                        <span class="cv-menu-link-badge">2-page</span>
+                    </a>
+                    <div class="topbar-dropdown-divider" role="separator"></div>
+                    <a href="{% url 'cv_logout' %}" class="topbar-dropdown-link cv-menu-link cv-menu-link-signout">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="topbar-row topbar-row-stats" aria-live="polite">
+        <div class="topbar-stats">
+            {% if nav_section == 'browse' %}
+            <a href="?view=all{{ browse_filter_qs }}" class="stat-chip stat-chip-link stat-chip-blue {% if browse_view == 'all' %}is-active{% endif %}" data-stat-view="all" data-tip="All jobs from last Find jobs — opens All jobs view">
+                <span class="stat-chip-value" data-stat-jobs>{{ nav_cache_info.count|default:"0" }}</span>
+                <span class="stat-chip-label">total</span>
+            </a>
+            <a href="?view=good{{ browse_filter_qs }}" class="stat-chip stat-chip-link stat-chip-green {% if browse_view == 'good' %}is-active{% endif %}" data-stat-view="good" data-tip="50%+ AI fit — opens Good matches view">
+                <span class="stat-chip-value" data-stat-good>{{ nav_good_fits_count|default:"0" }}</span>
+                <span class="stat-chip-label">good fit</span>
+            </a>
+            <a href="?view=unscored{{ browse_filter_qs }}" class="stat-chip stat-chip-link stat-chip-amber {% if browse_view == 'unscored' %}is-active{% endif %}" data-stat-view="unscored" data-tip="Not scored yet — opens Awaiting score view">
+                <span class="stat-chip-value" data-stat-waiting>{{ nav_waiting_for_ai|default:"0" }}</span>
+                <span class="stat-chip-label">to score</span>
+            </a>
+            {% else %}
+            <a href="{% url 'jobs_market' %}?view=all" class="stat-chip stat-chip-link stat-chip-blue" data-stat-view="all" data-tip="All jobs from last Find jobs">
+                <span class="stat-chip-value" data-stat-jobs>{{ nav_cache_info.count|default:"0" }}</span>
+                <span class="stat-chip-label">total</span>
+            </a>
+            <a href="{% url 'jobs_market' %}?view=good" class="stat-chip stat-chip-link stat-chip-green" data-stat-view="good" data-tip="50%+ AI fit">
+                <span class="stat-chip-value" data-stat-good>{{ nav_good_fits_count|default:"0" }}</span>
+                <span class="stat-chip-label">good fit</span>
+            </a>
+            <a href="{% url 'jobs_market' %}?view=unscored" class="stat-chip stat-chip-link stat-chip-amber" data-stat-view="unscored" data-tip="Jobs waiting for AI score">
+                <span class="stat-chip-value" data-stat-waiting>{{ nav_waiting_for_ai|default:"0" }}</span>
+                <span class="stat-chip-label">to score</span>
+            </a>
+            {% endif %}
+        </div>
+        {% if nav_section == 'browse' %}
+        <p class="topbar-stats-hint">Click a pill to filter &middot; same numbers as Browse menu</p>
+        {% endif %}
+    </div>
+</div>

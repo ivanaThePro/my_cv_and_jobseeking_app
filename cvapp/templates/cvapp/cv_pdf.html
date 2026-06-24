@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ person_name }} - CV</title>
+    {% if cv_css_inline %}<style>{{ cv_css_inline|safe }}</style>{% else %}
+    <link rel="stylesheet" href="/assets/css/style.css?v=11">
+    <link rel="stylesheet" href="/assets/css/cv_pdf.css?v=3">
+    {% endif %}
+</head>
+<body class="pdf-export">
+    <div class="cv-container">
+        <header class="cv-header">
+            <h1>{{ person_name }}</h1>
+            <p class="contact">{{ cv.label }} · {{ person_email }} · {{ person_phone }}</p>
+        </header>
+
+        <div class="section">
+            <div class="section-title">PROFILE</div>
+            <p>{{ cv.print_summary|safe }}</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">EXPERIENCE</div>
+            {% for job in cv.experience %}{% include "cvapp/partials/cv_experience_entry.html" %}{% endfor %}
+        </div>
+
+        <div class="section">
+            <div class="section-title">EDUCATION</div>
+            {% for edu in cv.education_entries %}{% include "cvapp/partials/cv_education_entry.html" %}{% endfor %}
+        </div>
+
+        <footer class="cv-footer">Curriculum Vitae · {{ person_name }} · Updated June 2026</footer>
+    </div>
+</body>
+</html>

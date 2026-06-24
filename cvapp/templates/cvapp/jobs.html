@@ -1,0 +1,67 @@
+{% extends "cvapp/base.html" %}
+{% block title %}Job Search Dashboard{% endblock %}
+
+{% block content %}
+<div class="cv-container jobs-panel">
+    <div class="section">
+        <div class="section-title">Job Search Dashboard</div>
+        <div class="section-content">
+            <div class="dashboard-actions">
+                <form method="post" action="{% url 'jobs_refresh_cache' %}" class="action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="cta-button">Refresh Apify cache</button>
+                </form>
+                <form method="post" action="{% url 'jobs_run_pipeline' %}" class="action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="cta-button">Run scoring pipeline (dry-run)</button>
+                </form>
+            </div>
+            {% if message %}
+                <div class="status-message success">{{ message }}</div>
+            {% endif %}
+            {% if error %}
+                <div class="status-message error">{{ error }}</div>
+            {% endif %}
+            {% if not runs %}
+                <p>No job search output found yet.</p>
+                <p>{{ job_search_instructions }}</p>
+            {% else %}
+                <form method="get" class="run-select">
+                    <label for="run">Choose output run:</label>
+                    <select id="run" name="run" onchange="this.form.submit()">
+                        {% for run in runs %}
+                            <option value="{{ run }}" {% if run == selected_run %}selected{% endif %}>{{ run }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+                <div class="job-summary">
+                    <div><strong>{{ jobs|length }}</strong> jobs in this run</div>
+                    <div><strong>{{ apply_count }}</strong> apply • <strong>{{ review_count }}</strong> review • <strong>{{ skip_count }}</strong> skip</div>
+                </div>
+                <table class="job-table">
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th>Recommendation</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in jobs %}
+                            <tr>
+                                <td>{{ job.match.match_score|default:'0' }}</td>
+                                <td><span class="match-badge {{ job.match.recommendation|default:'skip' }}">{{ job.match.recommendation|default:'skip' }}</span></td>
+                                <td><a class="job-link" href="{% url 'job_detail' selected_run job.folder_name %}">{{ job.title }}</a></td>
+                                <td>{{ job.company }}</td>
+                                <td>{{ job.location|default:'—' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

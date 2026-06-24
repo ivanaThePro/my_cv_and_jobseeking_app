@@ -1,0 +1,337 @@
+{
+  "name": "Ivana Jovic",
+  "headline": "Career Counselor & Teacher | Languages | Education | Frankfurt area",
+  "email": "ivanatjovic@gmail.com",
+  "phone": "+47 47 313 788",
+  "linkedin": "",
+  "citizenship": "EU",
+  "work_eligibility": {
+    "eu_citizen": true,
+    "germany_eligible": true,
+    "notes": "EU citizen ÔÇö eligible to work in Germany/EU"
+  },
+  "location_preferences": {
+    "country": "Germany",
+    "cities": [
+      "Frankfurt am Main",
+      "Frankfurt",
+      "Hanau",
+      "Offenbach",
+      "Wiesbaden",
+      "Mainz",
+      "Darmstadt",
+      "K├Âln",
+      "Cologne",
+      "Bonn",
+      "D├╝sseldorf",
+      "Dusseldorf",
+      "Leverkusen",
+      "Bergisch Gladbach"
+    ],
+    "region": "Hesse, NRW, Rhine-Main",
+    "remote_ok": true,
+    "remote_must_be_germany_or_eu": true,
+    "hybrid_ok": true,
+    "relocate_within_germany": true,
+    "exclude_countries": [
+      "United States",
+      "USA",
+      "US"
+    ]
+  },
+  "seniority": "junior_to_mid",
+  "education_level": "bachelor_plus_pedagogy",
+  "target_seniority": [
+    "Internship",
+    "Entry level",
+    "Associate"
+  ],
+  "languages": [
+    "Serbo-Croatian",
+    "Norwegian",
+    "English",
+    "Spanish",
+    "Russian",
+    "Macedonian"
+  ],
+  "language_preferences": {
+    "preferred_workplace_languages": ["English", "German", "Norwegian"],
+    "german_level": "learning",
+    "notes": "Based in Frankfurt am Main, Germany; fluent in Norwegian and English"
+  },
+  "matching_strategy": "Match on teaching, counseling, language instruction, education, and transferable office/service experience. Candidate targets Frankfurt / Rhine-Main and NRW. Parse requirements from posting; score using pedagogical training, languages, and relevant work history.",
+  "dealbreakers": [
+    "Requires active US security clearance",
+    "Requires medical/clinical license not held",
+    "Requires licensed engineer (Ing.) without equivalent",
+    "Mandates 5+ years senior experience clearly unmet",
+    "On-site only outside Germany/EU without relocation"
+  ],
+  "search_keyword_clusters": {
+    "education_any_degree": [
+      "Universit├ñtsabschluss",
+      "Hochschulabschluss",
+      "Bachelor gesucht",
+      "Studium",
+      "beliebiges Studium",
+      "Quereinsteiger Hochschulabsolvent",
+      "Akademiker",
+      "University degree",
+      "Any degree",
+      "Graduate",
+      "Nach dem Studium",
+      "Bachelorabsolvent",
+      "Master Einstieg",
+      "Young Professional"
+    ],
+    "graduate_trainee": [
+      "Traineeprogramm",
+      "Graduate Program",
+      "Einstiegsprogramm",
+      "Absolventenprogramm",
+      "Trainee Program",
+      "Entry Program",
+      "Berufseinsteiger mit Studium",
+      "Quereinsteiger mit Studium",
+      "Nach Studium",
+      "Weiterbildung mit ├£bernahme"
+    ],
+    "bachelor_entry_level": [
+      "University Graduate",
+      "Hochschulabsolvent",
+      "Entry Level",
+      "Berufseinsteiger",
+      "Junior Analyst",
+      "Junior Consultant",
+      "Trainee",
+      "Graduate Program",
+      "Research Assistant",
+      "Project Coordinator",
+      "Project Assistant",
+      "Operations Analyst",
+      "Business Analyst",
+      "Program Coordinator",
+      "Administrative Assistant",
+      "Office Coordinator",
+      "Documentation Officer",
+      "Sachbearbeiter",
+      "Referent",
+      "Werkstudent",
+      "Working Student",
+      "Quereinsteiger",
+      "Career Starter",
+      "Associate",
+      "Junior Specialist"
+    ],
+    "office_administration": [
+      "Sachbearbeiter",
+      "Office Coordinator",
+      "Administrative Assistant",
+      "Verwaltung",
+      "B├╝rokaufmann",
+      "Documentation Specialist",
+      "Office Manager",
+      "Executive Assistant",
+      "Team Assistant",
+      "Back Office",
+      "Front Office"
+    ],
+    "business_analysis": [
+      "Business Analyst",
+      "Junior Consultant",
+      "Operations Analyst",
+      "Process Analyst",
+      "Reporting Analyst",
+      "Finance Assistant",
+      "Controlling Assistant",
+      "Procurement Assistant",
+      "Compliance Assistant"
+    ],
+    "software_development": [
+      "Python Developer",
+      "Software Developer",
+      "Software Engineer",
+      "Backend Developer",
+      "Full Stack Developer",
+      "Web Developer",
+      "Junior Developer",
+      "Associate Developer",
+      "Programmer",
+      "Django Developer",
+      "API Developer",
+      "Application Developer",
+      "Werkstudent Software",
+      "Praktikant Softwareentwicklung"
+    ],
+    "it_support": [
+      "IT Support",
+      "Technical Support",
+      "Helpdesk",
+      "Service Desk",
+      "Desktop Support",
+      "IT Specialist",
+      "Support Engineer",
+      "Technical Support Engineer",
+      "IT Technician",
+      "User Support",
+      "L1 Support",
+      "L2 Support",
+      "Production Support",
+      "Fachinformatiker Systemintegration",
+      "IT-Systemelektroniker"
+    ],
+    "customer_success": [
+      "Customer Success",
+      "Client Success",
+      "Technical Customer Success",
+      "Customer Support Specialist",
+      "Application Support",
+      "Product Support",
+      "SaaS Support",
+      "Customer Experience Specialist"
+    ],
+    "qa_testing": [
+      "QA Engineer",
+      "Software Tester",
+      "Test Analyst",
+      "Quality Assurance",
+      "QA Tester",
+      "Manual Tester",
+      "Test Engineer",
+      "Software Test Engineer"
+    ],
+    "data_analytics": [
+      "Data Analyst",
+      "Junior Data Analyst",
+      "Business Analyst IT",
+      "Reporting Analyst",
+      "BI Analyst",
+      "Analytics Associate",
+      "Data Assistant"
+    ],
+    "cloud_infra": [
+      "Cloud Support",
+      "DevOps Junior",
+      "Junior DevOps",
+      "System Administrator",
+      "IT Administrator",
+      "Junior Sysadmin",
+      "Infrastructure Support",
+      "Platform Support"
+    ],
+    "integration_delivery": [
+      "Implementation Specialist",
+      "Onboarding Specialist",
+      "Integration Engineer Junior",
+      "Professional Services Associate",
+      "Technical Consultant Junior",
+      "Solutions Consultant Junior",
+      "Delivery Analyst"
+    ],
+    "documentation_training": [
+      "Technical Writer",
+      "Documentation Specialist",
+      "Knowledge Base",
+      "IT Trainer",
+      "Training Specialist",
+      "EdTech"
+    ],
+    "stem_sustainability": [
+      "ESG Analyst",
+      "Sustainability Analyst",
+      "Climate Analyst",
+      "Energy Analyst",
+      "Environmental Data",
+      "Renewable Energy Analyst",
+      "Research Assistant",
+      "Technical Project Coordinator",
+      "Project Coordinator STEM"
+    ],
+    "multilingual_advisory": [
+      "Multilingual Support",
+      "Immigration Assistant",
+      "Integration Consultant",
+      "Documentation Coordinator",
+      "Program Coordinator NGO"
+    ],
+    "stem_general": [
+      "STEM Graduate",
+      "Science Graduate",
+      "Engineering Graduate",
+      "Environmental Analyst",
+      "Sustainability Coordinator",
+      "Energy Analyst",
+      "Research Coordinator",
+      "Technical Coordinator",
+      "Lab Assistant",
+      "Data Coordinator",
+      "Reporting Specialist",
+      "Quality Coordinator"
+    ],
+    "general_graduate": [
+      "University Graduate",
+      "Hochschulabsolvent",
+      "Absolvent",
+      "Berufseinsteiger",
+      "Career Starter",
+      "Entry Level",
+      "Junior Specialist",
+      "Associate",
+      "Trainee Program",
+      "Graduate Program",
+      "Quereinsteiger mit Studium"
+    ],
+    "english_workplace": [
+      "English speaking",
+      "Fluent English",
+      "Business English",
+      "International Team",
+      "English Office",
+      "Global Company",
+      "Expat Friendly",
+      "English Required"
+    ],
+    "customer_and_service": [
+      "Customer Service",
+      "Client Advisor",
+      "Client Relations",
+      "Service Coordinator",
+      "Customer Care",
+      "Client Support",
+      "Kundenberater",
+      "Kundenservice"
+    ],
+    "hr_and_people": [
+      "HR Assistant",
+      "People Operations",
+      "Recruiting Assistant",
+      "Talent Acquisition Junior",
+      "Personalreferent",
+      "HR Coordinator",
+      "Human Resources Assistant"
+    ],
+    "sales_and_marketing_junior": [
+      "Sales Assistant",
+      "Inside Sales",
+      "Sales Support",
+      "Marketing Assistant",
+      "Junior Marketing",
+      "Content Coordinator",
+      "Communications Assistant"
+    ]
+  },
+  "all_search_keywords": [],
+  "experience_highlights": [
+    "Career counseling and Norwegian instruction at Hero Kompetanse",
+    "Substitute Spanish teacher at Rudolf Steiner School, Lørenskog",
+    "Norwegian teacher for adults at Caritas",
+    "Anti-trafficking casework and training at Hope for Justice",
+    "Reception and customer care at Olympiatoppen Sportshotell"
+  ],
+  "education_highlights": [
+    "Practical-Pedagogical Education, University of Oslo (authorized teacher)",
+    "BA International Development",
+    "Scandinavian Languages and Literature, University of Belgrade",
+    "Spanish language and culture studies with exchange in Costa Rica"
+  ]
+}

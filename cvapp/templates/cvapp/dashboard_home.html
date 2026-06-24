@@ -1,0 +1,88 @@
+{% extends "cvapp/dashboard_base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_class %}dashboard-home-page{% endblock %}
+
+{% block content %}
+{% if message %}
+<div class="flash flash-ok home-flash">{{ message }}</div>
+{% endif %}
+{% if error %}
+<div class="flash flash-err home-flash">{{ error }}</div>
+{% endif %}
+{% if not mistral_key %}
+<div class="flash flash-err home-flash">Add MISTRAL_API_KEY to .env and restart the server.</div>
+{% endif %}
+
+<div class="home-simple">
+    <h1 class="home-title">Job search</h1>
+
+    <div class="home-status-bar">
+        <span><strong id="stat-found-count">{{ cache_info.count|default:"0" }}</strong> jobs saved</span>
+        <span><strong id="stat-matches-count">{{ matches_count|default:"0" }}</strong> good matches</span>
+        <span><strong id="stat-waiting-count">{{ waiting_for_ai|default:"0" }}</strong> to score</span>
+    </div>
+
+    <div class="home-actions">
+        <form method="post" action="{% url 'jobs_refresh_cache' %}" class="async-form home-action-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg" {% if pipeline_running %}disabled{% endif %}>
+                {% if cache_info.count %}Search again{% else %}Search jobs{% endif %}
+            </button>
+            <span class="home-action-note">
+                {% if cache_info.count %}
+                Step 1 done — {{ cache_info.count }} jobs already downloaded. Search again only when you want fresh listings.
+                {% else %}
+                Step 1 — downloads jobs from Arbeitsagentur, EURES, and more.
+                {% endif %}
+            </span>
+        </form>
+
+        {% if waiting_for_ai > 0 %}
+        <form method="post" action="{% url 'jobs_run_pipeline' %}" class="async-form home-action-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg" {% if pipeline_running %}disabled{% endif %}>
+                Analyze {{ waiting_for_ai }} jobs
+            </button>
+            <span class="home-action-note">Step 2 — AI compares each job to your CV and gives a % match.</span>
+        </form>
+        {% elif cache_info.count %}
+        <div class="home-action-form home-action-done">
+            <span class="home-step-badge is-done">Step 2 done</span>
+            <span class="home-action-note">All jobs analyzed. Open <strong>Jobs</strong> in the menu to browse and apply.</span>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'jobs_market' %}" class="btn btn-secondary btn-lg home-browse-btn">Browse all jobs →</a>
+    </div>
+
+    {% if cache_info.updated %}
+    <p class="home-meta">Last search: {{ cache_info.updated }}</p>
+    {% endif %}
+</div>
+
+<aside
+    id="pipeline-sidebar"
+    class="pipeline-sidebar"
+    {% if pipeline_status.state != 'running' %}hidden{% endif %}
+    aria-label="Progress"
+>
+    <div class="pipeline-sidebar-head">
+        <span id="pipeline-status-label" class="pipeline-sidebar-title">Working…</span>
+        <span id="pipeline-status-clock" class="pipeline-sidebar-clock">00:00</span>
+    </div>
+    <div class="pipeline-track pipeline-track-compact">
+        <div id="pipeline-status-fill" class="pipeline-fill"></div>
+    </div>
+    <p id="pipeline-progress-text" class="pipeline-sidebar-pct">0%</p>
+    <p id="pipeline-status-message" class="pipeline-sidebar-msg">Starting…</p>
+    <ul id="pipeline-source-list" class="pipeline-source-list"></ul>
+    <form method="post" action="{% url 'jobs_reset_pipeline' %}" class="pipeline-sidebar-cancel">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-ghost btn-xs">Cancel</button>
+    </form>
+</aside>
+
+<div id="pipeline-toast" class="pipeline-toast" hidden role="status"></div>
+{% endblock %}

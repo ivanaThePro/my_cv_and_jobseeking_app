@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Curriculum Vitae{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/css/style.css?v=8">
+    <link rel="stylesheet" href="/assets/css/jobs.css?v=8">
+    <script src="/assets/js/site.js?v=8" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-brand">
+            <div class="site-title">{{ person_name }}</div>
+            <div class="site-subtitle">Python Developer | Django CV Website</div>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="site-nav">
+            <ul>
+                {% for section_id, section_label in section_links %}
+                    <li><a href="#{{ section_id }}">{{ section_label }}</a></li>
+                {% endfor %}
+                {% if job_search_url %}
+                    <li><a href="{{ job_search_url }}">Job Search</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <p>Built with Django • <a href="#top">Back to top</a></p>
+    </footer>
+</body>
+</html>

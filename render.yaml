@@ -1,0 +1,76 @@
+services:
+  - type: web
+    name: ivana-cv
+    runtime: python
+    region: frankfurt
+    plan: free
+    buildCommand: >-
+      pip install -r requirements.txt
+      && python manage.py collectstatic --noinput
+      && python manage.py migrate --noinput
+    startCommand: gunicorn cvsite.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 300 --graceful-timeout 60
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: ALLOWED_HOSTS
+        value: localhost,127.0.0.1,.onrender.com
+      # Site is public until deploy: keep these values (do not set a password on Render yet).
+      - key: ENABLE_CV_PASSWORD
+        value: "false"
+      - key: CV_ACCESS_PUBLIC
+        value: "true"
+      - key: CV_ACCESS_REQUIRED
+        value: "false"
+      - key: CV_ACCESS_PASSWORD
+        value: ""
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: AUTO_SCORE_AFTER_SEARCH
+        value: "true"
+      - key: SCHEDULED_JOB_SEARCH
+        value: "true"
+      - key: JOB_DIGEST_EMAIL
+        sync: false
+      - key: CRON_SECRET
+        sync: false
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        sync: false
+      - key: WEB_FAST_SEARCH
+        value: "true"
+      - key: ARBEITSAGENTUR_MAX_SEARCHES
+        value: "12"
+      - key: ARBEITSAGENTUR_MAX_DETAILS
+        value: "60"
+      - key: ARBEITSAGENTUR_PAGES
+        value: "1"
+      - key: ARBEITNOW_MAX_QUERIES
+        value: "10"
+      - key: CV_PUBLIC_BASE_URL
+        sync: false
+
+  - type: cron
+    name: cv-daily-job-search
+    runtime: python
+    region: frankfurt
+    schedule: "0 6 * * *"
+    buildCommand: pip install -r requirements.txt
+    # Hit the live web service so search/score updates the same job cache files.
+    startCommand: >-
+      python -c "import os,urllib.request; base=os.environ.get('CV_PUBLIC_BASE_URL','').rstrip('/'); secret=os.environ.get('CRON_SECRET',''); url=f'{base}/jobs/cron/daily/?secret={secret}'; print(urllib.request.urlopen(url, timeout=300).read().decode())"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: CV_PUBLIC_BASE_URL
+        sync: false
+      - key: CRON_SECRET
+        sync: false

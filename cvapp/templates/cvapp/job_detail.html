@@ -1,0 +1,141 @@
+{% extends "cvapp/dashboard_base.html" %}
+
+{% block title %}{{ job.title }} — {{ job.company }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}">
+<style>
+.job-detail-page { max-width: 900px; margin: 0 auto; padding: 24px 20px 48px; }
+.job-detail-nav { margin-bottom: 20px; }
+.job-detail-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ebebeb;
+    margin-bottom: 16px;
+}
+.job-detail-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ebebeb;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.job-detail-card h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #555;
+    margin: 0 0 12px;
+}
+.job-detail-card p, .job-detail-card li {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #333;
+}
+.job-detail-card ul { margin: 8px 0; padding-left: 20px; }
+.job-detail-desc {
+    white-space: pre-wrap;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    max-height: 500px;
+    overflow-y: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="job-detail-page">
+    <div class="job-detail-nav">
+        <a href="{% url 'jobs_market' %}?view=good" class="btn btn-secondary btn-sm">← Back to good fits</a>
+        {% if job.tailored_resume %}
+        <a href="{% url 'job_material_pdf' run_name job.folder_name 'resume' %}" class="btn btn-primary btn-sm">Resume PDF</a>
+        {% endif %}
+        {% if job.cover_letter %}
+        <a href="{% url 'job_material_pdf' run_name job.folder_name 'cover_letter' %}" class="btn btn-primary btn-sm">Cover letter PDF</a>
+        {% endif %}
+    </div>
+
+    <div class="job-detail-top">
+        <div>
+            <h1 style="font-size:1.5rem;font-weight:700;margin:0 0 8px;">{{ job.title }}</h1>
+            <p style="font-size:1.05rem;color:#444;font-weight:600;margin:0 0 4px;">{{ job.company }}</p>
+            {% if job.location %}<p style="color:#666;margin:0;">{{ job.location }}</p>{% endif %}
+        </div>
+        <div style="text-align:right;">
+            <div class="jobs-detail-score-ring">{{ job.match.match_score }}%</div>
+            <div class="jobs-detail-score-label">CV match</div>
+            {% if job.match.must_have_total %}
+            <p style="font-size:0.82rem;color:#666;margin:8px 0;">Must-haves: {{ job.match.must_have_met_count }} / {{ job.match.must_have_total }}</p>
+            {% endif %}
+            <span class="jobs-detail-rec rec-{{ job.match.recommendation|default:'skip' }}">{{ job.match.recommendation|default:"skip" }}</span>
+        </div>
+    </div>
+
+    <div class="job-detail-card">
+        <h3>CV match analysis</h3>
+        <p>{{ job.match.reasoning|default:"No analysis recorded." }}</p>
+        {% if job.match.title_vs_requirements_note %}
+        <p style="margin-top:12px;"><strong>Title vs requirements:</strong> {{ job.match.title_vs_requirements_note }}</p>
+        {% endif %}
+    </div>
+
+    {% if job.match.requirements_analysis %}
+    <div class="job-detail-card">
+        <h3>Requirements vs your CV</h3>
+        <table class="jobs-req-table">
+            <thead><tr><th>Requirement</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                {% for row in job.match.requirements_analysis %}
+                <tr>
+                    <td>{{ row.requirement }}</td>
+                    <td><span class="jobs-req-status {{ row.status }}">{{ row.status }}</span></td>
+                    <td>{{ row.evidence }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <div class="job-detail-card">
+        <h3>Skills summary</h3>
+        {% if job.match.required_met %}
+        <p><strong>You have:</strong></p>
+        <ul>{% for item in job.match.required_met %}<li>{{ item }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if job.match.required_missing %}
+        <p><strong>Missing:</strong></p>
+        <ul>{% for item in job.match.required_missing %}<li>{{ item }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if job.match.dealbreakers %}
+        <p><strong>Dealbreakers:</strong> {{ job.match.dealbreakers|join:", " }}</p>
+        {% endif %}
+    </div>
+
+    {% if job.description %}
+    <div class="job-detail-card">
+        <h3>Job description</h3>
+        <div class="job-detail-desc">{{ job.description }}</div>
+    </div>
+    {% endif %}
+
+    {% if job.tailored_resume %}
+    <div class="job-detail-card">
+        <h3>Tailored resume</h3>
+        <pre style="white-space:pre-wrap;font-family:inherit;font-size:0.9rem;line-height:1.6;">{{ job.tailored_resume }}</pre>
+    </div>
+    {% endif %}
+
+    {% if job.cover_letter %}
+    <div class="job-detail-card">
+        <h3>Cover letter</h3>
+        <pre style="white-space:pre-wrap;font-family:inherit;font-size:0.9rem;line-height:1.6;">{{ job.cover_letter }}</pre>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

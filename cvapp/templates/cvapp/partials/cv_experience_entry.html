@@ -1,0 +1,12 @@
+<div class="entry">
+    <div class="entry-header">
+        <div class="entry-heading">
+            <div class="role">{{ job.role }}</div>
+            <div class="org">{{ job.org }}</div>
+        </div>
+        <div class="date">{{ job.date }}</div>
+    </div>
+    {% if job.bullets %}
+    <ul>{% for bullet in job.bullets %}<li>{{ bullet }}</li>{% endfor %}</ul>
+    {% endif %}
+</div>

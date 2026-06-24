@@ -1,0 +1,19 @@
+{
+  "_comment": "Input for Apify Indeed actors (e.g. mukeshrana90/indeed-jobs-scraper). country=de uses de.indeed.com.",
+  "country": "de",
+  "maxResultsPerSearch": 30,
+  "searches": [
+    { "query": "Python Developer", "location": "Frankfurt" },
+    { "query": "Software Developer", "location": "Frankfurt" },
+    { "query": "IT Support", "location": "Frankfurt" },
+    { "query": "Helpdesk", "location": "Frankfurt" },
+    { "query": "Junior Developer", "location": "Köln" },
+    { "query": "IT Support", "location": "Köln" },
+    { "query": "Python Developer", "location": "Köln" },
+    { "query": "Software Developer", "location": "Düsseldorf" },
+    { "query": "IT Support", "location": "Düsseldorf" },
+    { "query": "QA Engineer", "location": "Bonn" },
+    { "query": "Werkstudent IT", "location": "Frankfurt" },
+    { "query": "System Administrator", "location": "Mainz" }
+  ]
+}
