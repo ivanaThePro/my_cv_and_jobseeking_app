@@ -35,10 +35,10 @@ PROFILE_PATH = SCRIPT_DIR / "profile.json"
 CANDIDATE_PROFILE_ID = "ivana_jovic_v1"
 CANDIDATE_NAME = "Ivana Jovic"
 LEGACY_MATCH_MARKERS = re.compile(
-    r"\b(earmyas|measho|gebre|addis ababa|linnaeus|uppsala|lule[aå]|"
+    r"\b(earmyas|measho|gebre|addis ababa|"
     r"dell\b|dell awards?|199\s*ects|~199|computer science degree|"
     r"technical support awards?|ethiopia\b|stem bachelor|software design coursework|"
-    r"data management.*coursework)\b",
+    r"data management.*coursework|cv-website-1-t8oi)\b",
     re.IGNORECASE,
 )
 CV_PROFILE_PATH = SCRIPT_DIR / "data" / "cv_profile.json"
@@ -786,7 +786,7 @@ def build_matching_context(cv: str, profile: dict | None = None) -> str:
 20. Do NOT require prior job titles to match the posting; Norwegian work history is valid transferable experience.
 21. When posting asks for "first experience" or Berufseinsteiger, education, teaching practice, and counseling count as evidence.
 22. Prefer scoring 50%+ for any knowledge-work role where degree + transferable skills fit, even without domain work history.
-23. Candidate is Ivana Jovic ONLY — cite facts from the CV and qualifications JSON above. NEVER mention 199 ECTS, Dell, Addis Ababa, Ethiopia, computer science degree, Linnaeus, technical support awards, or STEM/software coursework unless explicitly present in the CV text.
+23. Candidate is Ivana Jovic ONLY — cite facts from the CV and qualifications JSON above. NEVER mention 199 ECTS, Dell, Addis Ababa, Ethiopia, full computer science degree, or technical support awards unless explicitly present in the CV text. IT coursework (Java, Python, Flutter, security) IS in the CV — cite it for junior/trainee IT roles only.
 24. For degree requirements cite: BA International Development, Practical-Pedagogical Education (authorized teacher), and related studies — not ECTS totals.
 """
 
@@ -3244,7 +3244,7 @@ Rules:
 - Trainee / Traineeprogramm / Berufseinsteiger after studies: entry path — score 50%+ when degree + transferable skills align.
 - Experience: "first job", Berufseinsteiger, graduate, trainee = do not require 3+ years; map teaching, counseling, and reception as evidence.
 - Education-first: score from BA International Development, pedagogy, languages, and people-facing experience — NOT from having worked in that exact field before in Germany.
-- NEVER cite 199 ECTS, Dell, Addis Ababa, computer science degree, or technical support awards — not in this CV.
+- NEVER cite 199 ECTS, Dell, Addis Ababa, full computer science degree, or technical support awards — not in this CV. IT coursework listed in the CV may be cited for entry-level IT roles.
 - Evidence in requirements_analysis should cite teaching, counseling, reception, and education from the CV only.
 - recommendation apply if match_score >= {APPLY_SCORE_MIN}, must_have_met_count/must_have_total >= {APPLY_MUST_RATIO_MIN}, must_have_met_count >= 1, no dealbreakers.
 - recommendation review if score >= {REVIEW_SCORE_MIN} and ratio >= {REVIEW_MUST_RATIO_MIN}.

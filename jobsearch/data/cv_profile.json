@@ -1,7 +1,7 @@
 {
   "candidate": "Ivana Jovic",
   "analyzed_at": "2026-06-18",
-  "seniority_level": "Mid-level education and counseling professional",
+  "seniority_level": "Mid-level education and counseling professional; entry-level IT coursework (junior/trainee IT roles)",
   "education_level": "Bachelor + pedagogical qualification",
   "visa_work_eligibility": "Based in Frankfurt am Main, Germany — eligible to work in Germany/EU",
   "location_preferences": [
@@ -19,9 +19,9 @@
     "Remote EU"
   ],
   "technical_skills": {
-    "languages": ["Python (beginner)", "JavaScript (beginner)"],
-    "tools": ["Microsoft Office", "Protel", "Opera", "Ad Opus", "Karriere Pro"],
-    "domains": ["Adult education systems", "Booking and reception systems"]
+    "languages": ["Python (foundational)", "Java (introductory OOP)", "JavaScript (foundational)", "Dart/Flutter (intro)"],
+    "tools": ["Microsoft Office", "Protel", "Opera", "Ad Opus", "Karriere Pro", "Git (introductory)"],
+    "domains": ["Adult education systems", "Booking and reception systems", "Introductory software development", "Computer security basics", "Technical documentation"]
   },
   "soft_skills": [
     "Communication",
@@ -45,17 +45,20 @@
     "Adult learning",
     "Career services",
     "Non-profit / human rights",
-    "Hospitality"
+    "Hospitality",
+    "IT (entry-level / trainee)"
   ],
   "transferable_skills": [
-    "Teaching → language teacher, substitute teacher, adult education",
+    "Teaching → language teacher, substitute teacher, adult education, IT trainer junior",
     "Counseling → career guidance, competence services, program support",
-    "Reception → customer service, front desk, coordinator roles",
-    "Training → workshop facilitator, course organizer",
-    "Languages → multilingual communication roles"
+    "Reception → customer service, front desk, coordinator roles, IT helpdesk L1",
+    "Training → workshop facilitator, course organizer, technical documentation",
+    "Languages → multilingual communication roles",
+    "IT coursework → junior developer trainee, Werkstudent IT, QA tester entry, application support"
   ],
   "certifications_training": [
     "Practical-Pedagogical Education, University of Oslo",
+    "IT coursework: Java OOP, Python, Flutter, computer security, technical communication (Linnaeus, Uppsala, Luleå, UiO)",
     "First Aid Course, Oslo Red Cross",
     "Red Cross history and values",
     "Basic course in social care",
@@ -66,11 +69,12 @@
     "Career counselor with Norwegian language instruction background",
     "Five languages including native Serbo-Croatian",
     "Strong intercultural and communication skills",
-    "Based in Frankfurt am Main — targeting Rhine-Main and NRW roles"
+    "Based in Frankfurt am Main — targeting Rhine-Main and NRW roles",
+    "Foundational IT skills: Java, Python, Flutter, security, technical writing from accredited university courses"
   ],
   "gaps": [
-    "Not a software developer profile",
-    "Limited advanced digital/IT production experience"
+    "Not a senior software engineer — targets trainee, Werkstudent, junior, and support roles only",
+    "Limited professional production coding experience (coursework and projects)"
   ],
   "qualified_role_families": [
     "Teacher",
@@ -89,7 +93,14 @@
     "Case worker",
     "Office administrator",
     "HR assistant",
-    "Project coordinator"
+    "Project coordinator",
+    "IT trainee",
+    "Junior developer",
+    "Werkstudent IT",
+    "IT support / helpdesk",
+    "Application support",
+    "QA tester",
+    "Technical writer"
   ],
   "matching_mode": "requirements_based_not_title",
   "qualifications_file": "data/qualifications.json"

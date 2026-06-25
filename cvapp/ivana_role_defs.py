@@ -218,7 +218,7 @@ def build_all_role_cvs() -> dict[str, RoleCV]:
                 (
                     ('Education & Pedagogy', 'Authorized teacher, adult education, career counseling, lesson planning'),
                     ('Program & NGO', 'Course facilitation, stakeholder coordination, documentation, victim support'),
-                    ('Digital literacy', 'Microsoft Office, Karriere Pro, Ad Opus; Python/JavaScript beginner'),
+                    ('Digital literacy', 'Microsoft Office, Karriere Pro, Ad Opus; Python, Java, JavaScript (foundational)'),
                 ),
                 profile_highlights=(
                     '<strong>Education:</strong> BA International Development; Practical-Pedagogical Education (UiO).',

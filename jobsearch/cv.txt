@@ -36,7 +36,18 @@ LANGUAGES
 Serbo-Croatian (native), Norwegian, English, Spanish (proficient), Russian (intermediate), Macedonian (basic)
 
 COMPUTER SKILLS
-Microsoft Office, Protel and Opera booking systems, Ad Opus, Karriere Pro, Python and JavaScript (beginner)
+Microsoft Office, Protel and Opera booking systems, Ad Opus, Karriere Pro
+Python, Java, JavaScript (foundational); Flutter/Dart (intro); SQL (intro); Git (intro)
+
+IT & COMPUTER SCIENCE COURSEWORK (Sweden / Norway)
+Introduction to Object-oriented Programming / Python (IN1000), University of Oslo (IFI)
+Technical Information and Communication (1DV510), Linnaeus University
+Information Technology: Possibilities and Challenges (1DT110), Uppsala University
+Initial programming in Java (D0017D), Luleå University of Technology
+Object-Oriented Programming (1DV502), Linnaeus University
+Computer Security (1DV700), Linnaeus University
+Current Topics within Computer Science (2DV505), Linnaeus University
+Introduction to App Development with Flutter (1DV535), Linnaeus University
 
 COURSES AND GRANTS
 First Aid Course, Oslo Red Cross, September 2014

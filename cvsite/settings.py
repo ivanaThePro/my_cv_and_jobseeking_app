@@ -15,6 +15,22 @@ import sys
 from pathlib import Path
 from decouple import config
 
+
+def _config_bool(name: str, *, default: bool = False) -> bool:
+    """Parse env booleans; tolerate common typos like 'fals' on Render."""
+    raw = os.getenv(name, '').strip().lower()
+    if not raw:
+        return default
+    if raw in ('1', 'true', 'yes', 'on', 't'):
+        return True
+    if raw in ('0', 'false', 'no', 'off', 'f', 'fals', 'flase'):
+        return False
+    try:
+        return config(name, default=default, cast=bool)
+    except ValueError:
+        return default
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +47,7 @@ if JOB_SEARCH_ROOT.exists():
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-egkiou&a-4ph&o&6ubodk!*$-hxg2n9k_sbne+1t7+%hli^cmg')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = _config_bool('DEBUG', default=True)
 
 _allowed = [h.strip() for h in config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',') if h.strip()]
 _render_host = os.getenv('RENDER_EXTERNAL_HOSTNAME', '').strip()
@@ -155,9 +171,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JOB_DEFAULT_MIN_SCORE = config('JOB_DEFAULT_MIN_SCORE', default=50, cast=int)
 JOB_DEFAULT_MAX_JOBS = config('JOB_DEFAULT_MAX_JOBS', default=150, cast=int)
 
-# Site password — OFF unless ENABLE_CV_PASSWORD=true (set on Render after deploy only).
-# Stale CV_ACCESS_PASSWORD in .env or the shell is ignored while this is false.
-ENABLE_CV_PASSWORD = config('ENABLE_CV_PASSWORD', default=False, cast=bool)
+# Site password — ON when ENABLE_CV_PASSWORD=true and CV_ACCESS_PASSWORD is set.
+ENABLE_CV_PASSWORD = _config_bool('ENABLE_CV_PASSWORD', default=True)
 CV_ACCESS_PUBLIC = not ENABLE_CV_PASSWORD
 CV_ACCESS_REQUIRED = ENABLE_CV_PASSWORD
 CV_ACCESS_PASSWORD = (

@@ -77,7 +77,8 @@ class CVAppTests(TestCase):
         self.assertContains(response, 'Practical-Pedagogical Education')
         self.assertContains(response, 'BA International Development')
         self.assertNotContains(response, 'PROFESSIONAL EXPERIENCE')
-        self.assertNotContains(response, '1DV501')
+        self.assertContains(response, 'UTVB1400')
+        self.assertContains(response, 'Programme plan (UTVBA)')
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_academic_transcript_page(self):
@@ -178,20 +179,33 @@ class CVAppTests(TestCase):
         self.assertTrue(lib.is_degree_requirement_met(match, blob=blob, title='Junior Analyst'))
 
     def test_course_syllabus_urls_verified(self):
-        from cvapp.course_links import course_syllabus_url
+        from cvapp.course_links import course_syllabus_backup_path, course_syllabus_url
 
         self.assertEqual(
             course_syllabus_url('PED'),
-            'https://www.uio.no/english/studies/programmes/',
+            'https://www.uio.no/english/studies/programmes/ppu/',
+        )
+        self.assertEqual(
+            course_syllabus_url('1DV502'),
+            'https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf',
+        )
+        self.assertEqual(
+            course_syllabus_url('D0017D'),
+            'https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D',
+        )
+        self.assertEqual(
+            course_syllabus_url('IN1000'),
+            'https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html',
+        )
+        self.assertEqual(
+            course_syllabus_url('1DT110'),
+            'https://www.uu.se/en/study/syllabus?query=50973',
         )
         self.assertEqual(
             course_syllabus_url('BA'),
-            'https://www.oslomet.no/en/about/positive-history/merger',
+            'https://student.oslomet.no/en/bachelor-utviklingsstudier',
         )
-        self.assertEqual(
-            course_syllabus_url('SCAN'),
-            'https://www.bg.ac.rs/index.php/en/',
-        )
+        self.assertEqual(course_syllabus_backup_path('1DV535'), '/course-syllabus/syllabus-1DV535-1.pdf')
         self.assertEqual(course_syllabus_url(''), '')
 
     @override_settings(CV_ACCESS_PASSWORD='')
@@ -225,6 +239,7 @@ class CVAppTests(TestCase):
         self.assertContains(response, 'Consolidated academic record')
         self.assertContains(response, 'Graduate Trainee CV')
 
+    @override_settings(CV_ACCESS_PASSWORD='')
     def test_cv_select_alias_redirects(self):
         response = self.client.get('/cv/select/')
         self.assertEqual(response.status_code, 302)
@@ -270,7 +285,7 @@ class CVAppTests(TestCase):
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_key_pages_have_no_legacy_earmyas_content(self):
-        markers = ('earmyas', 'dell', 'addis ababa', 'measho', 'gebre', '199 ects', 'linnaeus university', 'cv-website-1-t8oi.onrender.com')
+        markers = ('earmyas', 'dell', 'addis ababa', 'measho', 'gebre', '199 ects', 'cv-website-1-t8oi.onrender.com')
         paths = (
             '/cv/general/',
             '/cv/manual/',
@@ -1132,7 +1147,7 @@ class CVAppTests(TestCase):
         response = self.client.get('/transcript/?lang=no')
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
-        self.assertIn('Samlet utdanningsdokumentasjon', content)
+        self.assertIn('Samlet akademisk oversikt', content)
         self.assertIn('Norsk høyere utdanning', content)
         self.assertNotIn('Consolidated Academic Record</h1>', content)
 

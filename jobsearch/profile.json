@@ -59,7 +59,7 @@
     "german_level": "learning",
     "notes": "Based in Frankfurt am Main, Germany; fluent in Norwegian and English"
   },
-  "matching_strategy": "Match on teaching, counseling, language instruction, education, and transferable office/service experience. Candidate targets Frankfurt / Rhine-Main and NRW. Parse requirements from posting; score using pedagogical training, languages, and relevant work history.",
+  "matching_strategy": "Match on teaching, counseling, language instruction, education, entry-level IT (trainee/Werkstudent/junior support), and transferable office/service experience. Candidate targets Frankfurt / Rhine-Main and NRW. Parse requirements from posting; score using pedagogical training, languages, IT coursework (Java, Python, Flutter, security), and relevant work history.",
   "dealbreakers": [
     "Requires active US security clearance",
     "Requires medical/clinical license not held",
@@ -332,6 +332,7 @@
     "Practical-Pedagogical Education, University of Oslo (authorized teacher)",
     "BA International Development",
     "Scandinavian Languages and Literature, University of Belgrade",
-    "Spanish language and culture studies with exchange in Costa Rica"
+    "Spanish language and culture studies with exchange in Costa Rica",
+    "IT coursework: Java OOP, Python, Flutter, computer security, technical communication (Linnaeus, Uppsala, Luleå, UiO)"
   ]
 }

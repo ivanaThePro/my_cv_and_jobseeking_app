@@ -50,8 +50,49 @@
         }
         .course-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
         .course-header h4 { margin: 0; font-size: 11pt; color: var(--text-dark); }
+        .course-header h4 a { color: var(--text-dark); text-decoration: none; }
+        .course-header h4 a:hover { color: var(--primary); text-decoration: underline; }
         .course-date { font-size: 9.5pt; color: var(--text-muted); white-space: nowrap; }
         .course-desc { margin: 8px 0 0; font-size: 10pt; color: var(--text-muted); }
+        .course-desc a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .course-desc a:hover { text-decoration: underline; }
+        .course-code { font-size: 9pt; color: var(--primary); font-weight: 600; }
+        .syllabus-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .syllabus-links a {
+            font-size: 9pt; color: var(--primary); font-weight: 600; text-decoration: none;
+            border: 1px solid var(--border-light); padding: 3px 8px; border-radius: 4px; background: #fff;
+        }
+        .syllabus-links a:hover { background: var(--bg-light); }
+        .program-intro {
+            margin: 0 0 10px;
+            font-size: 10pt;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+        .program-intro a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .program-intro a:hover { text-decoration: underline; }
+        .program-year-label {
+            margin: 18px 0 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.02em;
+        }
+        .course-card--module {
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+        .course-card--module .course-header h4 { font-size: 10.5pt; }
+        .course-credits {
+            display: inline-block;
+            margin-left: 6px;
+            font-size: 9pt;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
         .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
         .skill-box {
             background: var(--bg-light); border: 1px solid var(--border-light);
@@ -82,24 +123,185 @@
     <div class="section-title" id="higher-education">Higher Education</div>
 
     <div class="course-card">
-        <div class="course-header"><h4>Practical-Pedagogical Education (one-year unit)</h4><span class="course-date">2014 – 2015</span></div>
-        <p class="course-desc">University of Oslo, Norway. Authorized teacher: pre-school, primary, secondary, and adult level. Internship: Kongshavn High School — Spanish (intermediate) and Norwegian for language-minority students.</p>
+        <div class="course-header"><h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education (one-year unit)</a></h4><span class="course-date">2014 – 2015</span></div>
+        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a>, Norway. Authorized teacher: pre-school, primary, secondary, and adult level. Internship: Kongshavn High School — Spanish (intermediate) and Norwegian for language-minority students.</p>
+        <div class="syllabus-links">
+            <a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Program page</a>
+            <a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
     </div>
     <div class="course-card">
-        <div class="course-header"><h4>BA International Development</h4><span class="course-date">2010 – 2013</span></div>
-        <p class="course-desc">Oslo and Akershus University College, Norway. Dissertation: exploitation of migrant workers in Gulf countries. Fieldwork in Puebla, Mexico City, and Oaxaca, Mexico.</p>
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4><span class="course-date">2010 – 2013</span></div>
+        <p class="course-desc"><a href="https://www.oslomet.no/en" target="_blank" rel="noopener noreferrer">Oslo and Akershus University College (OsloMet)</a>, Norway. Bachelor's Programme in Development Studies (<strong>UTVBA</strong>, 180 ECTS). Individual bachelor dissertation on exploitation of migrant workers in Gulf countries.</p>
+        <div class="syllabus-links">
+            <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Programme plan (UTVBA)</a>
+            <a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">Program overview</a>
+            <a href="https://www.oslomet.no/en" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+
+    <div class="section-title" id="utvba-courses">BA Development Studies — Programme Courses (OsloMet UTVBA)</div>
+    <p class="program-intro">Course structure from the official <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">UTVBA programme plan</a>. Completed at HiOA/OsloMet, 2010–2013. Each module links to the current official course description on student.oslomet.no.</p>
+
+    <div class="program-year-label">1st year of study</div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1100/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Introduction to Development Studies <span class="course-code">UTVB1100</span></a><span class="course-credits">20 ECTS</span></h4></div>
+        <p class="course-desc">Interdisciplinary introduction to development studies, North/South relations, development theory, poverty, and globalisation.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1100/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1200/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Regional Knowledge and Global History <span class="course-code">UTVB1200</span></a><span class="course-credits">10 ECTS</span></h4></div>
+        <p class="course-desc">Regional perspectives and global historical context for development issues.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1200/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1300/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Introduction to Methods and Philosophy of Science <span class="course-code">UTVB1300</span></a><span class="course-credits">10 ECTS</span></h4></div>
+        <p class="course-desc">Qualitative methods and philosophy of science — foundation for fieldwork and research writing.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1300/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1400/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Fieldwork in Development Studies <span class="course-code">UTVB1400</span></a><span class="course-credits">20 ECTS</span></h4></div>
+        <p class="course-desc">Five-week group fieldwork and field report. <strong>My fieldwork:</strong> Puebla, Mexico City, and Oaxaca, Mexico.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1400/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+
+    <div class="program-year-label">2nd year of study</div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Power and Politics <span class="course-code">UTVB2000</span></a><span class="course-credits">30 ECTS</span></h4></div>
+        <p class="course-desc">Semester module on power, politics, and governance in development contexts.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2100/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development and Migration <span class="course-code">UTVB2100</span></a><span class="course-credits">10 ECTS</span></h4></div>
+        <p class="course-desc">Migration, labour mobility, and development — relevant to later dissertation research.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2100/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2400/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Media and Development <span class="course-code">UTVB2400</span></a><span class="course-credits">10 ECTS</span></h4></div>
+        <p class="course-desc">Media, communication, and representation in development debates.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2400/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Choices of Sustainability Transitions <span class="course-code">UTVB2500</span></a><span class="course-credits">10 ECTS</span></h4></div>
+        <p class="course-desc">Sustainability transitions and development policy choices.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+
+    <div class="program-year-label">3rd year of study</div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2210/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Education and Religion in Development <span class="course-code">UTVB2210</span></a><span class="course-credits">15 ECTS</span></h4></div>
+        <p class="course-desc">Education, religion, and social change in development settings.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2210/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3003/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Introduction to the Development Enterprise <span class="course-code">UTVB3003</span></a><span class="course-credits">15 ECTS</span></h4></div>
+        <p class="course-desc">Development organisations, practice, and the professional development field.</p>
+        <div class="syllabus-links"><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3003/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
+    </div>
+    <div class="course-card course-card--module">
+        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3300/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Theories of Development, Globalisation and Social Change <span class="course-code">UTVB3300</span></a><span class="course-credits">30 ECTS</span></h4></div>
+        <p class="course-desc">Final-year theory module with <strong>individual bachelor dissertation</strong> on exploitation of migrant workers in Gulf countries. (Alternative track: internship module UTVB3901.)</p>
+        <div class="syllabus-links">
+            <a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3300/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a>
+            <a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3901/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Alternative: internship module</a>
+        </div>
     </div>
     <div class="course-card">
-        <div class="course-header"><h4>Spanish language and culture in Latin America</h4><span class="course-date">2013 – 2014</span></div>
-        <p class="course-desc">Telemark University College, Norway. Exchange: Costa Rican Language Academy, San José (6 months).</p>
+        <div class="course-header"><h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4><span class="course-date">2013 – 2014</span></div>
+        <p class="course-desc"><a href="https://www.usn.no/english" target="_blank" rel="noopener noreferrer">Telemark University College (USN)</a>, Norway. Exchange: Costa Rican Language Academy, San José (6 months).</p>
+        <div class="syllabus-links">
+            <a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Program page</a>
+            <a href="https://www.usn.no/english" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
     </div>
     <div class="course-card">
-        <div class="course-header"><h4>Scandinavian Languages and Literature (Norwegian)</h4><span class="course-date">2000 – 2008</span></div>
-        <p class="course-desc">University of Belgrade, Serbia.</p>
+        <div class="course-header"><h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4><span class="course-date">2000 – 2008</span></div>
+        <p class="course-desc"><a href="https://www.fil.bg.ac.rs/en/" target="_blank" rel="noopener noreferrer">University of Belgrade</a>, Faculty of Philology, Serbia.</p>
+        <div class="syllabus-links">
+            <a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Program page</a>
+            <a href="https://www.bg.ac.rs/index.php/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
     </div>
     <div class="course-card">
-        <div class="course-header"><h4>Labor law (one-semester unit)</h4><span class="course-date">2020 – present</span></div>
-        <p class="course-desc">University of Oslo, Norway. In progress.</p>
+        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4><span class="course-date">2020 – present</span></div>
+        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a>, Norway. In progress — individual labour law coursework.</p>
+        <div class="syllabus-links">
+            <a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Course page</a>
+            <a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+
+    <div class="section-title" id="it-courses">Computer Science &amp; IT Courses</div>
+
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Introduction to Object-oriented Programming (Python) <span class="course-code">IN1000</span></a></h4><span class="course-date">University of Oslo</span></div>
+        <p class="course-desc"><a href="https://www.uio.no/english/about/organisation/faculty/matnat/ifi/" target="_blank" rel="noopener noreferrer">University of Oslo (IFI)</a> — Python programming with emphasis on object-oriented design: classes, objects, algorithms, and problem solving.</p>
+        <div class="syllabus-links">
+            <a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Official course page</a>
+            <a href="https://www.uio.no/english/about/organisation/faculty/matnat/ifi/" target="_blank" rel="noopener noreferrer">Department website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – Jan 2021</span></div>
+        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — technical writing, presentations, and professional documentation.</p>
+        <div class="syllabus-links">
+            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – Aug 2022</span></div>
+        <p class="course-desc"><a href="https://www.uu.se/en/" target="_blank" rel="noopener noreferrer">Uppsala University</a> — IT in society, ethics, sustainability, and digitalisation.</p>
+        <div class="syllabus-links">
+            <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="https://www.uu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
+        <p class="course-desc"><a href="https://www.ltu.se/en" target="_blank" rel="noopener noreferrer">Luleå University of Technology</a> — Java syntax, control structures, methods, and debugging.</p>
+        <div class="syllabus-links">
+            <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/Syllabus_D0017D.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://www.ltu.se/en" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – Mar 2023</span></div>
+        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — OOP in Java: classes, inheritance, polymorphism, and collections.</p>
+        <div class="syllabus-links">
+            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – Jan 2023</span></div>
+        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — cryptography basics, authentication, and secure system design.</p>
+        <div class="syllabus-links">
+            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
+        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — contemporary CS themes, research literacy, and emerging technologies.</p>
+        <div class="syllabus-links">
+            <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
+    </div>
+    <div class="course-card">
+        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – Aug 2023</span></div>
+        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — cross-platform mobile apps with Flutter and Dart.</p>
+        <div class="syllabus-links">
+            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
+            <a href="/course-syllabus/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        </div>
     </div>
 
     <div class="section-title" id="professional-courses">Professional Courses & Certifications</div>
@@ -137,7 +339,7 @@
         </div>
         <div class="skill-box">
             <h5>Career & program tools</h5>
-            <p>Ad Opus, Karriere Pro; Python and JavaScript (beginner)</p>
+            <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (foundational); Flutter/Dart (intro)</p>
         </div>
     </div>
 

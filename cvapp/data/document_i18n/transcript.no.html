@@ -390,7 +390,9 @@
         }
 
         /* ========== Table Styles ========== */
-        .university-table {
+        .record-table,
+        .university-table,
+        .course-register {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 8px;
@@ -398,36 +400,78 @@
             table-layout: fixed;
         }
 
+        .record-table col.w-code,
+        .course-register col.w-code { width: 7%; }
+        .record-table col.w-title,
+        .course-register col.w-title { width: 36%; }
+        .record-table col.w-institution,
+        .course-register col.w-institution { width: 20%; }
+        .record-table col.w-term,
+        .course-register col.w-term { width: 15%; }
+        .record-table col.w-meta,
+        .course-register col.w-credits { width: 11%; }
+        .course-register col.w-grade { width: 11%; }
+
         .university-table .col-code { width: 10%; }
         .university-table .col-title { width: 44%; }
         .university-table .col-term { width: 14%; }
         .university-table .col-credits { width: 14%; }
         .university-table .col-status { width: 18%; }
 
-        .university-table thead {
+        .record-table thead,
+        .university-table thead,
+        .course-register thead {
             background: #e8eef4;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
-        .university-table th {
-            padding: 6px 8px;
+        .record-table th,
+        .university-table th,
+        .course-register th {
+            padding: 7px 10px;
             font-weight: 700;
             color: #1e293b;
             border-bottom: 2px solid #94a3b8;
             text-align: left;
             font-size: 9px;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
             vertical-align: bottom;
         }
 
-        .university-table td {
-            padding: 6px 8px;
+        .record-table td,
+        .university-table td,
+        .course-register td {
+            padding: 7px 10px;
             border-bottom: 1px solid #e2e8f0;
-            vertical-align: top;
+            vertical-align: middle;
             line-height: 1.35;
+        }
+
+        .record-table th.col-term,
+        .record-table td.col-term,
+        .record-table th.col-credits,
+        .record-table td.col-credits,
+        .record-table th.col-grade,
+        .record-table td.col-grade,
+        .course-register th.col-term,
+        .course-register td.col-term,
+        .course-register th.col-credits,
+        .course-register td.col-credits {
+            text-align: right;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .record-table th.col-grade,
+        .record-table td.col-grade,
+        .course-register th.col-grade,
+        .course-register td.col-grade {
+            text-align: center;
+        }
+
+        .record-table td.col-grade,
+        .course-register td.col-grade {
+            color: #94a3b8;
         }
 
         .university-table th.col-credits,
@@ -439,12 +483,16 @@
 
         .university-table th.col-status,
         .university-table td.col-status {
-            text-align: center;
+            text-align: left;
             vertical-align: middle;
         }
 
         .university-table th.col-code,
-        .university-table td.col-code {
+        .university-table td.col-code,
+        .record-table th.col-code,
+        .record-table td.col-code,
+        .course-register th.col-code,
+        .course-register td.col-code {
             font-weight: 600;
             color: #1e3a5f;
             white-space: nowrap;
@@ -452,18 +500,37 @@
         }
 
         .university-table th.col-term,
-        .university-table td.col-term {
+        .university-table td.col-term,
+        .record-table th.col-term,
+        .record-table td.col-term {
             white-space: nowrap;
             font-size: 10px;
-            color: #475569;
+            color: #334155;
         }
 
-        .university-table tbody tr:nth-child(odd):not(.subtotal) {
+        .record-table tbody tr:nth-child(odd),
+        .university-table tbody tr:nth-child(odd):not(.subtotal),
+        .course-register tbody tr:nth-child(odd) {
             background-color: #fafbfc;
         }
 
-        .university-table tbody tr:hover:not(.subtotal) {
-            background-color: #f1f5f9;
+        .section-note {
+            margin: 0 0 8px;
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .course-register tfoot td {
+            font-weight: 700;
+            color: #1e3a5f;
+            background: #f1f5f9;
+            border-top: 2px solid #cbd5e1;
+            border-bottom: none;
+        }
+
+        .course-register tfoot .col-credits {
+            text-align: right;
         }
 
         /* ========== Course Styling ========== */
@@ -785,8 +852,8 @@
 
     <!-- Header Section -->
     <header class="header">
-        <h1>Samlet utdanningsdokumentasjon</h1>
-        <p class="subtitle">Ivana Jovic — samlet utdanningsdokumentasjon (norsk og internasjonal utdanning)</p>
+        <h1>Samlet akademisk oversikt</h1>
+        <p class="subtitle">Ivana Jovic — samlet utdanningsoversikt (norsk og internasjonal utdanning)</p>
     </header>
 
     <!-- Student Meta -->
@@ -800,13 +867,121 @@
         <div class="key-stat">
             <div class="label">Høyere utdanning</div>
             <div class="value">BA + Pedagogikk</div>
-            <div class="detail">Internasjonal utvikling, praktisk-pedagogisk utdanning, språklige studier</div>
+            <div class="detail">Internasjonal utvikling, praktisk-pedagogisk utdanning, språkstudier</div>
+        </div>
+        <div class="key-stat">
+            <div class="label">IT- og programmeringskurs</div>
+            <div class="value">8 kurs</div>
+            <div class="detail">Python OOP (UiO), Java, Flutter, sikkerhet og teknisk kommunikasjon — Sverige & Norge</div>
         </div>
         <div class="key-stat">
             <div class="label">Undervisningskompetanse</div>
             <div class="value">Universitetet i Oslo</div>
-            <div class="detail">Kvalifisert for barnehage-, grunnskole-, videregående og voksenopplæring</div>
+            <div class="detail">Kvalifisert for barnehage, grunnskole, videregående og voksenopplæring</div>
         </div>
+    </section>
+
+    <!-- Computer Science & IT coursework (single register) -->
+    <section class="section sweden" aria-labelledby="cs-title">
+        <header class="section-header">
+            <h2 class="section-title" id="cs-title">IT- og programmeringskurs</h2>
+        </header>
+        <article class="section-content">
+            <p class="section-note">Samlet kursregister for karakterer og studiepoeng. Karakterer legges til når de foreligger.</p>
+            <table class="course-register record-table">
+                <colgroup>
+                    <col class="w-code">
+                    <col class="w-title">
+                    <col class="w-institution">
+                    <col class="w-term">
+                    <col class="w-credits">
+                    <col class="w-grade">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="col-code">Kode</th>
+                        <th class="col-title">Kurs</th>
+                        <th class="col-institution">Institusjon</th>
+                        <th class="col-term">Periode</th>
+                        <th class="col-credits">Studiepoeng</th>
+                        <th class="col-grade">Karakter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-code">1DV510</td>
+                        <td class="col-title">Teknisk informasjon og kommunikasjon</td>
+                        <td class="col-institution">Linnaeus University</td>
+                        <td class="col-term">Nov 2020 – Jan 2021</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DT110</td>
+                        <td class="col-title">Informasjons- og kommunikasjonsteknologi: Muligheter og utfordringer</td>
+                        <td class="col-institution">Uppsala universitet</td>
+                        <td class="col-term">Jun – Aug 2022</td>
+                        <td class="col-credits">10 hp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">2DV505</td>
+                        <td class="col-title">Aktuelle tema innen informatikk</td>
+                        <td class="col-institution">Linnaeus University</td>
+                        <td class="col-term">Aug 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV700</td>
+                        <td class="col-title">Datakommunikasjon og datasikkerhet</td>
+                        <td class="col-institution">Linnaeus University</td>
+                        <td class="col-term">Nov 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">D0017D</td>
+                        <td class="col-title">Grunnleggende programmering i Java</td>
+                        <td class="col-institution">Luleå tekniska universitet</td>
+                        <td class="col-term">Aug 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 hp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV502</td>
+                        <td class="col-title">Objektorientert programmering (Java)</td>
+                        <td class="col-institution">Linnaeus University</td>
+                        <td class="col-term">Jan – Mar 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV535</td>
+                        <td class="col-title">Introduksjon til apputvikling med Flutter</td>
+                        <td class="col-institution">Linnaeus University</td>
+                        <td class="col-term">Jun – Aug 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">IN1000</td>
+                        <td class="col-title">Introduksjon til objektorientert programmering (Python)</td>
+                        <td class="col-institution">Universitetet i Oslo (IFI)</td>
+                        <td class="col-term">—</td>
+                        <td class="col-credits">10 sp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-title" colspan="4">Totalt IT-kurs (blandet ECTS / hp / sp)</td>
+                        <td class="col-credits">65+</td>
+                        <td class="col-grade"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </article>
     </section>
 
     <!-- Norwegian Higher Education Section -->
@@ -819,13 +994,19 @@
                 <header class="university-header">
                     <h3 class="university-name">Universitetet i Oslo</h3>
                 </header>
-                <table class="university-table">
+                <table class="university-table record-table">
+                    <colgroup>
+                        <col class="w-code">
+                        <col class="w-title">
+                        <col class="w-term">
+                        <col class="w-meta">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th class="col-code">Program</th>
                             <th class="col-title">Tittel</th>
                             <th class="col-term">Periode</th>
-                            <th class="col-credits">Status</th>
+                            <th class="col-status">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -837,8 +1018,8 @@
                         </tr>
                         <tr>
                             <td class="col-code">JUS</td>
-                            <td class="col-title">Arbeidsrett (halvårig enhet)</td>
-                            <td class="col-term">2020–nå</td>
+                            <td class="col-title">Arbeidsrett (halvårsenhet)</td>
+                            <td class="col-term">2020–d.d.</td>
                             <td class="col-status">Pågående</td>
                         </tr>
                     </tbody>
@@ -848,7 +1029,21 @@
                 <header class="university-header">
                     <h3 class="university-name">Høgskolen i Oslo og Akershus</h3>
                 </header>
-                <table class="university-table">
+                <table class="university-table record-table">
+                    <colgroup>
+                        <col class="w-code">
+                        <col class="w-title">
+                        <col class="w-term">
+                        <col class="w-meta">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col-code">Program</th>
+                            <th class="col-title">Tittel</th>
+                            <th class="col-term">Periode</th>
+                            <th class="col-status">Status</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td class="col-code">BA</td>
@@ -863,7 +1058,21 @@
                 <header class="university-header">
                     <h3 class="university-name">Høgskolen i Telemark</h3>
                 </header>
-                <table class="university-table">
+                <table class="university-table record-table">
+                    <colgroup>
+                        <col class="w-code">
+                        <col class="w-title">
+                        <col class="w-term">
+                        <col class="w-meta">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col-code">Program</th>
+                            <th class="col-title">Tittel</th>
+                            <th class="col-term">Periode</th>
+                            <th class="col-status">Status</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td class="col-code">SPA</td>
@@ -878,7 +1087,21 @@
                 <header class="university-header">
                     <h3 class="university-name">Universitetet i Beograd</h3>
                 </header>
-                <table class="university-table">
+                <table class="university-table record-table">
+                    <colgroup>
+                        <col class="w-code">
+                        <col class="w-title">
+                        <col class="w-term">
+                        <col class="w-meta">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col-code">Program</th>
+                            <th class="col-title">Tittel</th>
+                            <th class="col-term">Periode</th>
+                            <th class="col-status">Status</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td class="col-code">SCAN</td>
@@ -893,8 +1116,8 @@
     </section>
 
     <footer class="footer">
-        <p><strong>Akademisk sammendrag:</strong><br>BA i internasjonal utvikling; praktisk-pedagogisk utdanning (autorisert lærer); studier i spansk og skandinaviske språk; arbeidsrett pågående.</p>
-        <p><strong>Verifisering:</strong> Samlet utdanningsdokumentasjon for Ivana Jovic. Norske grader fra Universitetet i Oslo, HiOA, Høgskolen i Telemark og Universitetet i Beograd.</p>
+        <p><strong>Akademisk sammendrag:</strong><br>BA i internasjonal utvikling; praktisk-pedagogisk utdanning (autorisert lærer); studier i spansk og skandinaviske språk; IT- og programmeringskurs (Linnaeus, Uppsala, Luleå, UiO); arbeidsrett pågående.</p>
+        <p><strong>Verifikasjon:</strong> Samlet utdanningsoversikt for Ivana Jovic. Norske grader fra Universitetet i Oslo, HiOA, Høgskolen i Telemark og Universitetet i Beograd.</p>
     </footer>
 
 </div>

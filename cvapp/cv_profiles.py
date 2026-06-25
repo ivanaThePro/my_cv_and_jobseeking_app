@@ -176,7 +176,7 @@ _SKILLS_CORE = (
     )),
     SkillCategory('Computer skills', (
         'Microsoft Office', 'Protel and Opera booking systems',
-        'Ad Opus', 'Karriere Pro', 'Python and JavaScript (beginner)',
+        'Ad Opus', 'Karriere Pro', 'Python, Java, JavaScript (foundational)', 'Flutter/Dart (intro)',
     )),
 )
 

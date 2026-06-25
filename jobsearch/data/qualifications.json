@@ -48,7 +48,23 @@
     "Protel and Opera booking systems",
     "Ad Opus",
     "Karriere Pro",
-    "Python and JavaScript (beginner)"
+    "Python, Java, JavaScript (foundational)",
+    "Flutter/Dart (introductory app development)",
+    "SQL and database technology (introductory)",
+    "Object-oriented programming (Java)",
+    "Computer security fundamentals",
+    "Technical writing and documentation (1DV510)",
+    "Git/version control (introductory, project coursework)"
+  ],
+  "it_coursework": [
+    "Introduction to Object-oriented Programming / Python (IN1000), University of Oslo (IFI)",
+    "Technical Information and Communication (1DV510), Linnaeus University",
+    "Information Technology: Possibilities and Challenges (1DT110), Uppsala University",
+    "Initial programming in Java (D0017D), Luleå University of Technology",
+    "Object-Oriented Programming (1DV502), Linnaeus University",
+    "Computer Security (1DV700), Linnaeus University",
+    "Current Topics within Computer Science (2DV505), Linnaeus University",
+    "Introduction to App Development with Flutter (1DV535), Linnaeus University"
   ],
   "people_qualifications": [
     "Multilingual communication (five languages)",
@@ -109,7 +125,19 @@
     "Trainee",
     "Berufseinsteiger",
     "Werkstudent",
-    "General Graduate Program"
+    "General Graduate Program",
+    "IT Trainee",
+    "Junior Developer",
+    "Trainee Software Development",
+    "Werkstudent IT",
+    "IT Support",
+    "Technical Support",
+    "Helpdesk",
+    "Application Support",
+    "QA Tester",
+    "Software Tester",
+    "Technical Writer",
+    "Documentation Specialist"
   ],
   "title_aliases_to_recognize": [
     "Teacher", "Lehrer", "Lehrerin", "Pädagog", "Pädagogin",
@@ -124,7 +152,9 @@
     "Program Coordinator", "Project Assistant", "Coordinator",
     "NGO", "Social Work Assistant", "Case Worker",
     "Trainee", "Werkstudent", "Praktikant", "Berufseinsteiger",
-    "Hochschulabsolvent", "University Graduate"
+    "Hochschulabsolvent", "University Graduate",
+    "Junior Developer", "IT Support", "Helpdesk", "Werkstudent IT",
+    "Software Tester", "QA", "Technical Writer"
   ],
   "hard_gaps": [
     "Licensed medical or clinical roles",
