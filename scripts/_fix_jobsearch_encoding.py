@@ -1,3 +1,12 @@
+"""One-off: rewrite jobsearch/jobsearch.py as clean UTF-8."""
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TARGET = ROOT / "jobsearch" / "jobsearch.py"
+
+CONTENT = '''\
 """
 Job matching & application-support CLI.
 Uses jobsearch_lib. Does NOT auto-submit applications.
@@ -101,7 +110,7 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"CV: {cv_path.name} ({len(cv)} chars)")
-    print(f"Processing {len(jobs)} jobs -> {out_dir}\n")
+    print(f"Processing {len(jobs)} jobs -> {out_dir}\\n")
 
     results = []
     generated = 0
@@ -167,10 +176,23 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    print(f"\nDone. Scored: {len(results)} | Generated: {generated}")
+    print(f"\\nDone. Scored: {len(results)} | Generated: {generated}")
     print(f"Apply list: {len(apply_list)} qualified | scored_jobs: {lib.SCORED_JOBS_PATH}")
     print(f"Summary: {out_dir / 'summary.md'}")
     print("UI: streamlit run streamlit_app.py")
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+
+def main() -> None:
+    TARGET.write_text(CONTENT, encoding="utf-8", newline="\n")
+    data = TARGET.read_bytes()
+    if b"\x00" in data:
+        raise SystemExit(f"still has null bytes: {data.count(0)}")
+    print(f"wrote {TARGET} ({len(data)} bytes, nulls=0)")
 
 
 if __name__ == "__main__":

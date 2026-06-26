@@ -808,7 +808,7 @@ def resolve_default_cv() -> Path:
             path = directory / name
             if path.exists():
                 return path
-    return SCRIPT_DIR / "cv.html"
+    return SCRIPT_DIR / "cv.txt"
 
 
 def load_cv(cv_path: Path | None = None) -> str:
@@ -2707,7 +2707,9 @@ def fetch_arbeitnow_jobs(max_pages: int = 3, search: str | None = None) -> list[
                 title = _ensure_text(job.get("title") or job.get("position"))
                 if not title or EXCLUDED_TITLE.search(title):
                     continue
-                desc = _ensure_text(job.get("description") or job.get("remote"))
+                desc = _ensure_text(
+                    job.get("description") or job.get("descriptionText") or job.get("description_text") or ""
+                )
                 stub = {
                     "title": title,
                     "company": job.get("company_name") or job.get("company"),

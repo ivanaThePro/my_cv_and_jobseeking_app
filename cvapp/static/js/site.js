@@ -374,7 +374,11 @@
   }
 
   var addJobBtn = document.getElementById("add-job-link-btn");
-  if (addJobBtn && addJobBtn.dataset.siteWired !== "1") {
+  if (
+    addJobBtn &&
+    addJobBtn.dataset.siteWired !== "1" &&
+    !document.body.classList.contains("jobs-hub-page")
+  ) {
     addJobBtn.dataset.siteWired = "1";
     addJobBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -384,7 +388,7 @@
     });
   }
 
-  if (window.JOBS_HUB) {
+  if (window.JOBS_HUB && !document.body.classList.contains("jobs-hub-page")) {
     window.JOBS_HUB.openAddJobModal = function () {
       openImportModal(addJobBtn);
     };

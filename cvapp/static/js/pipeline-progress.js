@@ -125,7 +125,7 @@
       "data-tip",
       waiting > 0
         ? "Compare unscored jobs to your CV — IT jobs scored first"
-        : "All jobs scored — click Search for new listings"
+        : "All jobs scored — click Find jobs for new listings"
     );
   }
 

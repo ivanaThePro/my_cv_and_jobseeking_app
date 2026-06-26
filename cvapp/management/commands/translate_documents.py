@@ -19,11 +19,22 @@ class Command(BaseCommand):
             choices=['de', 'no'],
             help='Target language(s). Default: de and no.',
         )
+        parser.add_argument(
+            '--doc',
+            action='append',
+            dest='doc_kinds',
+            help='Document id(s) only, e.g. transcript or professional. Default: all.',
+        )
 
     def handle(self, *args, **options):
         langs = tuple(options['langs'] or ('de', 'no'))
+        doc_kinds = tuple(options['doc_kinds']) if options['doc_kinds'] else None
         try:
-            lines = refresh_all_translations(langs=langs, force=options['force'])
+            lines = refresh_all_translations(
+                langs=langs,
+                force=options['force'],
+                doc_kinds=doc_kinds,
+            )
         except RuntimeError as exc:
             raise CommandError(str(exc)) from exc
         for line in lines:

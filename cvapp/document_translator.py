@@ -21,8 +21,8 @@ LANG_NAMES = {
 
 I18N_DIR = Path(__file__).resolve().parent / 'data' / 'document_i18n'
 
-# Swedish/Norwegian university course codes (e.g. 1DV501, 2MA402).
-COURSE_CODE_RE = re.compile(r'\b\d[A-Z]{2}\d{3,4}[A-Z]?\b')
+# Swedish/Norwegian university course codes (e.g. 1DV501, 2MA402) and OsloMet UTVB modules.
+COURSE_CODE_RE = re.compile(r'\b(?:\d[A-Z]{2}\d{3,4}[A-Z]?|UTVB\d{4})\b')
 COL_CODE_CELL_RE = re.compile(
     r'(<td[^>]*class="[^"]*col-code[^"]*"[^>]*>)(.*?)(</td>)',
     re.IGNORECASE | re.DOTALL,
@@ -154,16 +154,54 @@ def mistral_translate_html(api_key: str, html: str, target_lang: str, *, retries
     raise RuntimeError(f'Mistral translation failed: {last_error}')
 
 
+def _read_cached_html(doc_kind: str, lang: str) -> str | None:
+    """Return on-disk translation if present (even when source hash changed)."""
+    html_path, _ = _cache_paths(doc_kind, lang)
+    if not html_path.is_file():
+        return None
+    try:
+        return html_path.read_text(encoding='utf-8')
+    except OSError:
+        return None
+
+
+def _fallback_replacements(doc_kind: str, lang: str) -> dict[str, str]:
+    from .cv_i18n import PROFESSIONAL_REPLACEMENTS, TRANSCRIPT_REPLACEMENTS
+
+    if doc_kind == 'professional':
+        return PROFESSIONAL_REPLACEMENTS.get(lang, {})
+    if doc_kind == 'transcript':
+        return TRANSCRIPT_REPLACEMENTS.get(lang, {})
+    return {}
+
+
+def _apply_replacements(html: str, replacements: dict[str, str]) -> str:
+    out = html
+    for src, dst in replacements.items():
+        out = out.replace(src, dst)
+    return out
+
+
+def _doc_marker_present(html: str, doc_kind: str) -> bool:
+    """Only reuse saved translations for the matching source document."""
+    markers = {
+        'transcript': 'Consolidated Academic Record',
+        'professional': 'Professional courses and skills record',
+    }
+    marker = markers.get(doc_kind)
+    return bool(marker and marker in html)
+
+
 def translate_html_document(
     html: str,
     *,
     lang: str,
     doc_kind: str,
     api_key: str | None = None,
-    allow_live: bool = True,
+    allow_live: bool | None = None,
 ) -> str:
-    """Return translated HTML using cache, optional live Mistral, or fallback replacements."""
-    from .cv_i18n import PROFESSIONAL_REPLACEMENTS, TRANSCRIPT_REPLACEMENTS, normalize_lang
+    """Return translated HTML from saved files, optional live Mistral, or heading fallbacks."""
+    from .cv_i18n import normalize_lang
 
     lang = normalize_lang(lang)
     if lang == 'en':
@@ -174,23 +212,18 @@ def translate_html_document(
     if cached is not None:
         return cached
 
+    if allow_live is None:
+        allow_live = os.getenv('DOCUMENT_I18N_ALLOW_LIVE', 'false').strip().lower() in (
+            '1', 'true', 'yes', 'on',
+        )
+
     key = (api_key or os.getenv('MISTRAL_API_KEY', '')).strip()
     if allow_live and key:
         translated = mistral_translate_html(key, html, lang)
         _write_cache(doc_kind, lang, html_hash, translated)
         return translated
 
-    # Legacy heading-only fallback when no cache and no API key.
-    if doc_kind == 'professional':
-        replacements = PROFESSIONAL_REPLACEMENTS.get(lang, {})
-    elif doc_kind == 'transcript':
-        replacements = TRANSCRIPT_REPLACEMENTS.get(lang, {})
-    else:
-        replacements = {}
-    out = html
-    for src, dst in replacements.items():
-        out = out.replace(src, dst)
-    return out
+    return _apply_replacements(html, _fallback_replacements(doc_kind, lang))
 
 
 def iter_documents_for_translation() -> list[tuple[str, str]]:
@@ -212,14 +245,23 @@ def iter_documents_for_translation() -> list[tuple[str, str]]:
     return docs
 
 
-def refresh_all_translations(*, langs: tuple[str, ...] = ('de', 'no'), force: bool = False) -> list[str]:
-    """Regenerate cached translations for all documents. Returns status lines."""
+def refresh_all_translations(
+    *,
+    langs: tuple[str, ...] = ('de', 'no'),
+    force: bool = False,
+    doc_kinds: tuple[str, ...] | None = None,
+) -> list[str]:
+    """Regenerate cached translations for documents. Returns status lines."""
     api_key = os.getenv('MISTRAL_API_KEY', '').strip()
     if not api_key:
         raise RuntimeError('MISTRAL_API_KEY missing — add it to .env and retry.')
 
     lines: list[str] = []
-    for doc_kind, html in iter_documents_for_translation():
+    docs = iter_documents_for_translation()
+    if doc_kinds:
+        wanted = {d.strip().lower() for d in doc_kinds}
+        docs = [(k, h) for k, h in docs if k in wanted]
+    for doc_kind, html in docs:
         html_hash = source_hash(html)
         for lang in langs:
             if not force:

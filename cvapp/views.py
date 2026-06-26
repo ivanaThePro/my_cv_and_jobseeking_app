@@ -6,13 +6,13 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, unquote
 
 from django.conf import settings as django_settings
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.utils.http import content_disposition_header
+from django.utils.http import content_disposition_header, url_has_allowed_host_and_scheme
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -66,6 +66,7 @@ _JOBS_HUB_URL_FALLBACKS = {
     'jobs_applied': '/jobs/applied/',
     'jobs_market': '/jobs/market/',
     'jobs_market_live': '/jobs/market/live/',
+    'jobs_score_one': '/jobs/score-one/',
 }
 
 VALID_MATERIAL_TYPES = frozenset({'cv', 'cover_letter', 'both'})
@@ -712,6 +713,7 @@ def _job_payload_for_imported(job: dict, *, match: dict | None = None) -> dict:
 @require_POST
 def jobs_score_one(request):
     """Score a single job with AI (urgent) without waiting for bulk Score AI."""
+    lib.load_env_files()
     try:
         body = json.loads(request.body.decode('utf-8') or '{}')
     except json.JSONDecodeError:
@@ -721,12 +723,14 @@ def jobs_score_one(request):
     if not job_id:
         return JsonResponse({'ok': False, 'error': 'job_id required'}, status=400)
 
-    status = pstatus.read_status()
-    if status.get('state') == 'running' and (status.get('phase') or '') == 'score':
-        return JsonResponse({
-            'ok': False,
-            'error': 'Bulk scoring is running — wait for it to finish or click Cancel.',
-        }, status=409)
+    if pstatus.is_running():
+        status = pstatus.read_status()
+        phase = (status.get('phase') or '').strip()
+        if phase == 'score':
+            err = 'Bulk scoring is running — wait for it to finish or click Cancel.'
+        else:
+            err = 'Find jobs is still running — wait for it to finish or click Cancel.'
+        return JsonResponse({'ok': False, 'error': err}, status=409)
 
     if not os.getenv('MISTRAL_API_KEY', '').strip():
         return JsonResponse({'ok': False, 'error': 'MISTRAL_API_KEY missing on server.'}, status=503)
@@ -1612,6 +1616,23 @@ def _cv_page_context(profile) -> dict:
     }
 
 
+def _safe_next_url(request, next_url: str) -> str:
+    """Only allow same-host or root-relative redirects after unlock."""
+    default = reverse('cv_select')
+    raw = unquote((next_url or '').strip())
+    if not raw:
+        return default
+    if raw.startswith('/') and not raw.startswith('//'):
+        return raw
+    if url_has_allowed_host_and_scheme(
+        raw,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return raw
+    return default
+
+
 def cv_unlock(request):
     """Password gate for CV pages (when CV_ACCESS_PASSWORD is set)."""
     from .cv_access import (
@@ -1622,7 +1643,10 @@ def cv_unlock(request):
     )
     from .cv_i18n import ui
 
-    next_url = request.POST.get('next') or request.GET.get('next') or reverse('cv_select')
+    next_url = _safe_next_url(
+        request,
+        request.POST.get('next') or request.GET.get('next') or reverse('cv_select'),
+    )
     if not cv_password_enabled():
         return redirect(next_url)
     if cv_is_unlocked(request) and request.method != 'POST':
@@ -1639,7 +1663,18 @@ def cv_unlock(request):
 
     if request.method == 'POST':
         if check_cv_password(request.POST.get('password', '')):
-            grant_cv_access(request)
+            try:
+                grant_cv_access(request)
+            except Exception:
+                return render(request, 'cvapp/cv_unlock.html', {
+                    'error': (
+                        'Sign-in succeeded but the server could not save your session. '
+                        'Run migrations (python manage.py migrate) or check Render logs.'
+                    ),
+                    'next_url': next_url,
+                    'signed_out': False,
+                    'locked': False,
+                })
             return redirect(next_url)
         record_unlock_failure(request)
         error = 'Incorrect password. Please try again.'

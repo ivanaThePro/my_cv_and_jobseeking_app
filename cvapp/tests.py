@@ -86,6 +86,9 @@ class CVAppTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'University of Oslo')
         self.assertContains(response, 'International Development')
+        self.assertContains(response, 'UTVB1100')
+        self.assertContains(response, 'UTVB3300')
+        self.assertContains(response, 'Fieldwork in Development Studies')
         self.assertNotContains(response, '199.0 ECTS')
 
     @override_settings(CV_ACCESS_PASSWORD='')
@@ -382,6 +385,16 @@ class CVAppTests(TestCase):
         self.assertIn('/cv/unlock/', response.url)
 
     @override_settings(CV_ACCESS_PASSWORD='secret')
+    def test_cv_unlock_rejects_external_next_url(self):
+        response = self.client.post(
+            '/cv/unlock/?next=https://evil.example/phish',
+            {'password': 'secret'},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertNotIn('evil.example', response.url)
+        self.assertTrue(response.url.endswith('/cv/') or '/cv/' in response.url)
+
+    @override_settings(CV_ACCESS_PASSWORD='secret')
     def test_logout_clears_session_and_shows_unlock(self):
         self._unlock_site()
         self.assertEqual(self.client.get('/jobs/market/').status_code, 200)
@@ -523,6 +536,7 @@ class CVAppTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'id="jobs-data"')
         self.assertNotContains(response, '<script id="jobs-data" type="application/json">[]</script>')
+        self.assertContains(response, 'scoreOneUrl:')
         data = self.client.get('/jobs/market/data/?view=all').json()
         self.assertTrue(data.get('ok'))
         self.assertGreater(len(data.get('jobs') or []), 0)
@@ -1098,9 +1112,22 @@ class CVAppTests(TestCase):
         mock_generate.assert_called_once()
 
     @override_settings(CV_ACCESS_PASSWORD='')
+    @patch('cvapp.views.pstatus.is_running', return_value=True)
+    @patch('cvapp.views.pstatus.read_status', return_value={'state': 'running', 'phase': 'search'})
+    def test_score_one_blocked_while_search_running(self, _mock_status, _mock_running):
+        response = self.client.post(
+            '/jobs/score-one/',
+            data=json.dumps({'job_id': 'x1', 'job': {'job_id': 'x1', 'title': 'Test'}}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('running', response.json().get('error', '').lower())
+
+    @override_settings(CV_ACCESS_PASSWORD='')
+    @patch('cvapp.views.pstatus.read_status', return_value={'state': 'idle'})
     @patch('cvapp.views._score_single_imported_job')
     @patch.dict(os.environ, {'MISTRAL_API_KEY': 'test-key'})
-    def test_score_one_uses_browser_snapshot_when_cache_misses(self, mock_score):
+    def test_score_one_uses_browser_snapshot_when_cache_misses(self, mock_score, _mock_status):
         mock_score.return_value = {'match_score': 73, 'recommendation': 'review', 'reasoning': 'Good fit'}
         body = {
             'job_id': 'missing-from-cache-1',
@@ -1143,11 +1170,30 @@ class CVAppTests(TestCase):
         self.assertIn('@media print{.cv-lang-bar{display:none!important}}', content)
 
     @override_settings(CV_ACCESS_PASSWORD='')
+    def test_transcript_german_uses_saved_translation_without_live_api(self):
+        from cvapp.document_translator import translate_html_document
+
+        path = Path(__file__).resolve().parents[1] / 'academic_transcript_improved.html'
+        html = path.read_text(encoding='utf-8')
+        with patch.dict(os.environ, {'DOCUMENT_I18N_ALLOW_LIVE': 'false', 'MISTRAL_API_KEY': 'test-key'}):
+            with patch('cvapp.document_translator.mistral_translate_html') as live:
+                out = translate_html_document(
+                    html,
+                    lang='de',
+                    doc_kind='transcript',
+                    allow_live=False,
+                )
+                live.assert_not_called()
+        self.assertIn('UTVB1100', out)
+        self.assertNotIn('Consolidated Academic Record</h1>', out)
+
+    @override_settings(CV_ACCESS_PASSWORD='')
     def test_transcript_page_translates_to_norwegian(self):
         response = self.client.get('/transcript/?lang=no')
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
-        self.assertIn('Samlet akademisk oversikt', content)
+        self.assertIn('Samlet akademisk dokumentasjon', content)
+        self.assertIn('UTVB1100', content)
         self.assertIn('Norsk høyere utdanning', content)
         self.assertNotIn('Consolidated Academic Record</h1>', content)
 

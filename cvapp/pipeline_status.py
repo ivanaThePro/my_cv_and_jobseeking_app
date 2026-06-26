@@ -12,7 +12,7 @@ CANCEL_PATH = STATUS_PATH.parent / 'pipeline_cancel.flag'
 STALE_RUNNING_MINUTES = 12
 STALE_SEARCH_START_MINUTES = 8
 STALE_SEARCH_NO_PROGRESS_MINUTES = 4
-_lock = threading.Lock()
+_lock = threading.RLock()
 
 
 def read_status() -> dict:
@@ -186,27 +186,28 @@ def is_running() -> bool:
 
 
 def start_background(target, *, label: str, kwargs: dict) -> bool:
-    if is_running():
-        return False
+    with _lock:
+        if is_running():
+            return False
 
-    clear_cancel()
-    write_status(
-        state='running',
-        label=label,
-        message=f'{label} started…',
-        error='',
-        progress=0,
-        total=kwargs.get('max_jobs', 0),
-        started_at=datetime.now().isoformat(timespec='seconds'),
-    )
+        clear_cancel()
+        write_status(
+            state='running',
+            label=label,
+            message=f'{label} started…',
+            error='',
+            progress=0,
+            total=kwargs.get('max_jobs', 0),
+            started_at=datetime.now().isoformat(timespec='seconds'),
+        )
 
-    def _runner():
-        try:
-            target(**kwargs)
-        except Exception as exc:
-            if not is_cancelled():
-                write_status(state='failed', error=str(exc), message=f'{label} failed')
+        def _runner():
+            try:
+                target(**kwargs)
+            except Exception as exc:
+                if not is_cancelled():
+                    write_status(state='failed', error=str(exc), message=f'{label} failed')
 
-    thread = threading.Thread(target=_runner, daemon=True)
-    thread.start()
-    return True
+        thread = threading.Thread(target=_runner, daemon=True)
+        thread.start()
+        return True

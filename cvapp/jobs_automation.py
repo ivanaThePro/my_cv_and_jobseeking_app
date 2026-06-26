@@ -147,6 +147,7 @@ def run_daily_automation(*, send_digest: bool = True) -> dict:
 
     lib.load_env_files()
     results: dict = {'ok': True, 'steps': []}
+    score_started = False
 
     if scheduled_search_enabled():
         pstatus.write_status(
@@ -168,19 +169,21 @@ def run_daily_automation(*, send_digest: bool = True) -> dict:
         results['steps'].append('Search skipped (SCHEDULED_JOB_SEARCH=false)')
 
     if auto_score_after_search_enabled() and os.getenv('MISTRAL_API_KEY', '').strip():
-        pstatus.write_status(
-            state='running',
+        score_started = pstatus.start_background(
+            _background_score,
             label='Scheduled scoring',
-            phase='score',
-            message='Scoring jobs with AI…',
+            kwargs={
+                'use_cache': True,
+                'max_jobs': min(DEFAULT_MAX_JOBS, WEB_MAX_JOBS),
+                'min_score': DEFAULT_MIN_SCORE,
+                'dry_run': True,
+                'resume_dir': None,
+            },
         )
-        _background_score(
-            use_cache=True,
-            max_jobs=min(DEFAULT_MAX_JOBS, WEB_MAX_JOBS),
-            min_score=DEFAULT_MIN_SCORE,
-            dry_run=True,
-        )
-        results['steps'].append('Score: completed')
+        if score_started:
+            results['steps'].append('Score: started in background')
+        else:
+            results['steps'].append('Score: skipped — pipeline already running')
     else:
         if not os.getenv('MISTRAL_API_KEY', '').strip():
             results['steps'].append('Score skipped — MISTRAL_API_KEY missing')
@@ -201,8 +204,8 @@ def run_daily_automation(*, send_digest: bool = True) -> dict:
     elif send_digest:
         results['steps'].append('Digest skipped — JOB_DIGEST_EMAIL not set')
 
-    # If search ran but scoring was skipped, clear stale "running" status.
-    if pstatus.read_status().get('state') == 'running':
+    # If search ran but scoring was skipped or not started in background, clear stale "running" status.
+    if not score_started and pstatus.read_status().get('state') == 'running':
         pstatus.write_status(
             state='completed',
             phase='search',

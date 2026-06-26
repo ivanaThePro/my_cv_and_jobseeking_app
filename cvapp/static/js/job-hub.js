@@ -103,6 +103,8 @@
   var refreshInFlight = false;
   var refreshQueued = false;
   var refreshDebounceTimer = null;
+  var displayOrder = [];
+  var scoreOneInFlight = 0;
 
   function jobsFingerprint(list) {
     return (list || [])
@@ -320,15 +322,16 @@
       renderList();
       return false;
     }
-    jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
+    jobs = jobsInStableOrder(filterJobsForCurrentView(masterJobs));
     byId = {};
     jobs.forEach(function (job) {
       byId[job.job_id] = job;
     });
     var keepId = selectedId && byId[selectedId] ? selectedId : jobs[0] ? jobs[0].job_id : "";
     selectedId = keepId;
-    renderList();
-    if (keepId) setSelected(keepId, false);
+    renderList({ preserveScroll: true, skipAutoSelect: true });
+    syncJobListSelection({ scroll: false });
+    if (keepId) renderDetail(byId[keepId]);
     updateTopbarFromMarket(getBrowseStats(lastMarketStats || {}));
     return true;
   }
@@ -432,11 +435,14 @@
       if (snap) masterJobs = snap;
     }
     masterJobs = enrichJobsBrowseFlags(masterJobs);
-    byId = {};
-    jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
-    jobs.forEach(function (job) {
-      byId[job.job_id] = job;
-    });
+    if (!displayOrder.length) {
+      displayOrder = masterJobs.map(function (job) {
+        return job.job_id;
+      });
+    } else {
+      syncDisplayOrderFromList(masterJobs);
+    }
+    applyStableJobView();
     if (masterJobs.length) saveJobsSnapshot();
   }
 
@@ -450,12 +456,15 @@
     }
     if (newJobs.length) {
       masterJobs = enrichJobsBrowseFlags(newJobs);
+      if (!opts.merge || !displayOrder.length) {
+        displayOrder = masterJobs.map(function (job) {
+          return job.job_id;
+        });
+      } else {
+        syncDisplayOrderFromList(newJobs);
+      }
     }
-    jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
-    byId = {};
-    jobs.forEach(function (job) {
-      byId[job.job_id] = job;
-    });
+    applyStableJobView();
     if (masterJobs.length) saveJobsSnapshot();
   }
 
@@ -496,6 +505,47 @@
       return deriveBrowseStatsFromJobs(masterJobs);
     }
     return Object.assign({}, deriveBrowseStatsFromJobs([]), lastMarketStats || data || {});
+  }
+
+  function touchDisplayOrder(jobId) {
+    if (!jobId) return;
+    if (displayOrder.indexOf(jobId) < 0) displayOrder.push(jobId);
+  }
+
+  function syncDisplayOrderFromList(list) {
+    (list || []).forEach(function (job) {
+      if (job && job.job_id) touchDisplayOrder(job.job_id);
+    });
+  }
+
+  function jobsInStableOrder(filteredList) {
+    var map = Object.create(null);
+    (filteredList || []).forEach(function (job) {
+      if (job && job.job_id) map[job.job_id] = job;
+    });
+    var ordered = [];
+    displayOrder.forEach(function (id) {
+      if (map[id]) {
+        ordered.push(map[id]);
+        delete map[id];
+      }
+    });
+    Object.keys(map).forEach(function (id) {
+      ordered.push(map[id]);
+      touchDisplayOrder(id);
+    });
+    return ordered;
+  }
+
+  function applyStableJobView() {
+    jobs = jobsInStableOrder(filterJobsForCurrentView(masterJobs));
+    byId = {};
+    masterJobs.forEach(function (job) {
+      if (job && job.job_id) byId[job.job_id] = job;
+    });
+    jobs.forEach(function (job) {
+      if (job && job.job_id) byId[job.job_id] = job;
+    });
   }
 
   function sortJobsForDisplay(list) {
@@ -547,7 +597,7 @@
       "data-tip",
       waiting > 0
         ? "Compare unscored jobs to your CV — IT jobs scored first"
-        : "All jobs scored — click Search for new listings"
+        : "All jobs scored — click Find jobs for new listings"
     );
   }
 
@@ -586,14 +636,14 @@
         })
         .join("; ");
       parts.push(
-        '<p class="jobs-banner-warn">Some sources returned few listings on last Search: ' +
+        '<p class="jobs-banner-warn">Some sources returned few listings on last Find jobs: ' +
           errText +
           ".</p>"
       );
     }
     if (marketLoadState === "error") {
       parts.push(
-        '<p class="jobs-banner-err">Could not refresh the job list. Refresh the page (Ctrl+F5) or click <strong>Search</strong>.</p>'
+        '<p class="jobs-banner-err">Could not refresh the job list. Refresh the page (Ctrl+F5) or click <strong>Find jobs</strong>.</p>'
       );
     } else if (
       marketLoadState === "ready" &&
@@ -602,7 +652,7 @@
       (cacheTotal == null || cacheTotal === 0)
     ) {
       parts.push(
-        '<p class="jobs-banner-info">Welcome &mdash; click <strong>Search</strong> in the top bar to load jobs.</p>'
+        '<p class="jobs-banner-info">Welcome &mdash; click <strong>Find jobs</strong> in the top bar to load jobs.</p>'
       );
     } else if (
       marketLoadState === "ready" &&
@@ -650,7 +700,7 @@
       return "Loading jobs&hellip;";
     }
     if (marketLoadState === "error") {
-      return "Could not load jobs. Refresh the page (Ctrl+F5) or click Search in the top bar.";
+      return "Could not load jobs. Refresh the page (Ctrl+F5) or click Find jobs in the top bar.";
     }
     if (searching && !jobs.length) {
       var liveN = (stats && stats.live_count) || 0;
@@ -708,8 +758,102 @@
     return null;
   }
 
+  function jobCardScoreBadgeHtml(job) {
+    if (!job.scored && scoreOneUrl) {
+      return (
+        '<button type="button" class="job-card-score-btn" data-score-one="' +
+        esc(job.job_id) +
+        '" title="Score this job with AI">Score</button>'
+      );
+    }
+    if (job.match_score != null) {
+      return (
+        '<span class="job-card-score ' +
+        scoreClass(job.match_score) +
+        '" title="' +
+        esc(job.qualification_label || "Match score") +
+        '">' +
+        esc(String(job.match_score)) +
+        "%</span>"
+      );
+    }
+    return '<span class="job-card-score score-pending" title="Not scored yet — click Score">Score</span>';
+  }
+
+  function replaceJobInArrays(jobId, merged) {
+    for (var i = 0; i < masterJobs.length; i++) {
+      if (masterJobs[i].job_id === jobId) {
+        masterJobs[i] = merged;
+        break;
+      }
+    }
+    for (var j = 0; j < jobs.length; j++) {
+      if (jobs[j].job_id === jobId) {
+        jobs[j] = merged;
+        break;
+      }
+    }
+    byId[jobId] = merged;
+  }
+
+  function patchJobCardDom(jobId) {
+    var card = listEl.querySelector('.job-card[data-job-id="' + jobId + '"]');
+    var job = byId[jobId];
+    if (!card || !job) return false;
+    var aside = card.querySelector(".job-card-aside");
+    if (aside) aside.innerHTML = jobCardScoreBadgeHtml(job);
+    var hintEl = card.querySelector(".job-card-hint");
+    var hintLine = truncateText(jobCardHint(job), 120);
+    if (hintLine) {
+      if (hintEl) hintEl.textContent = hintLine;
+      else {
+        var textCol = card.querySelector(".job-card-text");
+        if (textCol) {
+          var p = document.createElement("p");
+          p.className = "job-card-hint";
+          p.textContent = hintLine;
+          textCol.appendChild(p);
+        }
+      }
+    }
+    var badgesHost = card.querySelector(".job-card-text");
+    if (badgesHost) {
+      var oldBadges = badgesHost.querySelector(".job-card-meta");
+      if (oldBadges) oldBadges.remove();
+      var titleEl = badgesHost.querySelector(".job-card-title");
+      if (titleEl) {
+        titleEl.insertAdjacentHTML("afterend", jobCardBadgesHtml(job));
+      }
+    }
+    return true;
+  }
+
+  function removeJobCardDom(jobId) {
+    var card = listEl.querySelector('.job-card[data-job-id="' + jobId + '"]');
+    if (card) card.remove();
+    var countEl = document.getElementById("jobs-list-count");
+    if (countEl) countEl.textContent = String(jobs.length);
+  }
+
+  function syncJobListSelection(opts) {
+    opts = opts || {};
+    listEl.querySelectorAll(".job-card").forEach(function (card) {
+      var active = card.dataset.jobId === selectedId;
+      card.classList.toggle("is-active", active);
+      if (active && opts.scroll !== false) {
+        card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    });
+  }
+
   function scoreOneJob(job, btn) {
-    if (!scoreOneUrl || !job || !job.job_id || job.scored) return;
+    if (!scoreOneUrl) {
+      showHubToast("Score is unavailable — refresh the page and try again.", true);
+      return;
+    }
+    if (!job || !job.job_id) return;
+    if (job.scored) return;
+    scoreOneInFlight++;
     if (btn) btn.disabled = true;
     fetch(scoreOneUrl, {
       method: "POST",
@@ -732,37 +876,46 @@
         }
       })
     })
-      .then(function (res) {
-        return res.json().then(function (data) {
-          return { ok: res.ok, data: data };
-        });
-      })
+      .then(fetchJsonResponse)
       .then(function (result) {
         if (!result.ok || !result.data.ok || !result.data.job) {
           throw new Error((result.data && result.data.error) || "Score failed");
         }
         var updated = result.data.job;
-        byId[job.job_id] = mergeJobRecord(byId[job.job_id], updated);
-        var mIdx = -1;
-        for (var i = 0; i < masterJobs.length; i++) {
-          if (masterJobs[i].job_id === job.job_id) {
-            mIdx = i;
-            break;
-          }
-        }
-        if (mIdx >= 0) masterJobs[mIdx] = byId[job.job_id];
-        jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
+        var merged = mergeJobRecord(byId[job.job_id] || job, updated);
+        replaceJobInArrays(job.job_id, merged);
         saveJobsSnapshot();
-        renderList();
-        setSelected(job.job_id, false);
+
+        var view = currentBrowseView();
+        var stillInView = filterJobsForView([merged], view).length > 0;
+        if (stillInView) {
+          if (!patchJobCardDom(job.job_id)) {
+            var scrollTop = listEl.scrollTop;
+            renderList({ preserveScroll: true, skipAutoSelect: true });
+            listEl.scrollTop = scrollTop;
+          }
+        } else {
+          jobs = jobs.filter(function (row) {
+            return row.job_id !== job.job_id;
+          });
+          removeJobCardDom(job.job_id);
+        }
+
+        syncJobListSelection({ scroll: false });
+        renderDetail(merged);
+        updateTopbarFromMarket(deriveBrowseStatsFromJobs(masterJobs));
         showHubToast("Scored — " + (updated.match_score != null ? updated.match_score + "%" : "done"));
-        refreshFromMarketData({ merge: true, force: true });
       })
       .catch(function (err) {
         showHubToast(err.message || "Could not score this job", true);
       })
       .finally(function () {
+        scoreOneInFlight = Math.max(0, scoreOneInFlight - 1);
         if (btn) btn.disabled = false;
+        if (scoreOneInFlight === 0 && refreshQueued) {
+          refreshQueued = false;
+          refreshFromMarketData({ merge: true });
+        }
       });
   }
 
@@ -770,6 +923,10 @@
     if (isAppliedView) return;
     if (generatingJobId) return;
     options = options || {};
+    if (scoreOneInFlight > 0 && !options.force) {
+      refreshQueued = true;
+      return;
+    }
     var minGap = document.body.getAttribute("data-pipeline-running") === "1" ? 8000 : 12000;
     var now = Date.now();
     if (refreshInFlight) {
@@ -844,13 +1001,14 @@
         });
         updateTopbarFromMarket(data);
         renderMarketBanner(data);
-        renderList();
+        renderList({ preserveScroll: true, skipAutoSelect: true });
+        syncJobListSelection({ scroll: false });
         if (keepId && byId[keepId]) {
           if (jobRecordFingerprint(byId[keepId]) !== previousSelectedFingerprint) {
-            setSelected(keepId, false);
+            renderDetail(byId[keepId]);
           }
-        } else if (jobs.length) {
-          setSelected(jobs[0].job_id, false);
+        } else if (jobs.length && !selectedId) {
+          setSelected(jobs[0].job_id, false, { scroll: false });
         }
       })
       .catch(function (err) {
@@ -969,13 +1127,11 @@
     var stubs = previews.map(previewJobFromStatus);
     var merged = mergeJobArrays(stripPreviewJobs(masterJobs), stubs);
     masterJobs = merged;
-    jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
-    byId = {};
-    jobs.forEach(function (job) {
-      byId[job.job_id] = job;
-    });
+    syncDisplayOrderFromList(masterJobs);
+    applyStableJobView();
     marketLoadState = "ready";
-    renderList();
+    renderList({ preserveScroll: true, skipAutoSelect: true });
+    syncJobListSelection({ scroll: false });
     if (!selectedId && jobs.length) setSelected(jobs[0].job_id, false);
     return true;
   }
@@ -997,7 +1153,7 @@
       });
     }
     renderMarketBanner(lastMarketStats || {});
-    renderList();
+    renderList({ preserveScroll: true, skipAutoSelect: !!selectedId });
     if (!selectedId && jobs.length) setSelected(jobs[0].job_id, false);
     return true;
   }
@@ -1417,7 +1573,7 @@
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken
+        "X-CSRFToken": getCsrfToken()
       },
       credentials: "same-origin",
       body: JSON.stringify({
@@ -1429,11 +1585,12 @@
         apply_url: job.apply_url || ""
       })
     })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (data) {
-        if (!data.ok) return;
+      .then(fetchJsonResponse)
+      .then(function (result) {
+        var data = result.data || {};
+        if (!result.ok || !data.ok) {
+          throw new Error(data.error || "Could not update applied status");
+        }
         if (data.applied) {
           appliedIds.add(job.job_id);
           if (!isAppliedView) {
@@ -1447,20 +1604,18 @@
             masterJobs = masterJobs.filter(function (j) {
               return j.job_id !== job.job_id;
             });
-            jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
-            byId = {};
-            jobs.forEach(function (j) {
-              byId[j.job_id] = j;
-            });
+            applyStableJobView();
             selectedId = jobs.length ? jobs[0].job_id : "";
           }
         }
-        renderList();
+        renderList({ preserveScroll: true, skipAutoSelect: true });
         if (!isAppliedView || data.applied) {
           renderDetail(byId[job.job_id] || null);
         }
       })
-      .catch(function () {})
+      .catch(function (err) {
+        showHubToast((err && err.message) || "Could not update applied status", true);
+      })
       .finally(function () {
         if (btn) btn.disabled = false;
       });
@@ -1528,7 +1683,7 @@
     }
     if (document.body.getAttribute("data-pipeline-running") === "1") {
       showHubToast(
-        "Search is still running — Create works but may be slow. Cancel Search if it keeps failing.",
+        "Find jobs is still running — Create works but may be slow. Cancel Find jobs if it keeps failing.",
         false
       );
     } else {
@@ -1891,15 +2046,11 @@
     }
   }
 
-  function setSelected(jobId, pushState) {
+  function setSelected(jobId, pushState, opts) {
+    opts = opts || {};
     selectedId = jobId;
     closeAiEditModal();
-    listEl.querySelectorAll(".job-card").forEach(function (btn) {
-      btn.classList.toggle("is-active", btn.dataset.jobId === jobId);
-      if (btn.dataset.jobId === jobId) {
-        btn.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      }
-    });
+    syncJobListSelection({ scroll: opts.scroll !== false });
 
     renderDetail(byId[jobId]);
 
@@ -1917,7 +2068,9 @@
     }
   }
 
-  function renderList() {
+  function renderList(opts) {
+    opts = opts || {};
+    var scrollTop = opts.preserveScroll ? listEl.scrollTop : 0;
     listEl.innerHTML = "";
     if (!jobs.length) {
       listEl.innerHTML =
@@ -1940,14 +2093,14 @@
     }
 
     jobs.forEach(function (job, index) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "job-card" + (isApplied(job.job_id) ? " is-applied" : "");
+      var card = document.createElement("div");
+      card.className = "job-card" + (isApplied(job.job_id) ? " is-applied" : "");
       if (isAppliedView) {
-        btn.className += " job-card-applied-row";
+        card.className += " job-card-applied-row";
       }
-      btn.dataset.jobId = job.job_id;
-      btn.setAttribute("role", "option");
+      card.dataset.jobId = job.job_id;
+      card.setAttribute("role", "option");
+      card.tabIndex = 0;
 
       if (isAppliedView) {
         var scoreMini =
@@ -1956,7 +2109,7 @@
             : "";
         var company = job.company || "Unknown company";
         var role = jobDisplayTitle(job);
-        btn.innerHTML =
+        card.innerHTML =
           '<span class="applied-card-num">' +
           String(index + 1) +
           "</span>" +
@@ -1974,27 +2127,20 @@
           esc(job.applied_date || "—") +
           scoreMini +
           "</span>";
-        btn.addEventListener("click", function () {
+        card.addEventListener("click", function () {
           setSelected(job.job_id);
         });
-        listEl.appendChild(btn);
+        card.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setSelected(job.job_id);
+          }
+        });
+        listEl.appendChild(card);
         return;
       }
 
-      var scoreBadge =
-        !job.scored && scoreOneUrl
-          ? '<button type="button" class="job-card-score-btn" data-score-one="' +
-            esc(job.job_id) +
-            '" title="Score this job with AI">Score</button>'
-          : job.match_score != null
-          ? '<span class="job-card-score ' +
-            scoreClass(job.match_score) +
-            '" title="' +
-            esc(job.qualification_label || "Match score") +
-            '">' +
-            esc(String(job.match_score)) +
-            "%</span>"
-          : '<span class="job-card-score score-pending" title="Not scored yet — click Score">Score</span>';
+      var scoreBadge = jobCardScoreBadgeHtml(job);
 
       var displayTitle = jobDisplayTitle(job);
       var originalTitle = (job.title || "").trim();
@@ -2009,7 +2155,7 @@
         ? '<p class="job-card-hint">' + esc(hintLine) + "</p>"
         : "";
 
-      btn.innerHTML =
+      card.innerHTML =
         '<div class="job-card-row">' +
         '<div class="job-card-text">' +
         '<p class="job-card-title"' +
@@ -2028,16 +2174,32 @@
         "</div>" +
         "</div>";
 
-      btn.addEventListener("click", function () {
+      card.addEventListener("click", function (e) {
+        if (e.target.closest("[data-score-one], .job-card-score-btn")) return;
         setSelected(job.job_id);
       });
-      listEl.appendChild(btn);
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          if (e.target.closest("[data-score-one], .job-card-score-btn")) return;
+          e.preventDefault();
+          setSelected(job.job_id);
+        }
+      });
+      listEl.appendChild(card);
     });
 
-    if (selectedId && byId[selectedId]) {
-      setSelected(selectedId, false);
-    } else if (jobs.length) {
-      setSelected(jobs[0].job_id, false);
+    if (opts.preserveScroll) {
+      listEl.scrollTop = scrollTop;
+    }
+
+    if (!opts.skipAutoSelect) {
+      if (selectedId && byId[selectedId]) {
+        setSelected(selectedId, false, { scroll: opts.scrollOnSelect !== true });
+      } else if (jobs.length) {
+        setSelected(jobs[0].job_id, false, { scroll: opts.scrollOnSelect === true });
+      }
+    } else {
+      syncJobListSelection({ scroll: false });
     }
     var countEl = document.getElementById("jobs-list-count");
     if (countEl) {
@@ -2129,23 +2291,29 @@
       renderList();
     }
   }
-  listEl.addEventListener("click", function (e) {
-    var browseBtn = e.target.closest("[data-browse-view]");
-    if (browseBtn) {
-      e.preventDefault();
-      switchBrowseView(browseBtn.getAttribute("data-browse-view") || "all");
-      return;
-    }
-    var scoreBtn = e.target.closest("[data-score-one]");
-    if (scoreBtn) {
+  listEl.addEventListener(
+    "click",
+    function (e) {
+      var scoreBtn = e.target.closest("[data-score-one]");
+      if (!scoreBtn) return;
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       var jobId = scoreBtn.getAttribute("data-score-one");
       if (jobId) {
         var job = jobById(jobId);
         if (job) scoreOneJob(job, scoreBtn);
         else showHubToast("Job not loaded yet — wait a moment or refresh once.", true);
       }
+    },
+    true
+  );
+  listEl.addEventListener("click", function (e) {
+    var browseBtn = e.target.closest("[data-browse-view]");
+    if (browseBtn) {
+      e.preventDefault();
+      switchBrowseView(browseBtn.getAttribute("data-browse-view") || "all");
+      return;
     }
   });
   syncPipelineState();
@@ -2287,13 +2455,10 @@
           throw new Error("Server did not return a job");
         }
         masterJobs = mergeJobArrays(masterJobs, [job]);
-        jobs = sortJobsForDisplay(filterJobsForCurrentView(masterJobs));
-        byId = {};
-        jobs.forEach(function (j) {
-          byId[j.job_id] = j;
-        });
+        touchDisplayOrder(job.job_id);
+        applyStableJobView();
         saveJobsSnapshot();
-        renderList();
+        renderList({ preserveScroll: true });
         setSelected(job.job_id, true);
         closeAddJobModal();
         var msg = res.data.message || "Job added.";
@@ -2321,8 +2486,11 @@
   document.addEventListener("jobs-score-tick", function (e) {
     var detail = (e && e.detail) || {};
     applyStatusJobPreviews(detail);
+    if (scoreOneInFlight > 0) return;
     if (document.body.getAttribute("data-pipeline-running") === "1") return;
-    refreshFromMarketData({ merge: true });
+    if (detail.state === "completed") {
+      refreshFromMarketData({ merge: true });
+    }
   });
 
   document.addEventListener("jobs-pipeline-started", function () {
