@@ -161,7 +161,8 @@ if DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Manifest storage 500s when any asset is missing from staticfiles.json on deploy.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -172,6 +173,9 @@ JOB_DEFAULT_MIN_SCORE = config('JOB_DEFAULT_MIN_SCORE', default=50, cast=int)
 JOB_DEFAULT_MAX_JOBS = config('JOB_DEFAULT_MAX_JOBS', default=150, cast=int)
 
 # Site password — ON when ENABLE_CV_PASSWORD=true and CV_ACCESS_PASSWORD is set.
+# Accept common Render typo ENABLE_CV_PASSORD (missing W).
+if not os.getenv('ENABLE_CV_PASSWORD', '').strip() and os.getenv('ENABLE_CV_PASSORD', '').strip():
+    os.environ['ENABLE_CV_PASSWORD'] = os.environ['ENABLE_CV_PASSORD']
 ENABLE_CV_PASSWORD = _config_bool('ENABLE_CV_PASSWORD', default=True)
 CV_ACCESS_PUBLIC = not ENABLE_CV_PASSWORD
 CV_ACCESS_REQUIRED = ENABLE_CV_PASSWORD
@@ -185,6 +189,9 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Strict'
+# Render free tier: avoid SQLite session writes (common 500 after unlock POST).
+if not DEBUG:
+    SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # HTTPS hardening on Render (production only).
 if not DEBUG:

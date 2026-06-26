@@ -12,6 +12,7 @@ from .cv_access import cv_is_unlocked, cv_password_enabled
 _PUBLIC_PREFIXES = (
     '/cv/unlock',
     '/cv/logout',
+    '/health/',
     '/assets/',
     '/static/',
     '/robots.txt',

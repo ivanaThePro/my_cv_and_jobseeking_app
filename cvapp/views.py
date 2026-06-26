@@ -148,6 +148,24 @@ def _jobs_hub_urls(*, view: str = 'non_it') -> dict:
     }
 
 
+def health_check(request):
+    """Public deploy probe (no password). Render sets RENDER_GIT_COMMIT on deploy."""
+    from django.http import JsonResponse
+    from cvapp.cv_access import cv_password_enabled
+
+    rev = (
+        os.getenv('RENDER_GIT_COMMIT', '').strip()
+        or os.getenv('SOURCE_VERSION', '').strip()
+        or 'unknown'
+    )
+    return JsonResponse({
+        'ok': True,
+        'rev': rev[:12],
+        'password_gate': cv_password_enabled(),
+        'debug': django_settings.DEBUG,
+    })
+
+
 def system_check(request):
     """Diagnostic: which code folder is running (local DEBUG only)."""
     if not django_settings.DEBUG:

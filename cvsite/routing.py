@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 from cvapp import views
 
 urlpatterns = [
+    path('health/', views.health_check, name='health_check'),
     path('_sys/check/', views.system_check, name='system_check'),
     path('assets/<path:asset_path>', views.serve_asset, name='serve_asset'),
     path('static/<path:asset_path>', views.serve_asset, name='serve_static_asset'),
