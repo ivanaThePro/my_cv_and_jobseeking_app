@@ -718,6 +718,18 @@ class CVAppTests(TestCase):
         self.assertEqual(data['job']['title'], 'Analyst')
         self.assertTrue(data.get('scored'))
 
+    def test_parse_role_company_from_imported_page_title(self):
+        role, company = lib._parse_role_company_from_page_title(
+            'Software Engineer | Acme GmbH | LinkedIn'
+        )
+        self.assertEqual(role, 'Software Engineer')
+        self.assertEqual(company, 'Acme GmbH')
+        role2, company2 = lib._parse_role_company_from_page_title(
+            'Data Analyst at Commerzbank AG'
+        )
+        self.assertEqual(role2, 'Data Analyst')
+        self.assertEqual(company2, 'Commerzbank AG')
+
     def test_non_it_rejects_hinduism_teacher(self):
         job = {
             'title': 'Hinduism Teacher (m/w/d)',
@@ -1110,6 +1122,47 @@ class CVAppTests(TestCase):
         self.assertTrue(data.get('ok'))
         self.assertIn('tailored_cv_url', data)
         mock_generate.assert_called_once()
+
+    @override_settings(CV_ACCESS_PASSWORD='')
+    @patch('cvapp.views.lib.generate_role_requested_html_cv')
+    @patch('cvapp.views._require_env')
+    def test_generate_role_cv_is_not_job_specific(self, mock_env, mock_generate):
+        mock_env.return_value = 'test-key'
+        mock_generate.return_value = {
+            'header_job_title': 'Software Developer',
+            'profile_intro': 'Intro',
+            'profile_highlights': ['A'],
+            'skill_boxes': [{'title': 'Skills', 'items': ['Python']}],
+            'interests': 'Tech',
+        }
+        body = {'role': 'Software Developer'}
+        response = self.client.post(
+            '/jobs/generate-role-cv/',
+            data=json.dumps(body),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data.get('ok'))
+        self.assertIn('role_cv_url', data)
+        self.assertEqual(data.get('target_role'), 'Software Developer')
+        slug = views._role_cv_slug('Software Developer')
+        role_path = views._role_cv_path(slug)
+        posting_path = views._tailored_cv_path('any-job-id')
+        self.assertTrue(role_path.is_file())
+        self.assertNotEqual(role_path.parent, posting_path.parent)
+        self.assertFalse(posting_path.is_file())
+        mock_generate.assert_called_once()
+
+    @override_settings(CV_ACCESS_PASSWORD='')
+    def test_generate_role_cv_requires_role_text(self):
+        response = self.client.post(
+            '/jobs/generate-role-cv/',
+            data=json.dumps({}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('role', response.json().get('error', '').lower())
 
     @override_settings(CV_ACCESS_PASSWORD='')
     @patch('cvapp.views.pstatus.is_running', return_value=True)

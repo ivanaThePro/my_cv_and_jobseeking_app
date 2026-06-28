@@ -124,6 +124,11 @@ def get_topbar_context(request=None) -> dict:
         'nav_incomplete_scoring': False,
         'nav_mistral_key': bool(os.getenv('MISTRAL_API_KEY', '').strip()),
     }
+    try:
+        from cvapp.views import list_generated_role_cvs
+        ctx['nav_generated_role_cvs'] = list_generated_role_cvs(limit=12)
+    except Exception:
+        ctx['nav_generated_role_cvs'] = []
     if request and '/jobs/market' in (request.path or ''):
         ctx.update(_browse_context(request, tab_stats))
     return ctx

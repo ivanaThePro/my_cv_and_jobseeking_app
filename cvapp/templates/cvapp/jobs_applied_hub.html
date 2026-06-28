@@ -5,7 +5,7 @@
 {% block body_class %}jobs-hub-page jobs-applied-page{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}?v=63">
+<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}?v=65">
 {% endblock %}
 
 {% block content %}
@@ -95,4 +95,23 @@
     </div>
     {% endif %}
 </div>
+
+<nav class="jobs-mobile-nav" id="jobs-mobile-nav" aria-label="Mobile navigation">
+    <a href="{% url 'jobs_market' %}?view=all" class="jobs-mobile-nav-btn" data-mobile-nav="jobs">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">☰</span>
+        <span class="jobs-mobile-nav-label">Jobs</span>
+    </a>
+    <a href="{% url 'jobs_applied' %}" class="jobs-mobile-nav-btn is-active" data-mobile-nav="applied">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">✓</span>
+        <span class="jobs-mobile-nav-label">Applied</span>
+    </a>
+    <button type="button" class="jobs-mobile-nav-btn" data-mobile-nav="import" id="mobile-nav-import-applied" onclick="document.getElementById('add-job-link-btn')&&document.getElementById('add-job-link-btn').click()">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">+</span>
+        <span class="jobs-mobile-nav-label">Import</span>
+    </button>
+    <button type="button" class="jobs-mobile-nav-btn" data-mobile-nav="browse" onclick="document.getElementById('browse-menu-btn')&&document.getElementById('browse-menu-btn').click()">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">▾</span>
+        <span class="jobs-mobile-nav-label">Filter</span>
+    </button>
+</nav>
 {% endblock %}

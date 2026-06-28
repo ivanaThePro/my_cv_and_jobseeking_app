@@ -1,0 +1,32 @@
+{
+  "kind": "role_cv",
+  "slug": "django-developer",
+  "target_role": "django developer",
+  "base_slug": "python-developer",
+  "language": "en",
+  "generated_at": "2026-06-28T07:26:23.125451",
+  "ai_payload": {
+    "header_job_title": "Junior Django Developer",
+    "profile_intro": "Interdisciplinary professional with a BA in International Development and pedagogical authorization, combining teaching, counseling, and foundational IT skills. Based in Frankfurt am Main with EU work eligibility. Completed multiple IT coursework modules including Python, Java, and computer security.",
+    "profile_highlights": [
+      "<strong>Python</strong> and foundational <strong>Java</strong> programming knowledge from university coursework",
+      "<strong>Teaching</strong> and <strong>classroom management</strong> experience across multiple educational settings",
+      "Strong <strong>communication</strong> and <strong>intercultural</strong> skills developed through multilingual work and study"
+    ],
+    "skill_boxes": [
+      {
+        "heading": "Programming & Development",
+        "content": "Python, Java, JavaScript, SQL, Git, Flutter/Dart"
+      },
+      {
+        "heading": "IT & Technical Skills",
+        "content": "Object-Oriented Programming, Computer Security, Technical Communication, API Development"
+      },
+      {
+        "heading": "Education & Training",
+        "content": "Teaching, Classroom Management, Career Counseling, Language Instruction"
+      }
+    ],
+    "interests": "Programming, education technology, intercultural communication, language learning"
+  }
+}

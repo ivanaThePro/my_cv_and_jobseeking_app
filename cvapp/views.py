@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -61,6 +62,7 @@ _JOBS_HUB_URL_FALLBACKS = {
     'jobs_status_api': '/jobs/status/',
     'jobs_applied_toggle': '/jobs/applied/toggle/',
     'jobs_generate_materials': '/jobs/generate-materials/',
+    'jobs_generate_role_cv': '/jobs/generate-role-cv/',
     'jobs_import_url': '/jobs/import-url/',
     'jobs_refine_materials': '/jobs/refine-materials/',
     'jobs_applied': '/jobs/applied/',
@@ -316,6 +318,60 @@ def _tailored_cover_url(job_id: str) -> str:
         return reverse('job_tailored_cover_letter', args=[job_id])
     except Exception:
         return f'/jobs/tailored-cover/{job_id}/'
+
+
+ROLE_CV_DIR = TAILORED_CV_DIR / 'by_role'
+
+
+def _role_cv_slug(role: str) -> str:
+    base = re.sub(r'[^a-z0-9]+', '-', (role or '').strip().lower()).strip('-')
+    if base:
+        return base[:80]
+    return hashlib.sha256((role or '').encode('utf-8')).hexdigest()[:16]
+
+
+def _role_cv_path(slug: str) -> Path:
+    return ROLE_CV_DIR / f'{slug}.html'
+
+
+def _role_cv_meta_path(slug: str) -> Path:
+    return ROLE_CV_DIR / f'{slug}.json'
+
+
+def _role_cv_url(slug: str) -> str:
+    try:
+        return reverse('role_requested_cv', args=[slug])
+    except Exception:
+        return f'/cv/generated-role/{slug}/'
+
+
+def _ensure_role_cv_dir() -> None:
+    ROLE_CV_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def list_generated_role_cvs(*, limit: int = 20) -> list[dict]:
+    """Saved AI CVs for named roles (not tied to job postings)."""
+    if not ROLE_CV_DIR.is_dir():
+        return []
+    metas: list[tuple[float, dict]] = []
+    for meta_path in ROLE_CV_DIR.glob('*.json'):
+        slug = meta_path.stem
+        if not _role_cv_path(slug).is_file():
+            continue
+        try:
+            meta = json.loads(meta_path.read_text(encoding='utf-8'))
+        except Exception:
+            meta = {}
+        if not isinstance(meta, dict):
+            meta = {}
+        metas.append((meta_path.stat().st_mtime, {
+            'slug': slug,
+            'target_role': str(meta.get('target_role') or slug.replace('-', ' ').title()),
+            'url': _role_cv_url(slug),
+            'generated_at': str(meta.get('generated_at') or ''),
+        }))
+    metas.sort(key=lambda item: item[0], reverse=True)
+    return [item[1] for item in metas[:limit]]
 
 
 def _job_materials_meta_list(job_id: str) -> dict:
@@ -671,6 +727,7 @@ def _append_job_to_cache(job: dict) -> tuple[str, bool]:
     entry = {
         'title': job.get('title') or 'Imported job',
         'company': job.get('company') or job.get('companyName') or 'Unknown company',
+        'companyName': job.get('company') or job.get('companyName') or 'Unknown company',
         'location': job.get('location') or job.get('locationName') or '',
         'description': job.get('description') or job.get('descriptionText') or '',
         'url': job.get('url') or job.get('applyUrl') or '',
@@ -680,7 +737,7 @@ def _append_job_to_cache(job: dict) -> tuple[str, bool]:
         'refnr': job.get('refnr') or '',
         'workRemoteAllowed': bool(job.get('remote') or job.get('workRemoteAllowed')),
     }
-    cached.append(entry)
+    cached.insert(0, entry)
     lib.save_jobs_cache(cached)
     _STATS_CACHE['at'] = 0.0
     _invalidate_slim_jobs_cache()
@@ -725,7 +782,10 @@ def _job_payload_for_imported(job: dict, *, match: dict | None = None) -> dict:
     }
     if match:
         row['match_score'] = int(match.get('match_score') or 0)
-    return _row_to_job_payload(row)
+    payload = _row_to_job_payload(row)
+    payload['imported'] = True
+    payload['companyName'] = payload.get('company') or ''
+    return payload
 
 
 @require_POST
@@ -837,13 +897,21 @@ def _jobs_import_url_impl(request):
             })
 
     payload = _job_payload_for_imported(job, match=match)
+    title = payload.get('title') or 'Job'
+    company = payload.get('company') or ''
+    if created:
+        msg = f'Imported: {title}' + (f' @ {company}' if company else '')
+    else:
+        msg = f'Already in your list: {title}' + (f' @ {company}' if company else '')
+    if match:
+        msg += f' · Score {int(match.get("match_score") or 0)}%'
     return JsonResponse({
         'ok': True,
         'job': payload,
         'job_id': job_id,
         'created': created,
         'scored': bool(match),
-        'message': 'Job added' + (' and scored' if match else ''),
+        'message': msg,
     })
 
 
@@ -2097,6 +2165,24 @@ def job_tailored_cover_letter(request, job_id: str):
     return HttpResponse(path.read_text(encoding='utf-8'), content_type='text/html; charset=utf-8')
 
 
+def role_requested_cv(request, role_slug: str):
+    """Serve AI-generated CV for a named role (not tied to a job posting)."""
+    slug = re.sub(r'[^a-z0-9-]', '', (role_slug or '').strip().lower())
+    if not slug:
+        raise Http404('Invalid role CV')
+    path = _role_cv_path(slug)
+    if not path.is_file():
+        raise Http404('Role CV not generated yet')
+    return HttpResponse(path.read_text(encoding='utf-8'), content_type='text/html; charset=utf-8')
+
+
+def _base_slug_for_role(role: str) -> str:
+    base_slug = _suggest_cv_profile(role, '')['slug']
+    if base_slug == 'professional' or base_slug not in ROLE_CVS:
+        base_slug = next(iter(ROLE_CVS), DEFAULT_CV_SLUG)
+    return base_slug
+
+
 def _job_context_for_ai(job_id: str) -> tuple[dict, dict, dict, dict, str] | tuple[None, ...]:
     """Load cached job, match data, and suggested base CV slug for AI generation."""
     card = _find_cached_job_by_id(job_id)
@@ -2127,6 +2213,83 @@ def jobs_generate_materials(request):
         return _jobs_generate_materials_impl(request)
     except Exception as exc:
         return JsonResponse({'ok': False, 'error': _friendly_error(exc)}, status=500)
+
+
+@require_POST
+def jobs_generate_role_cv(request):
+    """Generate a CV for a named target role (keeps posting-tailored CV separate)."""
+    try:
+        return _jobs_generate_role_cv_impl(request)
+    except Exception as exc:
+        return JsonResponse({'ok': False, 'error': _friendly_error(exc)}, status=500)
+
+
+def _jobs_generate_role_cv_impl(request):
+    try:
+        body = json.loads(request.body.decode('utf-8') or '{}')
+    except json.JSONDecodeError:
+        return JsonResponse({'ok': False, 'error': 'Invalid JSON'}, status=400)
+
+    target_role = str(body.get('role') or body.get('target_role') or '').strip()
+    if not target_role:
+        return JsonResponse(
+            {'ok': False, 'error': 'Enter a target role (e.g. Software Developer)'},
+            status=400,
+        )
+    if len(target_role) > 120:
+        return JsonResponse({'ok': False, 'error': 'Role name is too long (max 120 characters)'}, status=400)
+
+    output_lang = str(body.get('lang') or 'auto').strip().lower()
+    if output_lang not in ('auto', 'en', 'de', 'no'):
+        output_lang = 'auto'
+
+    lib.load_env_files()
+    try:
+        api_key = _require_env('MISTRAL_API_KEY')
+    except Exception as exc:
+        return JsonResponse({'ok': False, 'error': str(exc)}, status=400)
+
+    cv = lib.load_cv()
+    profile = lib.load_profile()
+    base_slug = _base_slug_for_role(target_role)
+    slug = _role_cv_slug(target_role)
+
+    try:
+        ai_payload = lib.generate_role_requested_html_cv(
+            api_key,
+            cv,
+            target_role,
+            profile=profile,
+            base_slug=base_slug,
+            output_language=output_lang,
+        )
+        html = build_ai_tailored_cv_html(base_slug, ai_payload)
+    except Exception as exc:
+        return JsonResponse({'ok': False, 'error': _friendly_error(exc)}, status=500)
+
+    _ensure_role_cv_dir()
+    out_path = _role_cv_path(slug)
+    out_path.write_text(html, encoding='utf-8')
+    _role_cv_meta_path(slug).write_text(
+        json.dumps({
+            'kind': 'role_cv',
+            'slug': slug,
+            'target_role': target_role,
+            'base_slug': base_slug,
+            'language': output_lang,
+            'generated_at': datetime.now().isoformat(),
+            'ai_payload': ai_payload,
+        }, ensure_ascii=False, indent=2),
+        encoding='utf-8',
+    )
+    return JsonResponse({
+        'ok': True,
+        'role_cv_url': _role_cv_url(slug),
+        'target_role': target_role,
+        'slug': slug,
+        'base_slug': base_slug,
+        'label': f'Role CV — {target_role}',
+    })
 
 
 def _jobs_generate_materials_impl(request):

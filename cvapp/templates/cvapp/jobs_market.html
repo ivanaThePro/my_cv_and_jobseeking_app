@@ -5,7 +5,7 @@
 {% block body_class %}jobs-hub-page{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}?v=63">
+<link rel="stylesheet" href="{% url 'serve_asset' 'css/job-hub.css' %}?v=65">
 {% endblock %}
 
 {% block content %}
@@ -46,6 +46,25 @@
     </div>
 </div>
 
+<nav class="jobs-mobile-nav" id="jobs-mobile-nav" aria-label="Mobile navigation">
+    <button type="button" class="jobs-mobile-nav-btn is-active" data-mobile-nav="jobs" aria-label="Job list">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">☰</span>
+        <span class="jobs-mobile-nav-label">Jobs</span>
+    </button>
+    <a href="{% url 'jobs_applied' %}" class="jobs-mobile-nav-btn" data-mobile-nav="applied">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">✓</span>
+        <span class="jobs-mobile-nav-label">Applied</span>
+    </a>
+    <button type="button" class="jobs-mobile-nav-btn" data-mobile-nav="import" id="mobile-nav-import">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">+</span>
+        <span class="jobs-mobile-nav-label">Import</span>
+    </button>
+    <button type="button" class="jobs-mobile-nav-btn" data-mobile-nav="browse" id="mobile-nav-browse">
+        <span class="jobs-mobile-nav-icon" aria-hidden="true">▾</span>
+        <span class="jobs-mobile-nav-label">Filter</span>
+    </button>
+</nav>
+
 {% endblock %}
 
 {% block extra_js %}
@@ -75,5 +94,5 @@ window.JOBS_HUB = {
     appliedIds: {{ applied_ids_json|safe }}
 };
 </script>
-<script src="{% url 'serve_asset' 'js/job-hub.js' %}?v=79"></script>
+<script src="{% url 'serve_asset' 'js/job-hub.js' %}?v=85"></script>
 {% endblock %}

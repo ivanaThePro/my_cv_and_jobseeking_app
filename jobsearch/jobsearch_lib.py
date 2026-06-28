@@ -1464,16 +1464,44 @@ def _arbeitsagentur_search_rows(data: object) -> list[dict]:
 
 
 def _parse_company_from_title(title: str) -> str:
-    text = _ensure_text(title)
-    if " - " in text:
-        candidate = text.split(" - ")
-        if len(candidate) > 1:
-            return candidate[-1].strip()
+    """Best-effort company name from a browser page title (Role | Company | Site)."""
+    role, company = _parse_role_company_from_page_title(title)
+    return company
+
+
+def _parse_role_company_from_page_title(raw: str) -> tuple[str, str]:
+    """Split a page <title> or og:title into (role, company)."""
+    text = _ensure_text(raw)
+    if not text:
+        return "", ""
+
+    at_match = re.match(r"^(?P<role>.+?)\s+at\s+(?P<company>.+)$", text, re.I)
+    if at_match:
+        return at_match.group("role").strip(), at_match.group("company").strip()
+
+    bei_match = re.match(r"^(?P<role>.+?)\s+bei\s+(?P<company>.+)$", text, re.I)
+    if bei_match:
+        return bei_match.group("role").strip(), bei_match.group("company").strip()
+
+    parts: list[str] = []
     if "|" in text:
-        candidate = text.split("|")
-        if len(candidate) > 1:
-            return candidate[-1].strip()
-    return ""
+        parts = [p.strip() for p in text.split("|") if p.strip()]
+    elif re.search(r"\s[-–]\s", text):
+        parts = [p.strip() for p in re.split(r"\s[-–]\s", text) if p.strip()]
+
+    site_noise = {
+        "linkedin", "indeed", "stepstone", "xing", "glassdoor", "monster",
+        "careerbuilder", "google", "jobs", "karriere", "stellenanzeigen",
+        "job search", "job board", "arbeitnow", "eures", "arbeitsagentur",
+    }
+    while len(parts) > 1 and parts[-1].lower() in site_noise:
+        parts.pop()
+
+    if len(parts) >= 2:
+        return parts[0], parts[-1]
+    if len(parts) == 1:
+        return parts[0], ""
+    return text, ""
 
 
 def _normalize_job(raw: dict, source: str) -> dict:
@@ -2810,16 +2838,24 @@ def import_job_from_url(raw_url: str, api_key: str = "") -> dict:
     )
     response.raise_for_status()
     html = response.text
-    title = (
+    raw_title = (
         _html_meta_content(html, prop="og:title")
         or _html_meta_content(html, name="twitter:title")
         or ""
     )
-    if not title:
+    if not raw_title:
         title_match = re.search(r"(?is)<title[^>]*>([^<]+)</title>", html)
-        title = _ensure_text(title_match.group(1)) if title_match else ""
-    title = title.split("|")[0].split(" - ")[0].strip() or "Imported job"
-    company = urlparse(url).netloc.replace("www.", "")
+        raw_title = _ensure_text(title_match.group(1)) if title_match else ""
+    role, company = _parse_role_company_from_page_title(raw_title)
+    title = role or raw_title.split("|")[0].split(" - ")[0].strip() or "Imported job"
+    if not company:
+        company = (
+            _html_meta_content(html, prop="og:site_name")
+            or _parse_company_from_title(raw_title)
+            or ""
+        )
+    if not company:
+        company = urlparse(url).netloc.replace("www.", "")
     location = ""
     description = (
         _html_meta_content(html, prop="og:description")
@@ -3343,6 +3379,58 @@ def generate_tailored_html_cv(
         f"Location: {job.get('location')}\n\n"
         f"Match analysis (if any):\n{json.dumps(match)}\n\n"
         f"Job description:\n{description}\n{about_block}"
+    )
+    raw = mistral_json(api_key, system, user, model=MATERIALS_MODEL)
+    return normalize_html_cv_result(raw)
+
+
+def generate_role_requested_html_cv(
+    api_key: str,
+    cv: str,
+    target_role: str,
+    *,
+    profile: dict | None = None,
+    base_slug: str = "graduate-trainee",
+    output_language: str = "auto",
+    job_context: dict | None = None,
+) -> dict:
+    """AI content for a CV tailored to a role the candidate names (not a job posting)."""
+    target_role = (target_role or "").strip()
+    if not target_role:
+        raise ValueError("target_role required")
+    profile = profile or load_profile()
+    job_context = job_context or {}
+    output_language = (output_language or "auto").strip().lower()
+    lang_hint = {
+        "en": "Write ALL output in English.",
+        "de": "Write ALL output in German (Deutsch).",
+        "no": "Write ALL output in Norwegian Bokmal.",
+    }.get(output_language, "Use English unless the target role is clearly German-market.")
+    company = str(job_context.get("company") or "").strip()
+    location = str(job_context.get("location") or "").strip()
+    context_block = ""
+    if company or location:
+        context_block = (
+            f"\nOptional application context (do not invent employer-specific facts): "
+            f"company={company or 'n/a'}, location={location or 'n/a'}\n"
+        )
+    system = (
+        "You tailor a 2-page job-market CV for a TARGET ROLE the candidate chose — "
+        "not for one specific job posting. "
+        "Use ONLY facts from the candidate CV and profile — never invent employers, degrees, or skills. "
+        "Emphasize BA International Development, pedagogical authorization, languages, teaching/counseling experience, "
+        "and Frankfurt-based availability when relevant. "
+        f"{lang_hint} "
+        "header_job_title should reflect the target role honestly (e.g. Junior Software Developer not Senior Architect). "
+        "skill_boxes: exactly 3 groups tailored to this role; Languages box is added automatically — do not include languages. "
+        f"{HTML_CV_SCHEMA}"
+    )
+    user = (
+        f"Target role requested by candidate: {target_role}\n\n"
+        f"Base CV template slug: {base_slug}\n\n"
+        f"CV text:\n{cv}\n\n"
+        f"Profile:\n{json.dumps(profile)}\n"
+        f"{context_block}"
     )
     raw = mistral_json(api_key, system, user, model=MATERIALS_MODEL)
     return normalize_html_cv_result(raw)

@@ -1980,60 +1980,161 @@ body.modal-open {
 .applied-empty-cta { margin: 0 auto; }
 
 @media (max-width: 900px) {
+    :root {
+        --topbar-height: 0px;
+    }
+
+    .app-topbar {
+        padding-top: env(safe-area-inset-top, 0px);
+    }
+
     .topbar-inner {
-        padding: 0 14px 10px;
+        padding: 0 10px 8px;
+        padding-left: max(10px, env(safe-area-inset-left, 0px));
+        padding-right: max(10px, env(safe-area-inset-right, 0px));
     }
+
     .topbar-row-main {
-        flex-wrap: wrap;
-        gap: 12px;
-        padding: 12px 0 8px;
-    }
-    .topbar-row-stats {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 8px;
+        padding: 10px 0 6px;
     }
-    .topbar-stats-hint {
-        font-size: 0.68rem;
-        line-height: 1.4;
-    }
-    .topbar-end {
-        margin-left: auto;
-        flex-shrink: 0;
-        width: 100%;
-        justify-content: flex-end;
-    }
-    .topbar-actions {
-        width: 100%;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
+
     .topbar-main-nav {
-        flex: 1 1 auto;
-        min-width: 0;
+        display: flex;
+        width: 100%;
+        gap: 8px;
     }
+
     .topbar-nav-link,
     .topbar-browse-btn {
+        flex: 1 1 0;
+        justify-content: center;
         min-height: 44px;
-        padding: 10px 12px;
-        font-size: 0.82rem;
+        padding: 10px 8px;
+        font-size: 0.8rem;
+        text-align: center;
     }
+
+    .topbar-end {
+        width: 100%;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        justify-content: stretch;
+    }
+
+    .topbar-action-form {
+        display: contents;
+    }
+
     .topbar-btn {
+        width: 100%;
         min-height: 44px;
-        min-width: 44px;
-        padding: 10px 14px;
+        min-width: 0;
+        padding: 8px 10px;
+        justify-content: center;
+    }
+
+    .topbar-btn-inner {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .topbar-btn .btn-label {
+        font-size: 0.72rem;
+        line-height: 1.15;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .topbar-menu-wrap {
+        width: 100%;
+    }
+
+    .topbar-menu-btn {
+        width: 100%;
+        min-height: 44px;
+        justify-content: center;
+    }
+
+    .topbar-cancel-form {
+        grid-column: 1 / -1;
+    }
+
+    .topbar-cancel-btn {
+        width: 100%;
+        min-height: 40px;
+    }
+
+    .topbar-row-stats {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+    }
+
+    .topbar-row-stats::-webkit-scrollbar {
+        display: none;
+    }
+
+    .topbar-stats {
+        flex-wrap: nowrap;
+        gap: 8px;
+        min-width: min-content;
+    }
+
+    .stat-chip {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 8px 12px;
+    }
+
+    .topbar-stats-hint {
+        display: none;
+    }
+
+    .browse-dropdown {
+        position: fixed;
+        left: 10px !important;
+        right: 10px !important;
+        top: auto !important;
+        bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+        max-width: none;
+        max-height: min(55vh, 420px);
+        z-index: 400;
+    }
+
+    .topbar-dropdown-end {
+        right: 10px;
+        left: 10px;
+        max-width: none;
     }
 }
 
 @media (max-width: 520px) {
-    .topbar-inner { padding: 0 10px 8px; }
-    .topbar-row-main { padding: 10px 0 6px; gap: 8px; }
-    .brand-text { display: none; }
+    .topbar-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .topbar-btn .btn-icon {
+        font-size: 1rem;
+    }
+
     .stat-chip-label { font-size: 0.64rem; }
     .stat-chip-value { font-size: 0.95rem; }
-    .topbar-actions .btn-label { display: inline; font-size: 0.72rem; }
-    .topbar-stats-hint { display: none; }
 }
 
 @media (max-width: 520px) {

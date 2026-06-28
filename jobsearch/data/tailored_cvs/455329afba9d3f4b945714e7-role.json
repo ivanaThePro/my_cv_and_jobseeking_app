@@ -1,12 +1,14 @@
 {
-  "job_id": "abc123snapshot01",
-  "title": "Business Analyst (m/w/d)",
-  "company": "DFB",
+  "job_id": "rolecvtest000001",
+  "kind": "role_cv",
+  "target_role": "Software Developer",
+  "title": "Backend Engineer (m/w/d)",
+  "company": "Tech GmbH",
   "base_slug": "python-developer",
   "language": "auto",
-  "generated_at": "2026-06-28T10:28:27.168562",
+  "generated_at": "2026-06-28T07:13:18.932373",
   "ai_payload": {
-    "header_job_title": "Business Analyst",
+    "header_job_title": "Software Developer",
     "profile_intro": "Intro",
     "profile_highlights": [
       "A"

@@ -64,6 +64,14 @@
                         <span class="btn-label">Import URL</span>
                     </span>
                 </button>
+                {% if nav_mistral_key %}
+                <button type="button" class="topbar-btn topbar-btn-secondary" id="role-cv-btn" data-generate-role-cv-url="{% url 'jobs_generate_role_cv' %}" data-tip="Name any role (e.g. Software Developer) — AI builds a CV, separate from job postings">
+                    <span class="topbar-btn-inner">
+                        <span class="btn-icon" aria-hidden="true">&#9998;</span>
+                        <span class="btn-label">Role CV</span>
+                    </span>
+                </button>
+                {% endif %}
                 {% endif %}
                 <form method="post" action="{% url 'jobs_refresh_cache' %}" class="async-form topbar-action-form">
                     {% csrf_token %}
@@ -110,6 +118,16 @@
                         <span class="cv-menu-link-text">CV by job role</span>
                         <span class="cv-menu-link-badge">2-page</span>
                     </a>
+                    {% if nav_generated_role_cvs %}
+                    <div class="topbar-dropdown-divider" role="separator"></div>
+                    <p class="topbar-dropdown-heading">AI role CVs</p>
+                    {% for item in nav_generated_role_cvs %}
+                    <a href="{{ item.url }}" class="topbar-dropdown-link cv-menu-link" target="_blank" rel="noopener">
+                        <span class="cv-menu-link-text">{{ item.target_role }}</span>
+                        <span class="cv-menu-link-badge">Role CV</span>
+                    </a>
+                    {% endfor %}
+                    {% endif %}
                     <div class="topbar-dropdown-divider" role="separator"></div>
                     <a href="{% url 'cv_logout' %}" class="topbar-dropdown-link cv-menu-link cv-menu-link-signout">Sign out</a>
                 </div>

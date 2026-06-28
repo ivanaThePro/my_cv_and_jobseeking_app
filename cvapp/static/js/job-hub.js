@@ -512,6 +512,63 @@
     if (displayOrder.indexOf(jobId) < 0) displayOrder.push(jobId);
   }
 
+  function pinJobToTop(jobId) {
+    if (!jobId) return;
+    displayOrder = displayOrder.filter(function (id) {
+      return id !== jobId;
+    });
+    displayOrder.unshift(jobId);
+  }
+
+  function resolveImportJobUrl() {
+    if (importJobUrl) return importJobUrl;
+    var btn = document.getElementById("add-job-link-btn");
+    if (btn) {
+      var fromBtn = (btn.getAttribute("data-import-url") || "").trim();
+      if (fromBtn.indexOf("/jobs/import") !== -1) return fromBtn;
+    }
+    return "/jobs/import-url/";
+  }
+
+  function ensureJobVisibleAfterImport(job) {
+    if (!job || !job.job_id) return;
+    var visible = filterJobsForCurrentView([job]);
+    if (visible.length) return;
+    switchBrowseView("all");
+  }
+
+  function showImportSuccessBanner(job, res) {
+    var banner = document.getElementById("jobs-market-banner");
+    if (!banner || !job) return;
+    var note = "";
+    if (res && res.warning) note = res.warning;
+    if (res && res.scored && job.match_score != null && !note) {
+      note = "AI match score: " + job.match_score + "%";
+    }
+    banner.innerHTML = importSuccessHtml(job, note);
+  }
+
+  function handleImportSuccess(res) {
+    var job = res.job;
+    if (!job || !job.job_id) {
+      throw new Error("Server did not return a job");
+    }
+    job.just_imported = true;
+    masterJobs = mergeJobArrays(masterJobs, [job]);
+    pinJobToTop(job.job_id);
+    ensureJobVisibleAfterImport(job);
+    applyStableJobView();
+    saveJobsSnapshot();
+    renderList({ preserveScroll: false });
+    listEl.scrollTop = 0;
+    setSelected(job.job_id, true, { scroll: true });
+    closeAddJobModal();
+    var msg = importSuccessMessage(job, res);
+    showImportSuccessBanner(job, res);
+    showHubToast(msg, false);
+    updateTopbarFromMarket(deriveBrowseStatsFromJobs(masterJobs));
+  }
+
   function syncDisplayOrderFromList(list) {
     (list || []).forEach(function (job) {
       if (job && job.job_id) touchDisplayOrder(job.job_id);
@@ -1208,13 +1265,44 @@
     return window.innerWidth <= 960;
   }
 
+  function syncMobileChrome() {
+    if (isMobileLayout()) {
+      document.body.classList.add("jobs-mobile-chrome");
+    } else {
+      document.body.classList.remove("jobs-mobile-chrome");
+      if (splitEl) setMobileDetailOpen(false);
+    }
+  }
+
+  function updateMobileNavState() {
+    var nav = document.getElementById("jobs-mobile-nav");
+    if (!nav) return;
+    nav.querySelectorAll(".jobs-mobile-nav-btn").forEach(function (btn) {
+      btn.classList.remove("is-active");
+    });
+    var jobsBtn = nav.querySelector('[data-mobile-nav="jobs"]');
+    if (jobsBtn && isMobileLayout() && !selectedId) {
+      jobsBtn.classList.add("is-active");
+    }
+  }
+
   function setMobileDetailOpen(open) {
     if (!splitEl) return;
     splitEl.classList.toggle("jobs-split--detail-open", !!open && isMobileLayout());
   }
 
   function closeMobileDetail() {
+    selectedId = "";
     setMobileDetailOpen(false);
+    syncJobListSelection({ scroll: false });
+    detailContent.innerHTML =
+      '<p class="jobs-mobile-pick-hint">Select a job from the list to view details, score, and create materials.</p>';
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.delete("job");
+      history.replaceState({}, "", url.toString());
+    } catch (e) {}
+    updateMobileNavState();
     var panel = document.querySelector(".jobs-list-panel");
     if (panel) {
       panel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1249,6 +1337,38 @@
 
   function jobDisplayTitle(job) {
     return (job.title_en || englishDisplayTitle(job.title) || job.title || "Role").trim();
+  }
+
+  function jobCompanyName(job) {
+    return ((job && (job.company || job.companyName)) || "").trim() || "Unknown company";
+  }
+
+  function importSuccessHtml(job, extraNote) {
+    var role = jobDisplayTitle(job);
+    var company = jobCompanyName(job);
+    var html =
+      '<p class="jobs-banner-ok"><strong>✓ Job imported</strong></p>' +
+      '<p class="jobs-banner-ok-detail"><span class="jobs-banner-label">Role</span> ' +
+      esc(role) +
+      "</p>" +
+      '<p class="jobs-banner-ok-detail"><span class="jobs-banner-label">Company</span> ' +
+      esc(company) +
+      "</p>";
+    if (extraNote) {
+      html += '<p class="jobs-banner-ok-note">' + esc(extraNote) + "</p>";
+    }
+    return html;
+  }
+
+  function importSuccessMessage(job, res) {
+    var role = jobDisplayTitle(job);
+    var company = jobCompanyName(job);
+    var msg = "Imported: " + role + " @ " + company;
+    if (res && res.scored && job.match_score != null) {
+      msg += " · Score " + job.match_score + "%";
+    }
+    if (res && res.warning) msg += " — " + res.warning;
+    return msg;
   }
 
   function truncateText(text, max) {
@@ -1292,6 +1412,9 @@
     }
     if (job.remote) {
       badges.push('<span class="job-card-badge remote">Remote</span>');
+    }
+    if (job.just_imported || job.imported) {
+      badges.push('<span class="job-card-badge imported">Imported</span>');
     }
     if (job.country) {
       badges.push('<span class="job-card-badge country">' + esc(job.country) + "</span>");
@@ -1947,7 +2070,7 @@
       "</h2>" +
       titleNote +
       '<p class="jobs-hero-company">' +
-      esc(job.company) +
+      esc(jobCompanyName(job)) +
       "</p>" +
       '<p class="jobs-hero-location">' +
       esc(locationParts.join(" · ")) +
@@ -2051,6 +2174,7 @@
     selectedId = jobId;
     closeAiEditModal();
     syncJobListSelection({ scroll: opts.scroll !== false });
+    updateMobileNavState();
 
     renderDetail(byId[jobId]);
 
@@ -2148,7 +2272,7 @@
         originalTitle && displayTitle !== originalTitle
           ? ' title="Original: ' + esc(originalTitle) + '"'
           : "";
-      var companyName = job.company || "Company";
+      var companyName = jobCompanyName(job);
       var subParts = [companyName, job.location, job.source].filter(Boolean);
       var hintLine = truncateText(jobCardHint(job), 120);
       var hintHtml = hintLine
@@ -2193,10 +2317,24 @@
     }
 
     if (!opts.skipAutoSelect) {
-      if (selectedId && byId[selectedId]) {
-        setSelected(selectedId, false, { scroll: opts.scrollOnSelect !== true });
-      } else if (jobs.length) {
+      var urlJob = "";
+      try {
+        urlJob = new URL(window.location.href).searchParams.get("job") || "";
+      } catch (e) {}
+      var pickId = (selectedId && byId[selectedId] && selectedId) || urlJob || "";
+      if (pickId && byId[pickId]) {
+        setSelected(pickId, false, { scroll: opts.scrollOnSelect === true });
+      } else if (jobs.length && !isMobileLayout()) {
         setSelected(jobs[0].job_id, false, { scroll: opts.scrollOnSelect === true });
+      } else if (isMobileLayout() && !pickId) {
+        selectedId = "";
+        setMobileDetailOpen(false);
+        syncJobListSelection({ scroll: false });
+        if (!detailContent.innerHTML.trim()) {
+          detailContent.innerHTML =
+            '<p class="jobs-mobile-pick-hint">Select a job from the list to view details, score, and create materials.</p>';
+        }
+        updateMobileNavState();
       }
     } else {
       syncJobListSelection({ scroll: false });
@@ -2330,16 +2468,50 @@
     }
   }
   wireAddJobLinkButton();
+  wireRoleCvButton();
+  wireMobileNav();
+  syncMobileChrome();
+
+  function wireMobileNav() {
+    var nav = document.getElementById("jobs-mobile-nav");
+    if (!nav || nav.dataset.wired) return;
+    nav.dataset.wired = "1";
+    var jobsBtn = nav.querySelector('[data-mobile-nav="jobs"]');
+    if (jobsBtn) {
+      jobsBtn.addEventListener("click", function () {
+        closeMobileDetail();
+        listEl.scrollTop = 0;
+      });
+    }
+    var importBtn = nav.querySelector('[data-mobile-nav="import"]');
+    if (importBtn) {
+      importBtn.addEventListener("click", function () {
+        openAddJobModal();
+      });
+    }
+    var browseBtn = nav.querySelector('[data-mobile-nav="browse"]');
+    if (browseBtn) {
+      browseBtn.addEventListener("click", function () {
+        var menuBtn = document.getElementById("browse-menu-btn");
+        if (menuBtn) menuBtn.click();
+      });
+    }
+    window.addEventListener("resize", syncMobileChrome);
+  }
 
   function wireAddJobLinkButton() {
     var btn = document.getElementById("add-job-link-btn");
     if (!btn || btn.dataset.wired) return;
     btn.dataset.wired = "1";
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      openAddJobModal();
-    });
+    btn.addEventListener(
+      "click",
+      function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openAddJobModal();
+      },
+      true
+    );
   }
 
   var addJobModalEl = null;
@@ -2356,7 +2528,7 @@
       '<button type="button" class="jobs-ai-modal-close" data-close-add-job aria-label="Close">×</button>' +
       '<h3 id="jobs-add-link-title" class="jobs-ai-modal-title">Add job from link</h3>' +
       '<p class="jobs-ai-modal-sub">Paste a posting URL (LinkedIn, company site, Arbeitsagentur, StepStone…). We fetch the job, add it to your list, and score it with AI when possible.</p>' +
-      '<input type="url" class="jobs-ai-modal-input jobs-add-link-input" data-import-url placeholder="https://…" autocomplete="off">' +
+      '<input type="url" class="jobs-ai-modal-input jobs-add-link-input" data-import-url-input placeholder="https://…" autocomplete="off">' +
       '<div class="jobs-ai-modal-actions">' +
       '<button type="button" class="hero-btn hero-btn-generate" data-action="submit-import-job">Add &amp; score</button>' +
       "</div>" +
@@ -2372,7 +2544,7 @@
         submitImportJob(submitBtn);
       });
     }
-    var input = addJobModalEl.querySelector("[data-import-url]");
+    var input = addJobModalEl.querySelector("[data-import-url-input]");
     if (input) {
       input.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
@@ -2391,11 +2563,13 @@
   }
 
   function openAddJobModal() {
-    if (!importJobUrl) {
+    var apiUrl = resolveImportJobUrl();
+    if (!apiUrl) {
       alert("Import URL is not available on this page. Refresh and try again.");
       return;
     }
     var modal = ensureAddJobModal();
+    modal.dataset.importUrl = apiUrl;
     modal.removeAttribute("hidden");
     document.body.classList.add("jobs-ai-modal-open");
     var status = modal.querySelector("[data-import-status]");
@@ -2403,7 +2577,7 @@
       status.hidden = true;
       status.textContent = "";
     }
-    var input = modal.querySelector("[data-import-url]");
+    var input = modal.querySelector("[data-import-url-input]");
     if (input) {
       input.value = "";
       input.focus();
@@ -2412,12 +2586,18 @@
 
   if (window.JOBS_HUB) {
     window.JOBS_HUB.openAddJobModal = openAddJobModal;
+    window.JOBS_HUB.handleImportSuccess = handleImportSuccess;
+    window.JOBS_HUB.resolveImportJobUrl = resolveImportJobUrl;
   }
 
   function submitImportJob(btn) {
-    if (!importJobUrl) return;
     var modal = ensureAddJobModal();
-    var input = modal.querySelector("[data-import-url]");
+    var apiUrl = modal.dataset.importUrl || resolveImportJobUrl();
+    if (!apiUrl) {
+      showHubToast("Import URL is not configured. Refresh the page.", true);
+      return;
+    }
+    var input = modal.querySelector("[data-import-url-input]");
     var status = modal.querySelector("[data-import-status]");
     var url = (input && input.value || "").trim();
     if (!url) {
@@ -2435,7 +2615,13 @@
       status.hidden = false;
       status.textContent = "Fetching job page and scoring — may take 30–90 seconds…";
     }
-    fetch(importJobUrl, {
+    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timeoutId = controller
+      ? setTimeout(function () {
+          controller.abort();
+        }, 120000)
+      : null;
+    fetch(apiUrl, {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -2444,43 +2630,189 @@
         "X-Requested-With": "XMLHttpRequest",
       },
       body: JSON.stringify({ url: url, score: true }),
+      signal: controller ? controller.signal : undefined,
     })
       .then(fetchJsonResponse)
       .then(function (res) {
         if (!res.ok || !res.data || !res.data.ok) {
           throw new Error((res.data && res.data.error) || "Import failed");
         }
-        var job = res.data.job;
-        if (!job || !job.job_id) {
-          throw new Error("Server did not return a job");
-        }
-        masterJobs = mergeJobArrays(masterJobs, [job]);
-        touchDisplayOrder(job.job_id);
-        applyStableJobView();
-        saveJobsSnapshot();
-        renderList({ preserveScroll: true });
-        setSelected(job.job_id, true);
-        closeAddJobModal();
-        var msg = res.data.message || "Job added.";
-        if (res.data.warning) msg += " " + res.data.warning;
-        showHubToast(msg, false);
-        if (typeof window.updateBrowseDropdownCounts === "function") {
-          refreshFromMarketData({ merge: true, force: true });
-        }
+        handleImportSuccess(res.data);
       })
       .catch(function (err) {
+        var errMsg =
+          err.name === "AbortError"
+            ? "Import timed out after 2 minutes. Try again or paste an Arbeitsagentur link."
+            : err.message || "Could not import that URL.";
         if (status) {
           status.hidden = false;
-          status.textContent = err.message || "Could not import that URL.";
+          status.textContent = errMsg;
         }
-        showHubToast(err.message || "Import failed", true);
+        showHubToast(errMsg, true);
       })
       .finally(function () {
+        if (timeoutId) clearTimeout(timeoutId);
         if (btn) {
           btn.disabled = false;
           btn.textContent = "Add & score";
         }
       });
+  }
+
+  var roleCvModalEl = null;
+
+  function ensureRoleCvModal() {
+    if (roleCvModalEl) return roleCvModalEl;
+    roleCvModalEl = document.createElement("div");
+    roleCvModalEl.id = "jobs-role-cv-modal";
+    roleCvModalEl.className = "jobs-ai-modal";
+    roleCvModalEl.setAttribute("hidden", "");
+    roleCvModalEl.innerHTML =
+      '<div class="jobs-ai-modal-backdrop" data-close-role-cv tabindex="-1"></div>' +
+      '<div class="jobs-ai-modal-card" role="dialog" aria-labelledby="jobs-role-cv-title" aria-modal="true">' +
+      '<button type="button" class="jobs-ai-modal-close" data-close-role-cv aria-label="Close">×</button>' +
+      '<h3 id="jobs-role-cv-title" class="jobs-ai-modal-title">Create CV for a role</h3>' +
+      '<p class="jobs-ai-modal-sub">Type any role you want — e.g. Software Developer, Project Coordinator, Language Teacher. ' +
+      "This is separate from CVs tailored to a job posting.</p>" +
+      '<input type="text" class="jobs-ai-modal-input" data-role-cv-input maxlength="120" ' +
+      'placeholder="e.g. Software Developer" autocomplete="off">' +
+      '<div class="jobs-ai-modal-actions">' +
+      '<select class="hero-mat-select" data-role-cv-language aria-label="Output language">' +
+      '<option value="auto">Auto language</option>' +
+      '<option value="en">English</option>' +
+      '<option value="de">Deutsch</option>' +
+      '<option value="no">Norsk</option>' +
+      "</select>" +
+      '<button type="button" class="hero-btn hero-btn-generate" data-action="submit-role-cv">Create CV</button>' +
+      "</div>" +
+      '<p class="jobs-ai-modal-note" data-role-cv-status hidden></p>' +
+      "</div>";
+    document.body.appendChild(roleCvModalEl);
+    roleCvModalEl.querySelectorAll("[data-close-role-cv]").forEach(function (el) {
+      el.addEventListener("click", closeRoleCvModal);
+    });
+    var submitBtn = roleCvModalEl.querySelector("[data-action='submit-role-cv']");
+    if (submitBtn) {
+      submitBtn.addEventListener("click", function () {
+        submitRoleCv(submitBtn);
+      });
+    }
+    var input = roleCvModalEl.querySelector("[data-role-cv-input]");
+    if (input) {
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          submitRoleCv(submitBtn);
+        }
+      });
+    }
+    return roleCvModalEl;
+  }
+
+  function closeRoleCvModal() {
+    if (!roleCvModalEl) return;
+    roleCvModalEl.setAttribute("hidden", "");
+    document.body.classList.remove("jobs-ai-modal-open");
+  }
+
+  function openRoleCvModal(triggerBtn) {
+    var apiUrl =
+      (triggerBtn && triggerBtn.getAttribute("data-generate-role-cv-url")) || "";
+    if (!apiUrl) {
+      alert("Role CV is not available on this page. Refresh and try again.");
+      return;
+    }
+    var modal = ensureRoleCvModal();
+    modal.dataset.generateRoleCvUrl = apiUrl;
+    modal.removeAttribute("hidden");
+    document.body.classList.add("jobs-ai-modal-open");
+    var status = modal.querySelector("[data-role-cv-status]");
+    if (status) {
+      status.hidden = true;
+      status.textContent = "";
+    }
+    var input = modal.querySelector("[data-role-cv-input]");
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  function submitRoleCv(btn) {
+    var modal = ensureRoleCvModal();
+    var apiUrl = modal.dataset.generateRoleCvUrl || "";
+    var input = modal.querySelector("[data-role-cv-input]");
+    var langSelect = modal.querySelector("[data-role-cv-language]");
+    var status = modal.querySelector("[data-role-cv-status]");
+    var roleText = (input && input.value || "").trim();
+    var outputLang = (langSelect && langSelect.value) || "auto";
+    if (!apiUrl) return;
+    if (!roleText) {
+      if (status) {
+        status.hidden = false;
+        status.textContent = "Enter a role first (e.g. Software Developer).";
+      }
+      return;
+    }
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Creating…";
+    }
+    if (status) {
+      status.hidden = false;
+      status.textContent = "Writing CV — please wait 1–2 minutes…";
+    }
+    fetch(apiUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCsrfToken(),
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: JSON.stringify({ role: roleText, lang: outputLang }),
+    })
+      .then(fetchJsonResponse)
+      .then(function (res) {
+        if (!res.ok || !res.data || !res.data.ok) {
+          throw new Error((res.data && res.data.error) || "Role CV generation failed");
+        }
+        closeRoleCvModal();
+        showHubToast("Role CV ready for “" + roleText + "”.", false);
+        if (res.data.role_cv_url) {
+          var win = window.open(res.data.role_cv_url, "_blank", "noopener");
+          if (!win) {
+            showHubToast("Popup blocked — open it from My CVs ▾", false);
+          }
+        }
+        window.setTimeout(function () {
+          window.location.reload();
+        }, 600);
+      })
+      .catch(function (err) {
+        if (status) {
+          status.hidden = false;
+          status.textContent = err.message || "Could not create role CV.";
+        }
+        showHubToast(err.message || "Role CV failed", true);
+      })
+      .finally(function () {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Create CV";
+        }
+      });
+  }
+
+  function wireRoleCvButton() {
+    var btn = document.getElementById("role-cv-btn");
+    if (!btn || btn.dataset.wired) return;
+    btn.dataset.wired = "1";
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openRoleCvModal(btn);
+    });
   }
 
   document.addEventListener("jobs-score-tick", function (e) {
