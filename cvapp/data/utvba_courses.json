@@ -1,35 +1,30 @@
 {
+  "degree": "Bachelor of Development Studies",
   "programme": "UTVBA",
+  "programme_title": "Bachelor's Programme in Development Studies",
   "institution": "Oslo and Akershus University College (OsloMet)",
   "period": "2010–2013",
   "total_credits": "180 ECTS",
-  "dissertation": "Exploitation of migrant workers in Gulf countries",
-  "fieldwork_note": "Fieldwork (UTVB1400): Puebla, Mexico City, and Oaxaca, Mexico",
-  "years": [
+  "dissertation": "Exploitation of migrant workers in Gulf countries (within UTVB3300)",
+  "source": "Official degree transcript",
+  "sections": [
     {
-      "label": "1st year of study",
+      "label": "Compulsory subjects",
       "courses": [
-        {"code": "UTVB1100", "title": "Introduction to Development Studies", "credits": "20 ECTS"},
-        {"code": "UTVB1200", "title": "Regional Knowledge and Global History", "credits": "10 ECTS"},
-        {"code": "UTVB1300", "title": "Introduction to Methods and Philosophy of Science", "credits": "10 ECTS"},
-        {"code": "UTVB1400", "title": "Fieldwork in Development Studies", "credits": "20 ECTS"}
+        {"code": "QUTV2ÅR1", "title": "Development Studies — Intermediate Level — Power and Politics", "institution": "OsloMet (HiOA)", "term": "Autumn 2011", "credits": "30 ECTS"},
+        {"code": "QUTV2ÅR3", "title": "International Development and Education, Home Exam", "institution": "OsloMet (HiOA)", "term": "Spring 2012", "credits": "10 ECTS"},
+        {"code": "QUTV2ÅR5", "title": "Economics and Sustainability, Home Exam", "institution": "OsloMet (HiOA)", "term": "Spring 2012", "credits": "10 ECTS"},
+        {"code": "UTVIÅR-OVERG", "title": "Development Studies — foundation level", "institution": "OsloMet (HiOA)", "term": "Autumn 2012", "credits": "60 ECTS"},
+        {"code": "UTVB3200", "title": "Gender and Political Development in South Asia — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Autumn 2012", "credits": "10 ECTS"},
+        {"code": "UTVB2100", "title": "Development and Migration — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "10 ECTS"},
+        {"code": "UTVB3300", "title": "Theories Concerning Development, Globalization and Social Change — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "30 ECTS", "note": "Includes individual bachelor dissertation"}
       ]
     },
     {
-      "label": "2nd year of study",
+      "label": "Recognised external study",
       "courses": [
-        {"code": "UTVB2000", "title": "Power and Politics", "credits": "30 ECTS"},
-        {"code": "UTVB2100", "title": "Development and Migration", "credits": "10 ECTS"},
-        {"code": "UTVB2400", "title": "Media and Development", "credits": "10 ECTS"},
-        {"code": "UTVB2500", "title": "Choices of Sustainability Transitions", "credits": "10 ECTS"}
-      ]
-    },
-    {
-      "label": "3rd year of study",
-      "courses": [
-        {"code": "UTVB2210", "title": "Education and Religion in Development", "credits": "15 ECTS"},
-        {"code": "UTVB3003", "title": "Introduction to the Development Enterprise", "credits": "15 ECTS"},
-        {"code": "UTVB3300", "title": "Theories of Development, Globalisation and Social Change", "credits": "30 ECTS", "note": "Bachelor dissertation track (alternative: UTVB3901 internship module)"}
+        {"code": "KRIM2920", "title": "Eco-global Criminology", "institution": "University of Oslo", "term": "Autumn 2012", "credits": "10 ECTS"},
+        {"code": "KRIM2914", "title": "Economic and Organized Crime", "institution": "University of Oslo", "term": "Spring 2013", "credits": "10 ECTS"}
       ]
     }
   ]

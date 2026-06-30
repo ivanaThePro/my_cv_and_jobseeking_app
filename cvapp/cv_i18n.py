@@ -109,6 +109,7 @@ PROFESSIONAL_REPLACEMENTS: dict[str, dict[str, str]] = {
 TRANSCRIPT_REPLACEMENTS: dict[str, dict[str, str]] = {
     'de': {
         'Consolidated Academic Record': 'Konsolidierter akademischer Nachweis',
+        'Bachelor of Development Studies (UTVBA)': 'Bachelor Entwicklungsstudien (UTVBA)',
         'BA International Development (UTVBA)': 'BA Internationale Entwicklung (UTVBA)',
         'Computer Science &amp; IT Coursework': 'Informatik- und IT-Kurse',
         'Computer Science & IT Coursework': 'Informatik- und IT-Kurse',
@@ -131,6 +132,7 @@ TRANSCRIPT_REPLACEMENTS: dict[str, dict[str, str]] = {
     },
     'no': {
         'Consolidated Academic Record': 'Samlet akademisk oversikt',
+        'Bachelor of Development Studies (UTVBA)': 'Bachelor i utviklingsstudier (UTVBA)',
         'BA International Development (UTVBA)': 'BA Internasjonal utvikling (UTVBA)',
         'Computer Science &amp; IT Coursework': 'IT- og programmeringskurs',
         'Computer Science & IT Coursework': 'IT- og programmeringskurs',

@@ -25,20 +25,17 @@ PROGRAM_URLS: dict[str, str] = {
     'UTVBA_PLAN': 'https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST',
 }
 
-# Official OsloMet UTVBA course pages (current programme structure).
+# OsloMet UTVBA / completed BA modules (transcript codes + current catalogue where available).
 _UTVB_COURSE_URLS: dict[str, str] = {
-    'UTVB1100': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1100/2026/H%C3%98ST',
-    'UTVB1200': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1200/2026/H%C3%98ST',
-    'UTVB1300': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1300/2026/H%C3%98ST',
-    'UTVB1400': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB1400/2026/H%C3%98ST',
-    'UTVB2000': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST',
+    'QUTV2ÅR1': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST',
+    'QUTV2ÅR3': PROGRAM_URLS['UTVBA_PLAN'],
+    'QUTV2ÅR5': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST',
+    'UTVIÅR-OVERG': PROGRAM_URLS['UTVBA_PLAN'],
     'UTVB2100': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2100/2026/H%C3%98ST',
-    'UTVB2210': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2210/2026/H%C3%98ST',
-    'UTVB2400': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2400/2026/H%C3%98ST',
-    'UTVB2500': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST',
-    'UTVB3003': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3003/2026/H%C3%98ST',
+    'UTVB3200': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3200/2026/H%C3%98ST',
     'UTVB3300': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3300/2026/H%C3%98ST',
-    'UTVB3901': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3901/2026/H%C3%98ST',
+    'KRIM2920': 'https://www.uio.no/studier/emner/hf/ikrs/KRIM2920/index.html',
+    'KRIM2914': 'https://www.uio.no/studier/emner/hf/ikrs/KRIM2914/index.html',
 }
 
 # Official public syllabus pages (Linnaeus PDFs, Swedish universities, UiO).

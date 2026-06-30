@@ -77,8 +77,9 @@ class CVAppTests(TestCase):
         self.assertContains(response, 'Practical-Pedagogical Education')
         self.assertContains(response, 'BA International Development')
         self.assertNotContains(response, 'PROFESSIONAL EXPERIENCE')
-        self.assertContains(response, 'UTVB1400')
-        self.assertContains(response, 'Programme plan (UTVBA)')
+        self.assertContains(response, 'QUTV2ÅR1')
+        self.assertContains(response, 'KRIM2920')
+        self.assertContains(response, 'Official Transcript')
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_academic_transcript_page(self):
@@ -86,9 +87,10 @@ class CVAppTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'University of Oslo')
         self.assertContains(response, 'International Development')
-        self.assertContains(response, 'UTVB1100')
+        self.assertContains(response, 'QUTV2ÅR1')
         self.assertContains(response, 'UTVB3300')
-        self.assertContains(response, 'Fieldwork in Development Studies')
+        self.assertContains(response, 'KRIM2920')
+        self.assertContains(response, 'Compulsory subjects')
         self.assertNotContains(response, '199.0 ECTS')
 
     @override_settings(CV_ACCESS_PASSWORD='')
@@ -1237,7 +1239,7 @@ class CVAppTests(TestCase):
                     allow_live=False,
                 )
                 live.assert_not_called()
-        self.assertIn('UTVB1100', out)
+        self.assertIn('QUTV2ÅR1', out)
         self.assertNotIn('Consolidated Academic Record</h1>', out)
 
     @override_settings(CV_ACCESS_PASSWORD='')
@@ -1245,9 +1247,9 @@ class CVAppTests(TestCase):
         response = self.client.get('/transcript/?lang=no')
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
-        self.assertIn('Samlet akademisk dokumentasjon', content)
-        self.assertIn('UTVB1100', content)
-        self.assertIn('Norsk høyere utdanning', content)
+        self.assertIn('Samlet akademisk oversikt', content)
+        self.assertIn('QUTV2ÅR1', content)
+        self.assertIn('Norsk hoeyere utdanning', content)
         self.assertNotIn('Consolidated Academic Record</h1>', content)
 
     @patch.dict(os.environ, {'CRON_SECRET': 'cron-test-secret'})
