@@ -79,7 +79,8 @@ class CVAppTests(TestCase):
         self.assertNotContains(response, 'PROFESSIONAL EXPERIENCE')
         self.assertContains(response, 'QUTV2ÅR1')
         self.assertContains(response, 'KRIM2920')
-        self.assertContains(response, 'Official Transcript')
+        self.assertContains(response, 'jus/ikrs/KRIM2920')
+        self.assertContains(response, 'Artificial Intelligence Fundamentals')
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_academic_transcript_page(self):
@@ -91,6 +92,7 @@ class CVAppTests(TestCase):
         self.assertContains(response, 'UTVB3300')
         self.assertContains(response, 'KRIM2920')
         self.assertContains(response, 'Compulsory subjects')
+        self.assertContains(response, 'Recent AI & Computing Certificates')
         self.assertNotContains(response, '199.0 ECTS')
 
     @override_settings(CV_ACCESS_PASSWORD='')

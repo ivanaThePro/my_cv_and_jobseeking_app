@@ -31,11 +31,16 @@ _UTVB_COURSE_URLS: dict[str, str] = {
     'QUTV2ÅR3': PROGRAM_URLS['UTVBA_PLAN'],
     'QUTV2ÅR5': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST',
     'UTVIÅR-OVERG': PROGRAM_URLS['UTVBA_PLAN'],
-    'UTVB2100': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2100/2026/H%C3%98ST',
+    'UTVB2100': 'https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST',
     'UTVB3200': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3200/2026/H%C3%98ST',
-    'UTVB3300': 'https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3300/2026/H%C3%98ST',
-    'KRIM2920': 'https://www.uio.no/studier/emner/hf/ikrs/KRIM2920/index.html',
-    'KRIM2914': 'https://www.uio.no/studier/emner/hf/ikrs/KRIM2914/index.html',
+    'UTVB3300': 'https://student.oslomet.no/en/timeplan/-/timeplan/emne/UTVB3300/2018/H%C3%98ST',
+    'KRIM2920': 'https://www.uio.no/studier/emner/jus/ikrs/KRIM2920/',
+    'KRIM2914': 'https://www.uio.no/studier/emner/jus/ikrs/KRIM2914/',
+}
+
+# Optional secondary official pages (e.g. programme overview alongside emnebeskrivelse).
+_UTVB_COURSE_URLS_SECONDARY: dict[str, str] = {
+    'UTVB2100': 'https://www.oslomet.no/en/study/lui/development-migration',
 }
 
 # Official public syllabus pages (Linnaeus PDFs, Swedish universities, UiO).
@@ -97,6 +102,11 @@ def program_page_url(program_code: str) -> str:
 def utvb_course_url(course_code: str) -> str:
     code = (course_code or '').strip().upper()
     return _UTVB_COURSE_URLS.get(code, '')
+
+
+def utvb_course_url_secondary(course_code: str) -> str:
+    code = (course_code or '').strip().upper()
+    return _UTVB_COURSE_URLS_SECONDARY.get(code, '')
 
 
 def course_syllabus_url(course_code: str) -> str:

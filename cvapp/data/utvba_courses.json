@@ -16,15 +16,15 @@
         {"code": "QUTV2ÅR5", "title": "Economics and Sustainability, Home Exam", "institution": "OsloMet (HiOA)", "term": "Spring 2012", "credits": "10 ECTS"},
         {"code": "UTVIÅR-OVERG", "title": "Development Studies — foundation level", "institution": "OsloMet (HiOA)", "term": "Autumn 2012", "credits": "60 ECTS"},
         {"code": "UTVB3200", "title": "Gender and Political Development in South Asia — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Autumn 2012", "credits": "10 ECTS"},
-        {"code": "UTVB2100", "title": "Development and Migration — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "10 ECTS"},
-        {"code": "UTVB3300", "title": "Theories Concerning Development, Globalization and Social Change — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "30 ECTS", "note": "Includes individual bachelor dissertation"}
+        {"code": "UTVB2100", "title": "Development and Migration — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "10 ECTS", "url": "https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST", "url_secondary": "https://www.oslomet.no/en/study/lui/development-migration"},
+        {"code": "UTVB3300", "title": "Theories Concerning Development, Globalization and Social Change — Intermediate Level", "institution": "OsloMet (HiOA)", "term": "Spring 2013", "credits": "30 ECTS", "note": "Includes individual bachelor dissertation", "url": "https://student.oslomet.no/en/timeplan/-/timeplan/emne/UTVB3300/2018/H%C3%98ST"}
       ]
     },
     {
       "label": "Recognised external study",
       "courses": [
-        {"code": "KRIM2920", "title": "Eco-global Criminology", "institution": "University of Oslo", "term": "Autumn 2012", "credits": "10 ECTS"},
-        {"code": "KRIM2914", "title": "Economic and Organized Crime", "institution": "University of Oslo", "term": "Spring 2013", "credits": "10 ECTS"}
+        {"code": "KRIM2920", "title": "Eco-global Criminology", "institution": "University of Oslo", "term": "Autumn 2012", "credits": "10 ECTS", "url": "https://www.uio.no/studier/emner/jus/ikrs/KRIM2920/"},
+        {"code": "KRIM2914", "title": "Economic and Organized Crime", "institution": "University of Oslo", "term": "Spring 2013", "credits": "10 ECTS", "url": "https://www.uio.no/studier/emner/jus/ikrs/KRIM2914/"}
       ]
     }
   ]
