@@ -186,7 +186,7 @@ def _doc_marker_present(html: str, doc_kind: str) -> bool:
     """Only reuse saved translations for the matching source document."""
     markers = {
         'transcript': 'Consolidated Academic Record',
-        'professional': 'Professional courses and skills record',
+        'professional': 'Courses & Skills Record',
     }
     marker = markers.get(doc_kind)
     return bool(marker and marker in html)

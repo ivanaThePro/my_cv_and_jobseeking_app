@@ -72,11 +72,14 @@ class CVAppTests(TestCase):
     def test_professional_page_is_courses_and_skills_record(self):
         response = self.client.get('/cv/html/professional/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Courses & Skills Record')
-        self.assertContains(response, 'Higher Education')
+        self.assertContains(response, 'Courses &amp; Skills Record')
+        self.assertContains(response, 'Degrees &amp; Programmes')
+        self.assertContains(response, 'University IT &amp; Programming Coursework')
+        self.assertContains(response, 'not</strong> an official university transcript')
         self.assertContains(response, 'Practical-Pedagogical Education')
         self.assertContains(response, 'BA International Development')
         self.assertNotContains(response, 'PROFESSIONAL EXPERIENCE')
+        self.assertNotContains(response, 'Official Transcript')
         self.assertContains(response, 'QUTV2ÅR1')
         self.assertContains(response, 'KRIM2920')
         self.assertContains(response, 'jus/ikrs/KRIM2920')
@@ -242,7 +245,7 @@ class CVAppTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Career Counselor CV')
         self.assertContains(response, 'Customer Service')
-        self.assertContains(response, 'Professional CV (detailed courses)')
+        self.assertContains(response, 'Courses &amp; Skills Record')
         self.assertContains(response, 'Consolidated academic record')
         self.assertContains(response, 'Graduate Trainee CV')
 
@@ -1212,6 +1215,8 @@ class CVAppTests(TestCase):
         response = self.client.get('/cv/html/professional/?lang=de')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Hochschulbildung')
+        self.assertContains(response, 'Faehigkeiten &amp; Sprachen')
+        self.assertContains(response, 'Abschluesse &amp; Studiengaenge')
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_professional_page_translates_to_norwegian(self):
@@ -1223,6 +1228,7 @@ class CVAppTests(TestCase):
             'Høyere utdanning' in content or 'Hoeyere utdanning' in content,
             'Norwegian higher-education heading expected',
         )
+        self.assertIn('Grader og studieprogram', content)
         self.assertNotIn('Higher Education</div>', content)
         self.assertIn('@media print{.cv-lang-bar{display:none!important}}', content)
 

@@ -27,8 +27,8 @@ class StandaloneCV:
 
 PROFESSIONAL_CV = StandaloneCV(
     slug='professional',
-    label='Professional CV (detailed courses)',
-    description='Full education record with linked course syllabi — print-ready standalone page.',
+    label='Courses & Skills Record',
+    description='Detailed degrees, university coursework, certificates, and skills — companion to role CVs.',
     filename='ivana_cv.html',
     generated=False,
 )

@@ -7,343 +7,699 @@
     <style>
         :root {
             --primary: #0f766e;
-            --primary-light: #059669;
-            --bg-light: #f0fdfa;
-            --border-light: #99f6e4;
-            --text-dark: #111827;
-            --text-muted: #475569;
-            --card-bg: #ffffff;
+            --primary-dark: #115e59;
+            --primary-light: #14b8a6;
+            --accent-blue: #0369a1;
+            --accent-violet: #6d28d9;
+            --accent-amber: #b45309;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --muted: #64748b;
         }
+        * { box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.5;
-            color: var(--text-dark);
-            background: #f8fafc;
+            color: var(--text);
+            background: var(--bg);
             margin: 0;
             padding: 0;
         }
-        .container {
-            max-width: 900px;
+        .page-wrap {
+            max-width: 920px;
             margin: 0 auto;
-            background: var(--card-bg);
-            padding: 30px 35px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px 16px 40px;
         }
-        .header {
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+        .hero {
+            background: linear-gradient(135deg, #0f766e 0%, #0e7490 55%, #0369a1 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 28px 24px 22px;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.25);
+            margin-bottom: 18px;
         }
-        .header h1 { margin: 0; color: var(--primary); font-size: 24pt; font-weight: 700; }
-        .header .subtitle { margin: 5px 0 10px; color: var(--text-muted); font-size: 11pt; }
-        .contact-info { font-size: 10pt; color: var(--text-muted); }
-        .verify-bar { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 12px; font-size: 9.5pt; }
-        .verify-bar a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .hero h1 {
+            margin: 0 0 6px;
+            font-size: clamp(1.5rem, 4vw, 1.85rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .hero .tagline {
+            margin: 0 0 14px;
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+        .hero .purpose {
+            margin: 0 0 14px;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            max-width: 52rem;
+            opacity: 0.92;
+        }
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .hero-links a {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            border: 1px solid rgba(255,255,255,0.28);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .hero-links a:hover { background: rgba(255,255,255,0.26); }
+
+        .page-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px 12px;
+            margin-bottom: 18px;
+            background: rgba(255,255,255,0.94);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+        }
+        .page-nav a {
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+        }
+        .page-nav a:hover { background: #ccfbf1; }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+        .overview-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 14px 12px;
+            border-left: 4px solid var(--primary);
+        }
+        .overview-card h3 {
+            margin: 0 0 4px;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--primary-dark);
+        }
+        .overview-card p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .overview-card--it { border-left-color: var(--accent-blue); }
+        .overview-card--it h3 { color: var(--accent-blue); }
+        .overview-card--cert { border-left-color: var(--accent-violet); }
+        .overview-card--cert h3 { color: var(--accent-violet); }
+        .overview-card--skills { border-left-color: var(--accent-amber); }
+        .overview-card--skills h3 { color: var(--accent-amber); }
+
+        .section-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 18px 14px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+        }
+        .section-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
         .section-title {
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            color: white; padding: 8px 14px; font-size: 12pt; font-weight: 600;
-            border-radius: 6px; margin: 24px 0 14px;
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.01em;
         }
-        .course-card {
-            border: 1px solid #e2e8f0; border-left: 4px solid var(--primary);
-            border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; background: #fafafa;
+        .section-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #f0fdfa;
+            color: var(--primary-dark);
+            border: 1px solid #99f6e4;
+            white-space: nowrap;
         }
-        .course-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-        .course-header h4 { margin: 0; font-size: 11pt; color: var(--text-dark); }
-        .course-header h4 a { color: var(--text-dark); text-decoration: none; }
-        .course-header h4 a:hover { color: var(--primary); text-decoration: underline; }
-        .course-date { font-size: 9.5pt; color: var(--text-muted); white-space: nowrap; }
-        .course-desc { margin: 8px 0 0; font-size: 10pt; color: var(--text-muted); }
-        .course-desc a { color: var(--primary); font-weight: 600; text-decoration: none; }
-        .course-desc a:hover { text-decoration: underline; }
-        .course-code { font-size: 9pt; color: var(--primary); font-weight: 600; }
-        .syllabus-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .syllabus-links a {
-            font-size: 9pt; color: var(--primary); font-weight: 600; text-decoration: none;
-            border: 1px solid var(--border-light); padding: 3px 8px; border-radius: 4px; background: #fff;
+        .section-badge--course { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .section-badge--cert { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+        .section-lead {
+            margin: 0 0 14px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.5;
         }
-        .syllabus-links a:hover { background: var(--bg-light); }
-        .program-intro {
-            margin: 0 0 10px;
-            font-size: 10pt;
-            color: var(--text-muted);
+        .section-lead strong { color: var(--text); }
+
+        .timeline { display: flex; flex-direction: column; gap: 12px; }
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 118px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+        .timeline-date {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            border-radius: 10px;
+            padding: 8px 10px;
+            text-align: center;
+            line-height: 1.35;
+        }
+        .timeline-card {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            padding: 12px 14px;
+            background: #fafafa;
+        }
+        .timeline-card h4 { margin: 0 0 4px; font-size: 1rem; }
+        .timeline-card h4 a { color: var(--text); text-decoration: none; }
+        .timeline-card h4 a:hover { color: var(--primary); text-decoration: underline; }
+        .timeline-org {
+            margin: 0 0 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--muted);
+        }
+        .timeline-desc {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--muted);
             line-height: 1.45;
         }
-        .program-intro a { color: var(--primary); font-weight: 600; text-decoration: none; }
-        .program-intro a:hover { text-decoration: underline; }
-        .program-year-label {
-            margin: 18px 0 8px;
-            padding-bottom: 4px;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 10pt;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.02em;
+        .timeline-desc a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .timeline-desc a:hover { text-decoration: underline; }
+
+        .subsection {
+            margin-top: 16px;
+            padding: 14px 14px 8px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
         }
-        .course-card--module {
-            padding: 12px 14px;
-            margin-bottom: 10px;
+        .subsection-title {
+            margin: 0 0 6px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+        .subsection-note {
+            margin: 0 0 12px;
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .module-group-label {
+            margin: 14px 0 8px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+        }
+        .course-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 11px 13px;
+            margin-bottom: 8px;
             background: #fff;
         }
-        .course-card--module .course-header h4 { font-size: 10.5pt; }
+        .course-card--module { border-left: 3px solid #94a3b8; padding: 10px 12px; }
+        .course-card--it { border-left: 3px solid var(--accent-blue); }
+        .course-card--cert { border-left: 3px solid var(--accent-violet); }
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .course-header h4 { margin: 0; font-size: 0.95rem; color: var(--text); }
+        .course-header h4 a { color: inherit; text-decoration: none; }
+        .course-header h4 a:hover { color: var(--primary); text-decoration: underline; }
+        .course-date {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .course-institution {
+            margin: 4px 0 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        .course-desc {
+            margin: 6px 0 0;
+            font-size: 0.86rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+        .course-desc a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .course-desc a:hover { text-decoration: underline; }
+        .course-code {
+            font-size: 0.78rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
         .course-credits {
             display: inline-block;
             margin-left: 6px;
-            font-size: 9pt;
-            color: var(--text-muted);
+            font-size: 0.78rem;
+            color: var(--muted);
             font-weight: 600;
         }
-        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+        .syllabus-links {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .syllabus-links a {
+            font-size: 0.75rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #99f6e4;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: #f0fdfa;
+        }
+        .syllabus-links a:hover { background: #ccfbf1; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
         .skill-box {
-            background: var(--bg-light); border: 1px solid var(--border-light);
-            border-radius: 6px; padding: 10px 12px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 10px;
+            padding: 12px 14px;
         }
-        .skill-box h5 { margin: 0 0 4px; color: var(--primary); font-size: 10pt; }
-        .skill-box p { margin: 0; font-size: 9.5pt; color: var(--text-muted); }
+        .skill-box h5 {
+            margin: 0 0 6px;
+            color: var(--accent-amber);
+            font-size: 0.88rem;
+            font-weight: 800;
+        }
+        .skill-box p { margin: 0; font-size: 0.86rem; color: var(--muted); line-height: 1.45; }
+
         .footer {
-            margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0;
-            font-size: 9pt; color: var(--text-muted);
+            margin-top: 8px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
         }
-        @media print { body { background: white; } .container { box-shadow: none; padding: 0; } }
+
+        @media (max-width: 640px) {
+            .timeline-item { grid-template-columns: 1fr; }
+            .timeline-date { text-align: left; }
+            .page-nav { position: static; }
+        }
+        @media print {
+            body { background: #fff; }
+            .page-nav { display: none; }
+            .hero { box-shadow: none; }
+            .section-block { box-shadow: none; break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>Courses & Skills Record</h1>
-        <div class="subtitle">Ivana Jovic | Education, Training & Professional Skills</div>
-        <div class="contact-info">
-            ivanatjovic@gmail.com | +47 47 313 788 | Frankfurt am Main, Germany
+<div class="page-wrap">
+
+    <header class="hero">
+        <h1>Courses &amp; Skills Record</h1>
+        <p class="tagline">Ivana Jovic — education, coursework, certificates &amp; skills</p>
+        <p class="purpose">
+            This page is the <strong>detailed companion</strong> to my main CV. It lists degrees, individual university courses,
+            professional certificates, and skills — organised by type and time. It is <strong>not</strong> an official university transcript.
+        </p>
+        <div class="hero-meta">
+            <span>ivanatjovic@gmail.com</span>
+            <span>+47 47 313 788</span>
+            <span>Frankfurt am Main, Germany</span>
         </div>
-        <div class="verify-bar">
-            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Consolidated education record</a>
+        <div class="hero-links">
+            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Consolidated academic record (transcript-style)</a>
         </div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page sections">
+        <a href="#degrees">Degrees</a>
+        <a href="#ba-modules">BA modules</a>
+        <a href="#it-coursework">IT coursework</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#skills">Skills</a>
+        <a href="#awards">Awards</a>
+    </nav>
+
+    <div class="overview-grid" aria-label="What this page contains">
+        <article class="overview-card">
+            <h3>1 · Degrees</h3>
+            <p>Full university programmes and authorised teaching qualification — chronological overview.</p>
+        </article>
+        <article class="overview-card overview-card--it">
+            <h3>2 · IT coursework</h3>
+            <p>Individual CS/IT courses from Norwegian &amp; Swedish universities — not a full CS degree.</p>
+        </article>
+        <article class="overview-card overview-card--cert">
+            <h3>3 · Certificates</h3>
+            <p>Professional short courses, IBM SkillsBuild credentials, and training certificates.</p>
+        </article>
+        <article class="overview-card overview-card--skills">
+            <h3>4 · Skills</h3>
+            <p>Languages, teaching, office systems, and career/program tools.</p>
+        </article>
     </div>
 
-    <div class="section-title" id="higher-education">Higher Education</div>
+    <!-- ═══ DEGREES (chronological, newest first) ═══ -->
+    <section class="section-block" id="degrees">
+        <div class="section-head">
+            <h2 class="section-title">Degrees &amp; Programmes</h2>
+            <span class="section-badge">Higher education</span>
+        </div>
+        <p class="section-lead">
+            <strong>Completed degrees and formal programmes only.</strong> Individual IT courses and certificates are listed in separate sections below.
+        </p>
 
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education (one-year unit)</a></h4><span class="course-date">2014 – 2015</span></div>
-        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a>, Norway. Authorized teacher: pre-school, primary, secondary, and adult level. Internship: Kongshavn High School — Spanish (intermediate) and Norwegian for language-minority students.</p>
-        <div class="syllabus-links">
-            <a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Program page</a>
-            <a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="timeline">
+            <article class="timeline-item">
+                <div class="timeline-date">2020 –<br>present</div>
+                <div class="timeline-card">
+                    <h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4>
+                    <p class="timeline-org">University of Oslo, Norway</p>
+                    <p class="timeline-desc">In progress — individual labour law coursework.</p>
+                    <div class="syllabus-links">
+                        <a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Course page</a>
+                    </div>
+                </div>
+            </article>
+            <article class="timeline-item">
+                <div class="timeline-date">2014 –<br>2015</div>
+                <div class="timeline-card">
+                    <h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education</a></h4>
+                    <p class="timeline-org">University of Oslo, Norway</p>
+                    <p class="timeline-desc">Authorized teacher: pre-school, primary, secondary, and adult level. Internship at Kongshavn High School — Spanish and Norwegian for language-minority students.</p>
+                    <div class="syllabus-links">
+                        <a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Programme page</a>
+                    </div>
+                </div>
+            </article>
+            <article class="timeline-item">
+                <div class="timeline-date">2013 –<br>2014</div>
+                <div class="timeline-card">
+                    <h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4>
+                    <p class="timeline-org">Telemark University College (USN), Norway</p>
+                    <p class="timeline-desc">Exchange at Costa Rican Language Academy, San José (6 months).</p>
+                </div>
+            </article>
+            <article class="timeline-item">
+                <div class="timeline-date">2010 –<br>2013</div>
+                <div class="timeline-card">
+                    <h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4>
+                    <p class="timeline-org">Oslo and Akershus University College (OsloMet), Norway</p>
+                    <p class="timeline-desc">Bachelor's Programme in Development Studies (<strong>UTVBA</strong>, 180 ECTS). Dissertation on exploitation of migrant workers in Gulf countries. <a href="#ba-modules">See completed BA modules ↓</a></p>
+                    <div class="syllabus-links">
+                        <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Programme plan</a>
+                        <a href="#ba-modules">BA course modules</a>
+                    </div>
+                </div>
+            </article>
+            <article class="timeline-item">
+                <div class="timeline-date">2000 –<br>2008</div>
+                <div class="timeline-card">
+                    <h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4>
+                    <p class="timeline-org">University of Belgrade, Serbia</p>
+                    <p class="timeline-desc">Faculty of Philology — Norwegian language and Scandinavian literature.</p>
+                </div>
+            </article>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4><span class="course-date">2010 – 2013</span></div>
-        <p class="course-desc"><a href="https://www.oslomet.no/en" target="_blank" rel="noopener noreferrer">Oslo and Akershus University College (OsloMet)</a>, Norway. Bachelor's Programme in Development Studies (<strong>UTVBA</strong>, 180 ECTS). Individual bachelor dissertation on exploitation of migrant workers in Gulf countries.</p>
-        <div class="syllabus-links">
-            <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Programme plan (UTVBA)</a>
-            <a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">Program overview</a>
-            <a href="https://www.oslomet.no/en" target="_blank" rel="noopener noreferrer">University website</a>
-        </div>
-    </div>
+    </section>
 
-    <div class="section-title" id="utvba-courses">BA Development Studies — Completed Courses (Official Transcript)</div>
-    <p class="program-intro">Courses completed for the <strong>Bachelor's Programme in Development Studies (UTVBA)</strong> at OsloMet (HiOA), 2010–2013 — 180 ECTS total. List matches the official degree transcript.</p>
+    <!-- ═══ BA MODULES (under the degree, not mixed with other education) ═══ -->
+    <section class="section-block" id="ba-modules">
+        <div class="section-head">
+            <h2 class="section-title">BA Development Studies — Programme Courses</h2>
+            <span class="section-badge">Part of BA 2010–2013</span>
+        </div>
+        <p class="section-lead">
+            Modules completed within the <strong>UTVBA</strong> degree at OsloMet (HiOA). Matches my official degree transcript — 180 ECTS total.
+        </p>
 
-    <div class="program-year-label">Compulsory subjects</div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development Studies — Intermediate Level — Power and Politics <span class="course-code">QUTV2ÅR1</span></a><span class="course-credits">30 ECTS · Autumn 2011</span></h4></div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">International Development and Education, Home Exam <span class="course-code">QUTV2ÅR3</span></a><span class="course-credits">10 ECTS · Spring 2012</span></h4></div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Economics and Sustainability, Home Exam <span class="course-code">QUTV2ÅR5</span></a><span class="course-credits">10 ECTS · Spring 2012</span></h4></div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development Studies — foundation level <span class="course-code">UTVIÅR-OVERG</span></a><span class="course-credits">60 ECTS · Autumn 2012</span></h4></div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3200/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Gender and Political Development in South Asia — Intermediate Level <span class="course-code">UTVB3200</span></a><span class="course-credits">10 ECTS · Autumn 2012</span></h4></div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development and Migration — Intermediate Level <span class="course-code">UTVB2100</span></a><span class="course-credits">10 ECTS · Spring 2013</span></h4></div>
-        <div class="syllabus-links">
-            <a href="https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a>
-            <a href="https://www.oslomet.no/en/study/lui/development-migration" target="_blank" rel="noopener noreferrer">Programme overview</a>
-        </div>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://student.oslomet.no/en/timeplan/-/timeplan/emne/UTVB3300/2018/H%C3%98ST" target="_blank" rel="noopener noreferrer">Theories Concerning Development, Globalization and Social Change — Intermediate Level <span class="course-code">UTVB3300</span></a><span class="course-credits">30 ECTS · Spring 2013</span></h4></div>
-        <p class="course-desc">Final-year theory module with <strong>individual bachelor dissertation</strong> on exploitation of migrant workers in Gulf countries.</p>
-        <div class="syllabus-links"><a href="https://student.oslomet.no/en/timeplan/-/timeplan/emne/UTVB3300/2018/H%C3%98ST" target="_blank" rel="noopener noreferrer">Official course page</a></div>
-    </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Compulsory subjects</h3>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2000/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development Studies — Power and Politics <span class="course-code">QUTV2ÅR1</span></a><span class="course-credits">30 ECTS · Autumn 2011</span></h4></div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">International Development and Education <span class="course-code">QUTV2ÅR3</span></a><span class="course-credits">10 ECTS · Spring 2012</span></h4></div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB2500/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Economics and Sustainability <span class="course-code">QUTV2ÅR5</span></a><span class="course-credits">10 ECTS · Spring 2012</span></h4></div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development Studies — foundation level <span class="course-code">UTVIÅR-OVERG</span></a><span class="course-credits">60 ECTS · Autumn 2012</span></h4></div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/studier/-/studieinfo/emne/UTVB3200/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Gender and Political Development in South Asia <span class="course-code">UTVB3200</span></a><span class="course-credits">10 ECTS · Autumn 2012</span></h4></div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST" target="_blank" rel="noopener noreferrer">Development and Migration <span class="course-code">UTVB2100</span></a><span class="course-credits">10 ECTS · Spring 2013</span></h4></div>
+                <div class="syllabus-links">
+                    <a href="https://student.oslomet.no/studier/-/studieinfo/emne/UTVB2100/2017/H%C3%98ST" target="_blank" rel="noopener noreferrer">Course page</a>
+                    <a href="https://www.oslomet.no/en/study/lui/development-migration" target="_blank" rel="noopener noreferrer">Programme overview</a>
+                </div>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://student.oslomet.no/en/timeplan/-/timeplan/emne/UTVB3300/2018/H%C3%98ST" target="_blank" rel="noopener noreferrer">Theories of Development, Globalization and Social Change <span class="course-code">UTVB3300</span></a><span class="course-credits">30 ECTS · Spring 2013</span></h4></div>
+                <p class="course-desc">Includes <strong>bachelor dissertation</strong> on exploitation of migrant workers in Gulf countries.</p>
+            </div>
 
-    <div class="program-year-label">Recognised external study</div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/ikrs/KRIM2920/" target="_blank" rel="noopener noreferrer">Eco-global Criminology <span class="course-code">KRIM2920</span></a><span class="course-credits">10 ECTS · Autumn 2012</span></h4></div>
-        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a></p>
-    </div>
-    <div class="course-card course-card--module">
-        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/ikrs/KRIM2914/" target="_blank" rel="noopener noreferrer">Economic and Organized Crime <span class="course-code">KRIM2914</span></a><span class="course-credits">10 ECTS · Spring 2013</span></h4></div>
-        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a></p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4><span class="course-date">2013 – 2014</span></div>
-        <p class="course-desc"><a href="https://www.usn.no/english" target="_blank" rel="noopener noreferrer">Telemark University College (USN)</a>, Norway. Exchange: Costa Rican Language Academy, San José (6 months).</p>
-        <div class="syllabus-links">
-            <a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Program page</a>
-            <a href="https://www.usn.no/english" target="_blank" rel="noopener noreferrer">University website</a>
+            <p class="module-group-label">Recognised external study (during BA)</p>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/ikrs/KRIM2920/" target="_blank" rel="noopener noreferrer">Eco-global Criminology <span class="course-code">KRIM2920</span></a><span class="course-credits">10 ECTS · Autumn 2012</span></h4></div>
+                <p class="course-institution">University of Oslo</p>
+            </div>
+            <div class="course-card course-card--module">
+                <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/ikrs/KRIM2914/" target="_blank" rel="noopener noreferrer">Economic and Organized Crime <span class="course-code">KRIM2914</span></a><span class="course-credits">10 ECTS · Spring 2013</span></h4></div>
+                <p class="course-institution">University of Oslo</p>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4><span class="course-date">2000 – 2008</span></div>
-        <p class="course-desc"><a href="https://www.fil.bg.ac.rs/en/" target="_blank" rel="noopener noreferrer">University of Belgrade</a>, Faculty of Philology, Serbia.</p>
-        <div class="syllabus-links">
-            <a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Program page</a>
-            <a href="https://www.bg.ac.rs/index.php/en/" target="_blank" rel="noopener noreferrer">University website</a>
-        </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4><span class="course-date">2020 – present</span></div>
-        <p class="course-desc"><a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University of Oslo</a>, Norway. In progress — individual labour law coursework.</p>
-        <div class="syllabus-links">
-            <a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Course page</a>
-            <a href="https://www.uio.no/english/" target="_blank" rel="noopener noreferrer">University website</a>
-        </div>
-    </div>
+    </section>
 
-    <div class="section-title" id="it-courses">Computer Science &amp; IT Courses</div>
+    <!-- ═══ IT COURSEWORK (individual courses, not a degree) ═══ -->
+    <section class="section-block" id="it-coursework">
+        <div class="section-head">
+            <h2 class="section-title">University IT &amp; Programming Coursework</h2>
+            <span class="section-badge section-badge--course">Individual courses</span>
+        </div>
+        <p class="section-lead">
+            <strong>Standalone university courses</strong> from Linnaeus, Uppsala, Luleå, and Oslo — listed newest first.
+            These are <strong>not</strong> a completed computer science degree; they supplement my BA and teaching background for IT roles.
+        </p>
 
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Introduction to Object-oriented Programming (Python) <span class="course-code">IN1000</span></a></h4><span class="course-date">University of Oslo</span></div>
-        <p class="course-desc"><a href="https://www.uio.no/english/about/organisation/faculty/matnat/ifi/" target="_blank" rel="noopener noreferrer">University of Oslo (IFI)</a> — Python programming with emphasis on object-oriented design: classes, objects, algorithms, and problem solving.</p>
-        <div class="syllabus-links">
-            <a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Official course page</a>
-            <a href="https://www.uio.no/english/about/organisation/faculty/matnat/ifi/" target="_blank" rel="noopener noreferrer">Department website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – Aug 2023</span></div>
+            <p class="course-institution">Linnaeus University, Sweden</p>
+            <p class="course-desc">Cross-platform mobile apps with Flutter and Dart.</p>
+            <div class="syllabus-links">
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – Jan 2021</span></div>
-        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — technical writing, presentations, and professional documentation.</p>
-        <div class="syllabus-links">
-            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming (Java) <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – Mar 2023</span></div>
+            <p class="course-institution">Linnaeus University, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – Aug 2022</span></div>
-        <p class="course-desc"><a href="https://www.uu.se/en/" target="_blank" rel="noopener noreferrer">Uppsala University</a> — IT in society, ethics, sustainability, and digitalisation.</p>
-        <div class="syllabus-links">
-            <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="https://www.uu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – Jan 2023</span></div>
+            <p class="course-institution">Linnaeus University, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
-        <p class="course-desc"><a href="https://www.ltu.se/en" target="_blank" rel="noopener noreferrer">Luleå University of Technology</a> — Java syntax, control structures, methods, and debugging.</p>
-        <div class="syllabus-links">
-            <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/Syllabus_D0017D.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://www.ltu.se/en" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
+            <p class="course-institution">Linnaeus University, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – Mar 2023</span></div>
-        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — OOP in Java: classes, inheritance, polymorphism, and collections.</p>
-        <div class="syllabus-links">
-            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial Programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
+            <p class="course-institution">Luleå University of Technology, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/Syllabus_D0017D.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – Jan 2023</span></div>
-        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — cryptography basics, authentication, and secure system design.</p>
-        <div class="syllabus-links">
-            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – Aug 2022</span></div>
+            <p class="course-institution">Uppsala University, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Syllabus</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
-        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — contemporary CS themes, research literacy, and emerging technologies.</p>
-        <div class="syllabus-links">
-            <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – Jan 2021</span></div>
+            <p class="course-institution">Linnaeus University, Sweden</p>
+            <div class="syllabus-links">
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Syllabus</a>
+                <a href="/course-syllabus/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
+            </div>
         </div>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – Aug 2023</span></div>
-        <p class="course-desc"><a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">Linnaeus University</a> — cross-platform mobile apps with Flutter and Dart.</p>
-        <div class="syllabus-links">
-            <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Official syllabus</a>
-            <a href="/course-syllabus/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">PDF backup</a>
-            <a href="https://lnu.se/en/" target="_blank" rel="noopener noreferrer">University website</a>
+        <div class="course-card course-card--it">
+            <div class="course-header"><h4><a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Introduction to Object-oriented Programming (Python) <span class="course-code">IN1000</span></a></h4><span class="course-date">University of Oslo</span></div>
+            <p class="course-institution">University of Oslo (IFI), Norway</p>
+            <p class="course-desc">Python with object-oriented design: classes, objects, algorithms, and problem solving.</p>
+            <div class="syllabus-links">
+                <a href="https://www.uio.no/studier/emner/matnat/ifi/IN1000/index-eng.html" target="_blank" rel="noopener noreferrer">Course page</a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="section-title" id="professional-courses">Professional Courses & Certifications</div>
-
-    <div class="course-card">
-        <div class="course-header"><h4><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Artificial Intelligence Fundamentals</a></h4><span class="course-date">Issued Jun 29, 2026</span></div>
-        <p class="course-desc">IBM SkillsBuild. <a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly verification</a>.</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="/assets/certificates/IntrotoModernAIUpdate20260629-32-ny21cn.pdf" target="_blank" rel="noopener noreferrer">Introduction to Modern AI</a></h4><span class="course-date">Issued Apr 27, 2026</span></div>
-        <p class="course-desc">AI foundations certificate (PDF record attached).</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="/assets/certificates/I2CSUpdate20260629-31-nzedla.pdf" target="_blank" rel="noopener noreferrer">Introduction to Computer Science</a></h4><span class="course-date">Issued May 08, 2026</span></div>
-        <p class="course-desc">Core CS concepts and computing fundamentals (PDF record attached).</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">IBM Design</a></h4><span class="course-date">Issued Jun 29, 2026</span></div>
-        <p class="course-desc">Design-thinking and user-centered solution design (PDF record attached).</p>
-    </div>
-
-    <div class="course-card">
-        <div class="course-header"><h4>First Aid Course</h4><span class="course-date">September 2014</span></div>
-        <p class="course-desc">Oslo Red Cross.</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4>Red Cross history and values</h4><span class="course-date">February 2014</span></div>
-        <p class="course-desc">Oslo Red Cross.</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4>Basic course in social care</h4><span class="course-date">February 2014</span></div>
-        <p class="course-desc">Oslo Red Cross.</p>
-    </div>
-    <div class="course-card">
-        <div class="course-header"><h4>Gender-based violence and human trafficking</h4><span class="course-date">2007</span></div>
-        <p class="course-desc">Anti-trafficking Centre, Belgrade.</p>
-    </div>
-
-    <div class="section-title" id="skills">Skills & Languages</div>
-    <div class="skills-grid">
-        <div class="skill-box">
-            <h5>Languages</h5>
-            <p>Serbo-Croatian (native); Norwegian, English, Spanish (proficient); Russian (intermediate); Macedonian (basic)</p>
+    <!-- ═══ CERTIFICATES ═══ -->
+    <section class="section-block" id="certificates">
+        <div class="section-head">
+            <h2 class="section-title">Professional Certificates &amp; Training</h2>
+            <span class="section-badge section-badge--cert">Short courses</span>
         </div>
-        <div class="skill-box">
-            <h5>Teaching & counseling</h5>
-            <p>Career guidance, Norwegian and Spanish instruction, adult education, classroom management</p>
-        </div>
-        <div class="skill-box">
-            <h5>Office & hospitality systems</h5>
-            <p>Microsoft Office, Protel, Opera booking systems, billing, correspondence</p>
-        </div>
-        <div class="skill-box">
-            <h5>Career & program tools</h5>
-            <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (foundational); Flutter/Dart (intro)</p>
-        </div>
-    </div>
+        <p class="section-lead">Professional and vocational certificates — newest first. PDF copies stored on this site where available.</p>
 
-    <div class="section-title" id="awards">Awards & Recognition</div>
-    <div class="course-card">
-        <div class="course-header"><h4>Student role model grant</h4><span class="course-date">2011</span></div>
-        <p class="course-desc">Reidar and Gunnar Holst's endowment — student role model with minority background.</p>
-    </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Artificial Intelligence Fundamentals</a></h4><span class="course-date">Jun 2026</span></div>
+            <p class="course-institution">IBM SkillsBuild</p>
+            <p class="course-desc"><a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly verification</a> · <a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Certificate PDF</a></p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">IBM Design</a></h4><span class="course-date">Jun 2026</span></div>
+            <p class="course-institution">IBM SkillsBuild</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4><a href="/assets/certificates/I2CSUpdate20260629-31-nzedla.pdf" target="_blank" rel="noopener noreferrer">Introduction to Computer Science</a></h4><span class="course-date">May 2026</span></div>
+            <p class="course-institution">Certificate programme</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4><a href="/assets/certificates/IntrotoModernAIUpdate20260629-32-ny21cn.pdf" target="_blank" rel="noopener noreferrer">Introduction to Modern AI</a></h4><span class="course-date">Apr 2026</span></div>
+            <p class="course-institution">Certificate programme</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4>First Aid Course</h4><span class="course-date">Sep 2014</span></div>
+            <p class="course-institution">Oslo Red Cross</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4>Red Cross history and values</h4><span class="course-date">Feb 2014</span></div>
+            <p class="course-institution">Oslo Red Cross</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4>Basic course in social care</h4><span class="course-date">Feb 2014</span></div>
+            <p class="course-institution">Oslo Red Cross</p>
+        </div>
+        <div class="course-card course-card--cert">
+            <div class="course-header"><h4>Gender-based violence and human trafficking</h4><span class="course-date">2007</span></div>
+            <p class="course-institution">Anti-trafficking Centre, Belgrade</p>
+        </div>
+    </section>
 
-    <div class="footer">
-        <p>Education and skills record for Ivana Jovic. Based in Frankfurt am Main, Germany (job search: Rhine-Main and NRW). Norwegian work and education history as listed above.</p>
-    </div>
+    <!-- ═══ SKILLS ═══ -->
+    <section class="section-block" id="skills">
+        <div class="section-head">
+            <h2 class="section-title">Skills &amp; Languages</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-box">
+                <h5>Languages</h5>
+                <p>Serbo-Croatian (native); Norwegian, English, Spanish (proficient); Russian (intermediate); Macedonian (basic)</p>
+            </div>
+            <div class="skill-box">
+                <h5>Teaching &amp; counseling</h5>
+                <p>Career guidance, Norwegian and Spanish instruction, adult education, classroom management</p>
+            </div>
+            <div class="skill-box">
+                <h5>Office &amp; hospitality systems</h5>
+                <p>Microsoft Office, Protel, Opera booking systems, billing, correspondence</p>
+            </div>
+            <div class="skill-box">
+                <h5>Career &amp; program tools</h5>
+                <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (foundational); Flutter/Dart (intro); AI fundamentals (IBM SkillsBuild)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AWARDS ═══ -->
+    <section class="section-block" id="awards">
+        <div class="section-head">
+            <h2 class="section-title">Awards &amp; Recognition</h2>
+        </div>
+        <div class="course-card">
+            <div class="course-header"><h4>Student role model grant</h4><span class="course-date">2011</span></div>
+            <p class="course-desc">Reidar and Gunnar Holst's endowment — student role model with minority background.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p><strong>Courses &amp; Skills Record</strong> for Ivana Jovic — companion page linked from role CVs. For a consolidated transcript-style overview, see the <a href="/transcript/">academic record page</a>. Based in Frankfurt am Main, Germany.</p>
+    </footer>
 </div>
 </body>
 </html>
