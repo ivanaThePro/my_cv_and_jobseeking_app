@@ -145,6 +145,87 @@
         .overview-card--cert h3 { color: var(--accent-violet); }
         .overview-card--skills { border-left-color: var(--accent-amber); }
         .overview-card--skills h3 { color: var(--accent-amber); }
+        .overview-card--ba { border-left-color: #0d9488; }
+        .overview-card--ba h3 { color: #0f766e; }
+
+        .page-guide {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #fff;
+            border: 2px solid #99f6e4;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15,118,110,0.08);
+        }
+        .page-guide h2 {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+        .page-guide ol {
+            margin: 0;
+            padding-left: 1.2rem;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+        .page-guide li { margin-bottom: 4px; }
+        .page-guide strong { color: var(--text); }
+
+        .section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1.55rem;
+            height: 1.55rem;
+            margin-right: 8px;
+            border-radius: 999px;
+            background: var(--primary-dark);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            vertical-align: middle;
+        }
+
+        .timeline-type {
+            display: inline-block;
+            margin-bottom: 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .timeline-type--progress { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+        .timeline-type--exchange { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .timeline-type--intl { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+        .timeline-type--ba { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+
+        .ba-connector {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f0fdfa;
+            border: 1px dashed #5eead4;
+            font-size: 0.82rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        .ba-connector a { color: var(--primary); }
+
+        .not-degree-banner {
+            margin: 0 0 14px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            font-size: 0.86rem;
+            color: #1e40af;
+            line-height: 1.45;
+        }
 
         .section-block {
             background: var(--card);
@@ -383,9 +464,11 @@
 
     <header class="hero">
         <h1>Kurse & Fähigkeiten – Übersicht</h1>
-        <p class="tagline">Ivana Jovic — Ausbildung, Studienleistungen, Zertifikate & Fähigkeiten</p>
+        <p class="tagline">Ivana Jovic — Ausbildung, Kurse, Zertifikate & Fähigkeiten</p>
         <p class="purpose">
-            Diese Seite ist der <strong>detaillierte Begleiter</strong> zu meinem Haupt-Lebenslauf. Sie listet Abschlüsse, einzelne Universitätskurse, Berufszertifikate und Fähigkeiten – nach Typ und Zeit geordnet. Sie ist <strong>kein</strong> offizielles Universitätszeugnis.
+            Lesen Sie in dieser Reihenfolge: <strong>① Abschlüsse</strong> (was ich abgeschlossen habe) → <strong>② BA-Module</strong> (Kurse innerhalb des Studiums) →
+            <strong>③ IT-Kurse</strong> (Einzelkurse, kein Informatikstudium) → <strong>④ Zertifikate & Fähigkeiten</strong>.
+            Keine offizielle Hochschulbescheinigung — dafür siehe die <a href="/transcript/" style="color:#bae6fd;font-weight:700;">akademische Übersichtsseite</a>.
         </p>
         <div class="hero-meta">
             <span>ivanatjovic@gmail.com</span>
@@ -393,55 +476,70 @@
             <span>Frankfurt am Main, Deutschland</span>
         </div>
         <div class="hero-links">
-            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Konsolidierte akademische Aufstellung (im Zeugnisstil)</a>
+            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Akademische Übersicht (Tabellen)</a>
         </div>
     </header>
 
     <nav class="page-nav" aria-label="Seitenabschnitte">
-        <a href="#degrees">Abschlüsse</a>
-        <a href="#ba-modules">BA-Module</a>
-        <a href="#it-coursework">IT-Studienleistungen</a>
-        <a href="#certificates">Zertifikate</a>
-        <a href="#skills">Fähigkeiten</a>
+        <a href="#degrees">① Abschlüsse</a>
+        <a href="#ba-modules">② BA-Module</a>
+        <a href="#it-coursework">③ IT-Kurse</a>
+        <a href="#certificates">④ Zertifikate</a>
+        <a href="#skills">⑤ Fähigkeiten</a>
         <a href="#awards">Auszeichnungen</a>
     </nav>
 
-    <div class="overview-grid" aria-label="Was diese Seite enthält">
+    <div class="page-guide" aria-label="Anleitung zum Lesen dieser Seite">
+        <h2>So ist diese Seite aufgebaut</h2>
+        <ol>
+            <li><strong>Abschlüsse & Studiengänge</strong> — nur vollständige Hochschulabschlüsse (neueste zuerst).</li>
+            <li><strong>BA-Module</strong> — alle Kurse innerhalb des OsloMet-BA (UTVBA); keine eigenständigen Abschlüsse.</li>
+            <li><strong>IT-Kurse</strong> — einzelne Kurse von Linnaeus / Uppsala / Luleå / UiO; <strong>kein</strong> Informatikstudium.</li>
+            <li><strong>Zertifikate & Fähigkeiten</strong> — kurze Berufskurse, IBM-Zertifikate, Sprachen und Tools.</li>
+        </ol>
+    </div>
+
+    <div class="overview-grid" aria-label="Inhalt dieser Seite">
         <article class="overview-card">
-            <h3>1 · Abschlüsse</h3>
-            <p>Vollständige Studiengänge und autorisierte Lehrbefähigungen – chronologische Übersicht.</p>
+            <h3>① Abschlüsse</h3>
+            <p>Vollständige Hochschulprogramme und staatlich anerkannte Lehrbefähigung.</p>
+        </article>
+        <article class="overview-card overview-card--ba">
+            <h3>② BA-Module</h3>
+            <p>Kursliste innerhalb des BA Development Studies — insgesamt 180 ECTS.</p>
         </article>
         <article class="overview-card overview-card--it">
-            <h3>2 · IT-Studienleistungen</h3>
-            <p>Einzelne Informatik-/IT-Kurse von norwegischen und schwedischen Hochschulen – kein vollständiger Informatikabschluss.</p>
+            <h3>③ IT-Kurse</h3>
+            <p>Einzelne Hochschulkurse in Informatik/IT — kein vollständiges Informatikstudium.</p>
         </article>
         <article class="overview-card overview-card--cert">
-            <h3>3 · Zertifikate</h3>
-            <p>Berufliche Kurzlehrgänge, IBM SkillsBuild-Bescheinigungen und Schulungszertifikate.</p>
+            <h3>④ Zertifikate</h3>
+            <p>IBM SkillsBuild, Rotes Kreuz-Schulungen und andere kurze Kurse.</p>
         </article>
         <article class="overview-card overview-card--skills">
-            <h3>4 · Fähigkeiten</h3>
-            <p>Sprachen, Lehre, Bürosysteme und berufliche/technische Werkzeuge.</p>
+            <h3>⑤ Fähigkeiten</h3>
+            <p>Sprachen, Lehre, Bürosysteme und Karriere-Tools.</p>
         </article>
     </div>
 
     <!-- ═══ ABSCHLÜSSE (chronologisch, neueste zuerst) ═══ -->
     <section class="section-block" id="degrees">
         <div class="section-head">
-            <h2 class="section-title">Abschlüsse & Studiengänge</h2>
+            <h2 class="section-title"><span class="section-index">1</span> Abschlüsse & Studiengänge</h2>
             <span class="section-badge">Hochschulbildung</span>
         </div>
         <p class="section-lead">
-            <strong>Nur abgeschlossene Studiengänge und formale Programme.</strong> Einzelne IT-Kurse und Zertifikate sind in separaten Abschnitten weiter unten aufgeführt.
+            <strong>Nur abgeschlossene Studiengänge und offizielle Programme.</strong> Einzelne IT-Kurse und Zertifikate sind in separaten Abschnitten weiter unten aufgeführt.
         </p>
 
         <div class="timeline">
             <article class="timeline-item">
                 <div class="timeline-date">2020 –<br>heute</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--progress">Laufend · kein Abschluss</span>
                     <h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4>
                     <p class="timeline-org">Universität Oslo, Norwegen</p>
-                    <p class="timeline-desc">Laufend – einzelne Lehrveranstaltungen im Arbeitsrecht.</p>
+                    <p class="timeline-desc">Laufend — Einzelkurse im Arbeitsrecht.</p>
                     <div class="syllabus-links">
                         <a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Kursseite</a>
                     </div>
@@ -450,9 +548,10 @@
             <article class="timeline-item">
                 <div class="timeline-date">2014 –<br>2015</div>
                 <div class="timeline-card">
+                    <span class="timeline-type">Lehrbefähigung</span>
                     <h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education</a></h4>
                     <p class="timeline-org">Universität Oslo, Norwegen</p>
-                    <p class="timeline-desc">Staatlich anerkannte Lehrbefähigung: Vorschule, Primarstufe, Sekundarstufe und Erwachsenenbildung. Praktikum an der Kongshavn-Oberschule – Spanisch und Norwegisch für sprachliche Minderheiten.</p>
+                    <p class="timeline-desc">Staatlich anerkannte Lehrbefähigung: Vorschule, Grundschule, Sekundarstufe und Erwachsenenbildung. Praktikum an der Kongshavn-Oberschule — Spanisch und Norwegisch für Schüler:innen mit Migrationshintergrund.</p>
                     <div class="syllabus-links">
                         <a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Programmseite</a>
                     </div>
@@ -461,17 +560,20 @@
             <article class="timeline-item">
                 <div class="timeline-date">2013 –<br>2014</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--exchange">Austauschprogramm</span>
                     <h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4>
-                    <p class="timeline-org">Hochschule Telemark (USN), Norwegen</p>
-                    <p class="timeline-desc">Auslandsstudium an der Costa Rican Language Academy, San José (6 Monate).</p>
+                    <p class="timeline-org">Høgskolen i Telemark (USN), Norwegen</p>
+                    <p class="timeline-desc">Austauschsemester an der Costa Rican Language Academy, San José (6 Monate).</p>
                 </div>
             </article>
             <article class="timeline-item">
                 <div class="timeline-date">2010 –<br>2013</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--ba">Bachelor-Abschluss · 180 ECTS</span>
                     <h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4>
                     <p class="timeline-org">Hochschule Oslo und Akershus (OsloMet), Norwegen</p>
-                    <p class="timeline-desc">Bachelorstudiengang Entwicklungsstudien (<strong>UTVBA</strong>, 180 ECTS). Abschlussarbeit über Ausbeutung von Wanderarbeiter*innen in Golfstaaten. <a href="#ba-modules">Siehe absolvierte BA-Module ↓</a></p>
+                    <p class="timeline-desc">Bachelorstudiengang Entwicklungsstudien (<strong>UTVBA</strong>, 180 ECTS). Abschlussarbeit über Ausbeutung von Migrant:innen in Golfstaaten.</p>
+                    <div class="ba-connector">↓ Alle BA-Module sind in <a href="#ba-modules">Abschnitt ② unten</a> aufgelistet — nicht vermischt mit anderen Bildungsabschlüssen.</div>
                     <div class="syllabus-links">
                         <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Studienplan</a>
                         <a href="#ba-modules">BA-Kursmodule</a>
@@ -481,22 +583,23 @@
             <article class="timeline-item">
                 <div class="timeline-date">2000 –<br>2008</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--intl">Internationaler Abschluss · Serbien</span>
                     <h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4>
                     <p class="timeline-org">Universität Belgrad, Serbien</p>
-                    <p class="timeline-desc">Philologische Fakultät – Norwegische Sprache und skandinavische Literatur.</p>
+                    <p class="timeline-desc">Philologische Fakultät — Norwegische Sprache und Skandinavische Literatur.</p>
                 </div>
             </article>
         </div>
     </section>
 
-    <!-- ═══ BA-MODULE (unter dem Studiengang, nicht vermischt mit anderer Ausbildung) ═══ -->
+    <!-- ═══ BA-MODULE (unter dem Studium, nicht vermischt mit anderen Abschlüssen) ═══ -->
     <section class="section-block" id="ba-modules">
         <div class="section-head">
-            <h2 class="section-title">BA Entwicklungsstudien – Studiengangmodule</h2>
+            <h2 class="section-title"><span class="section-index">2</span> BA Entwicklungsstudien — Studiengangkurse</h2>
             <span class="section-badge">Teil des BA 2010–2013</span>
         </div>
         <p class="section-lead">
-            Module, die im Rahmen des <strong>UTVBA</strong>-Studiengangs an der OsloMet (HiOA) absolviert wurden. Entspricht meinem offiziellen Abschlusszeugnis – insgesamt 180 ECTS.
+            Module, die im Rahmen des Studiengangs <strong>UTVBA</strong> an der OsloMet (HiOA) absolviert wurden. Entspricht meinem offiziellen Abschlusszeugnis — insgesamt 180 ECTS.
         </p>
 
         <div class="subsection">
@@ -543,9 +646,10 @@
     <!-- ═══ IT COURSEWORK (individual courses, not a degree) ═══ -->
     <section class="section-block" id="it-coursework">
         <div class="section-head">
-            <h2 class="section-title">University IT &amp; Programming Coursework</h2>
+            <h2 class="section-title"><span class="section-index">3</span> University IT &amp; Programming Coursework</h2>
             <span class="section-badge section-badge--course">Individual courses</span>
         </div>
+        <div class="not-degree-banner"><strong>Not a computer science degree.</strong> These are standalone university courses from Sweden and Norway, listed separately from degrees above.</div>
         <p class="section-lead">
             <strong>Standalone university courses</strong> from Linnaeus, Uppsala, Luleå, and Oslo — listed newest first.
             These are <strong>not</strong> a completed computer science degree; they supplement my BA and teaching background for IT roles.
@@ -554,9 +658,9 @@
         <div class="course-card course-card--it">
             <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – Aug 2023</span></div>
             <p class="course-institution">Linnaeus-Universität, Schweden</p>
-            <p class="course-desc">Cross-Plattform-Mobil-Apps mit Flutter und Dart.</p>
+            <p class="course-desc">Cross-platform mobile Apps mit Flutter und Dart.</p>
             <div class="syllabus-links">
-                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -564,7 +668,7 @@
             <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming (Java) <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – Mär 2023</span></div>
             <p class="course-institution">Linnaeus-Universität, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -572,7 +676,7 @@
             <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – Jan 2023</span></div>
             <p class="course-institution">Linnaeus-Universität, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -580,7 +684,7 @@
             <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
             <p class="course-institution">Linnaeus-Universität, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -588,7 +692,7 @@
             <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial Programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
             <p class="course-institution">Technische Universität Luleå, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/Modulhandbuch_D0017D.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -596,14 +700,14 @@
             <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – Aug 2022</span></div>
             <p class="course-institution">Universität Uppsala, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
             </div>
         </div>
         <div class="course-card course-card--it">
             <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – Jan 2021</span></div>
             <p class="course-institution">Linnaeus-Universität, Schweden</p>
             <div class="syllabus-links">
-                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Modulbeschreibung</a>
+                <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Modulhandbuch</a>
                 <a href="/course-syllabus/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">PDF-Sicherung</a>
             </div>
         </div>
@@ -620,15 +724,15 @@
     <!-- ═══ ZERTIFIKATE ═══ -->
     <section class="section-block" id="certificates">
         <div class="section-head">
-            <h2 class="section-title">Berufliche Zertifikate & Schulungen</h2>
-            <span class="section-badge section-badge--cert">Kurzlehrgänge</span>
+            <h2 class="section-title"><span class="section-index">4</span> Berufszertifikate & Schulungen</h2>
+            <span class="section-badge section-badge--cert">Kurze Kurse</span>
         </div>
-        <p class="section-lead">Berufliche und fachliche Zertifikate – neueste zuerst. PDF-Kopien sind auf dieser Website verfügbar, wo möglich.</p>
+        <p class="section-lead">Berufs- und Weiterbildungszertifikate — neueste zuerst. PDF-Kopien sind auf dieser Website verfügbar, sofern vorhanden.</p>
 
         <div class="course-card course-card--cert">
             <div class="course-header"><h4><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">[[KEEP_13]]</a></h4><span class="course-date">Jun 2026</span></div>
             <p class="course-institution">IBM SkillsBuild</p>
-            <p class="course-desc"><a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly-Verifizierung</a> · <a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Zertifikat (PDF)</a></p>
+            <p class="course-desc"><a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly-Nachweis</a> · <a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Zertifikat PDF</a></p>
         </div>
         <div class="course-card course-card--cert">
             <div class="course-header"><h4><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">[[KEEP_14]]</a></h4><span class="course-date">Jun 2026</span></div>
@@ -644,15 +748,15 @@
         </div>
         <div class="course-card course-card--cert">
             <div class="course-header"><h4>Erste-Hilfe-Kurs</h4><span class="course-date">Sep 2014</span></div>
-            <p class="course-institution">Norwegisches Rotes Kreuz, Oslo</p>
+            <p class="course-institution">Rotes Kreuz Oslo</p>
         </div>
         <div class="course-card course-card--cert">
             <div class="course-header"><h4>Geschichte und Werte des Roten Kreuzes</h4><span class="course-date">Feb 2014</span></div>
-            <p class="course-institution">Norwegisches Rotes Kreuz, Oslo</p>
+            <p class="course-institution">Rotes Kreuz Oslo</p>
         </div>
         <div class="course-card course-card--cert">
-            <div class="course-header"><h4>Grundkurs Sozialfürsorge</h4><span class="course-date">Feb 2014</span></div>
-            <p class="course-institution">Norwegisches Rotes Kreuz, Oslo</p>
+            <div class="course-header"><h4>Grundkurs soziale Betreuung</h4><span class="course-date">Feb 2014</span></div>
+            <p class="course-institution">Rotes Kreuz Oslo</p>
         </div>
         <div class="course-card course-card--cert">
             <div class="course-header"><h4>Gewalt gegen Frauen und Menschenhandel</h4><span class="course-date">2007</span></div>
@@ -663,7 +767,7 @@
     <!-- ═══ FÄHIGKEITEN ═══ -->
     <section class="section-block" id="skills">
         <div class="section-head">
-            <h2 class="section-title">Fähigkeiten & Sprachen</h2>
+            <h2 class="section-title"><span class="section-index">5</span> Fähigkeiten & Sprachen</h2>
         </div>
         <div class="skills-grid">
             <div class="skill-box">
@@ -672,14 +776,14 @@
             </div>
             <div class="skill-box">
                 <h5>Lehre & Beratung</h5>
-                <p>Berufsberatung, Unterricht in Norwegisch und Spanisch, Erwachsenenbildung, Klassenmanagement</p>
+                <p>Berufsberatung, Norwegisch- und Spanischunterricht, Erwachsenenbildung, Klassenführung</p>
             </div>
             <div class="skill-box">
                 <h5>Büro- & Hospitality-Systeme</h5>
                 <p>Microsoft Office, Protel, Opera-Buchungssysteme, Abrechnung, Korrespondenz</p>
             </div>
             <div class="skill-box">
-                <h5>Berufliche & technische Werkzeuge</h5>
+                <h5>Karriere- & Programmier-Tools</h5>
                 <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (Grundlagen); Flutter/Dart (Einführung); KI-Grundlagen (IBM SkillsBuild)</p>
             </div>
         </div>
@@ -691,13 +795,13 @@
             <h2 class="section-title">Auszeichnungen & Anerkennung</h2>
         </div>
         <div class="course-card">
-            <div class="course-header"><h4>Stipendium für studentische Vorbilder</h4><span class="course-date">2011</span></div>
-            <p class="course-desc">Reidar- und Gunnar-Holst-Stiftung – studentische Vorbilder mit Migrationshintergrund.</p>
+            <div class="course-header"><h4>Vorbild-Stipendium für Studierende</h4><span class="course-date">2011</span></div>
+            <p class="course-desc">Reidar- und Gunnar-Holst-Stiftung — Vorbildfunktion für Studierende mit Migrationshintergrund.</p>
         </div>
     </section>
 
     <footer class="footer">
-        <p><strong>Kurse & Fähigkeiten – Übersicht</strong> für Ivana Jovic – Begleitseite zu den Lebensläufen. Für eine konsolidierte Übersicht im Zeugnisstil siehe die <a href="/transcript/">akademische Aufstellungsseite</a>. Ansässig in Frankfurt am Main, Deutschland.</p>
+        <p><strong>Kurse & Fähigkeiten – Übersicht</strong> für Ivana Jovic — Begleitseite zu den Lebensläufen. Für eine konsolidierte zeugnisähnliche Übersicht siehe die <a href="/transcript/">akademische Übersichtsseite</a>. Ansässig in Frankfurt am Main, Deutschland.</p>
     </footer>
 </div>
 </body>

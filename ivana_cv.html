@@ -145,6 +145,87 @@
         .overview-card--cert h3 { color: var(--accent-violet); }
         .overview-card--skills { border-left-color: var(--accent-amber); }
         .overview-card--skills h3 { color: var(--accent-amber); }
+        .overview-card--ba { border-left-color: #0d9488; }
+        .overview-card--ba h3 { color: #0f766e; }
+
+        .page-guide {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #fff;
+            border: 2px solid #99f6e4;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15,118,110,0.08);
+        }
+        .page-guide h2 {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+        .page-guide ol {
+            margin: 0;
+            padding-left: 1.2rem;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+        .page-guide li { margin-bottom: 4px; }
+        .page-guide strong { color: var(--text); }
+
+        .section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1.55rem;
+            height: 1.55rem;
+            margin-right: 8px;
+            border-radius: 999px;
+            background: var(--primary-dark);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            vertical-align: middle;
+        }
+
+        .timeline-type {
+            display: inline-block;
+            margin-bottom: 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .timeline-type--progress { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+        .timeline-type--exchange { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .timeline-type--intl { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+        .timeline-type--ba { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+
+        .ba-connector {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f0fdfa;
+            border: 1px dashed #5eead4;
+            font-size: 0.82rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        .ba-connector a { color: var(--primary); }
+
+        .not-degree-banner {
+            margin: 0 0 14px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            font-size: 0.86rem;
+            color: #1e40af;
+            line-height: 1.45;
+        }
 
         .section-block {
             background: var(--card);
@@ -385,8 +466,9 @@
         <h1>Courses &amp; Skills Record</h1>
         <p class="tagline">Ivana Jovic — education, coursework, certificates &amp; skills</p>
         <p class="purpose">
-            This page is the <strong>detailed companion</strong> to my main CV. It lists degrees, individual university courses,
-            professional certificates, and skills — organised by type and time. It is <strong>not</strong> an official university transcript.
+            Read in order: <strong>① degrees</strong> (what I completed) → <strong>② BA modules</strong> (courses inside the degree) →
+            <strong>③ IT courses</strong> (standalone, not a CS degree) → <strong>④ certificates &amp; skills</strong>.
+            Not an official university transcript — for that style see the <a href="/transcript/" style="color:#bae6fd;font-weight:700;">academic record page</a>.
         </p>
         <div class="hero-meta">
             <span>ivanatjovic@gmail.com</span>
@@ -394,42 +476,56 @@
             <span>Frankfurt am Main, Germany</span>
         </div>
         <div class="hero-links">
-            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Consolidated academic record (transcript-style)</a>
+            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Academic record (summary tables)</a>
         </div>
     </header>
 
     <nav class="page-nav" aria-label="Page sections">
-        <a href="#degrees">Degrees</a>
-        <a href="#ba-modules">BA modules</a>
-        <a href="#it-coursework">IT coursework</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#skills">Skills</a>
+        <a href="#degrees">① Degrees</a>
+        <a href="#ba-modules">② BA modules</a>
+        <a href="#it-coursework">③ IT courses</a>
+        <a href="#certificates">④ Certificates</a>
+        <a href="#skills">⑤ Skills</a>
         <a href="#awards">Awards</a>
     </nav>
 
+    <div class="page-guide" aria-label="How to read this page">
+        <h2>How this page is organised</h2>
+        <ol>
+            <li><strong>Degrees &amp; programmes</strong> — full university qualifications only (newest first).</li>
+            <li><strong>BA modules</strong> — every course inside the OsloMet BA (UTVBA); not separate degrees.</li>
+            <li><strong>IT coursework</strong> — individual Linnaeus / Uppsala / Luleå / UiO courses; <strong>not</strong> a computer science degree.</li>
+            <li><strong>Certificates &amp; skills</strong> — short professional courses, IBM credentials, languages, and tools.</li>
+        </ol>
+    </div>
+
     <div class="overview-grid" aria-label="What this page contains">
         <article class="overview-card">
-            <h3>1 · Degrees</h3>
-            <p>Full university programmes and authorised teaching qualification — chronological overview.</p>
+            <h3>① Degrees</h3>
+            <p>Full university programmes and authorised teaching qualification.</p>
+        </article>
+        <article class="overview-card overview-card--ba">
+            <h3>② BA modules</h3>
+            <p>Course list inside the Development Studies BA — 180 ECTS total.</p>
         </article>
         <article class="overview-card overview-card--it">
-            <h3>2 · IT coursework</h3>
-            <p>Individual CS/IT courses from Norwegian &amp; Swedish universities — not a full CS degree.</p>
+            <h3>③ IT courses</h3>
+            <p>Standalone CS/IT university courses — not a full CS degree.</p>
         </article>
         <article class="overview-card overview-card--cert">
-            <h3>3 · Certificates</h3>
-            <p>Professional short courses, IBM SkillsBuild credentials, and training certificates.</p>
+            <h3>④ Certificates</h3>
+            <p>IBM SkillsBuild, Red Cross training, and other short courses.</p>
         </article>
         <article class="overview-card overview-card--skills">
-            <h3>4 · Skills</h3>
-            <p>Languages, teaching, office systems, and career/program tools.</p>
+            <h3>⑤ Skills</h3>
+            <p>Languages, teaching, office systems, and career tools.</p>
         </article>
     </div>
 
     <!-- ═══ DEGREES (chronological, newest first) ═══ -->
     <section class="section-block" id="degrees">
         <div class="section-head">
-            <h2 class="section-title">Degrees &amp; Programmes</h2>
+            <h2 class="section-title"><span class="section-index">1</span> Degrees &amp; Programmes</h2>
             <span class="section-badge">Higher education</span>
         </div>
         <p class="section-lead">
@@ -440,6 +536,7 @@
             <article class="timeline-item">
                 <div class="timeline-date">2020 –<br>present</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--progress">In progress · not a degree</span>
                     <h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4>
                     <p class="timeline-org">University of Oslo, Norway</p>
                     <p class="timeline-desc">In progress — individual labour law coursework.</p>
@@ -451,6 +548,7 @@
             <article class="timeline-item">
                 <div class="timeline-date">2014 –<br>2015</div>
                 <div class="timeline-card">
+                    <span class="timeline-type">Teaching qualification</span>
                     <h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education</a></h4>
                     <p class="timeline-org">University of Oslo, Norway</p>
                     <p class="timeline-desc">Authorized teacher: pre-school, primary, secondary, and adult level. Internship at Kongshavn High School — Spanish and Norwegian for language-minority students.</p>
@@ -462,6 +560,7 @@
             <article class="timeline-item">
                 <div class="timeline-date">2013 –<br>2014</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--exchange">Exchange programme</span>
                     <h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4>
                     <p class="timeline-org">Telemark University College (USN), Norway</p>
                     <p class="timeline-desc">Exchange at Costa Rican Language Academy, San José (6 months).</p>
@@ -470,9 +569,11 @@
             <article class="timeline-item">
                 <div class="timeline-date">2010 –<br>2013</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--ba">Bachelor's degree · 180 ECTS</span>
                     <h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4>
                     <p class="timeline-org">Oslo and Akershus University College (OsloMet), Norway</p>
-                    <p class="timeline-desc">Bachelor's Programme in Development Studies (<strong>UTVBA</strong>, 180 ECTS). Dissertation on exploitation of migrant workers in Gulf countries. <a href="#ba-modules">See completed BA modules ↓</a></p>
+                    <p class="timeline-desc">Bachelor's Programme in Development Studies (<strong>UTVBA</strong>, 180 ECTS). Dissertation on exploitation of migrant workers in Gulf countries.</p>
+                    <div class="ba-connector">↓ All BA modules are listed in <a href="#ba-modules">section ② below</a> — not mixed with other education.</div>
                     <div class="syllabus-links">
                         <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Programme plan</a>
                         <a href="#ba-modules">BA course modules</a>
@@ -482,6 +583,7 @@
             <article class="timeline-item">
                 <div class="timeline-date">2000 –<br>2008</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--intl">International degree · Serbia</span>
                     <h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4>
                     <p class="timeline-org">University of Belgrade, Serbia</p>
                     <p class="timeline-desc">Faculty of Philology — Norwegian language and Scandinavian literature.</p>
@@ -493,7 +595,7 @@
     <!-- ═══ BA MODULES (under the degree, not mixed with other education) ═══ -->
     <section class="section-block" id="ba-modules">
         <div class="section-head">
-            <h2 class="section-title">BA Development Studies — Programme Courses</h2>
+            <h2 class="section-title"><span class="section-index">2</span> BA Development Studies — Programme Courses</h2>
             <span class="section-badge">Part of BA 2010–2013</span>
         </div>
         <p class="section-lead">
@@ -544,9 +646,10 @@
     <!-- ═══ IT COURSEWORK (individual courses, not a degree) ═══ -->
     <section class="section-block" id="it-coursework">
         <div class="section-head">
-            <h2 class="section-title">University IT &amp; Programming Coursework</h2>
+            <h2 class="section-title"><span class="section-index">3</span> University IT &amp; Programming Coursework</h2>
             <span class="section-badge section-badge--course">Individual courses</span>
         </div>
+        <div class="not-degree-banner"><strong>Not a computer science degree.</strong> These are standalone university courses from Sweden and Norway, listed separately from degrees above.</div>
         <p class="section-lead">
             <strong>Standalone university courses</strong> from Linnaeus, Uppsala, Luleå, and Oslo — listed newest first.
             These are <strong>not</strong> a completed computer science degree; they supplement my BA and teaching background for IT roles.
@@ -621,7 +724,7 @@
     <!-- ═══ CERTIFICATES ═══ -->
     <section class="section-block" id="certificates">
         <div class="section-head">
-            <h2 class="section-title">Professional Certificates &amp; Training</h2>
+            <h2 class="section-title"><span class="section-index">4</span> Professional Certificates &amp; Training</h2>
             <span class="section-badge section-badge--cert">Short courses</span>
         </div>
         <p class="section-lead">Professional and vocational certificates — newest first. PDF copies stored on this site where available.</p>
@@ -664,7 +767,7 @@
     <!-- ═══ SKILLS ═══ -->
     <section class="section-block" id="skills">
         <div class="section-head">
-            <h2 class="section-title">Skills &amp; Languages</h2>
+            <h2 class="section-title"><span class="section-index">5</span> Skills &amp; Languages</h2>
         </div>
         <div class="skills-grid">
             <div class="skill-box">

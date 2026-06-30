@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kurser & ferdigheter — oversikt | Ivana Jovic</title>
+    <title>Emner og ferdigheter | Ivana Jovic</title>
     <style>
         :root {
             --primary: #0f766e;
@@ -145,6 +145,87 @@
         .overview-card--cert h3 { color: var(--accent-violet); }
         .overview-card--skills { border-left-color: var(--accent-amber); }
         .overview-card--skills h3 { color: var(--accent-amber); }
+        .overview-card--ba { border-left-color: #0d9488; }
+        .overview-card--ba h3 { color: #0f766e; }
+
+        .page-guide {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #fff;
+            border: 2px solid #99f6e4;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15,118,110,0.08);
+        }
+        .page-guide h2 {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+        .page-guide ol {
+            margin: 0;
+            padding-left: 1.2rem;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+        .page-guide li { margin-bottom: 4px; }
+        .page-guide strong { color: var(--text); }
+
+        .section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1.55rem;
+            height: 1.55rem;
+            margin-right: 8px;
+            border-radius: 999px;
+            background: var(--primary-dark);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            vertical-align: middle;
+        }
+
+        .timeline-type {
+            display: inline-block;
+            margin-bottom: 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .timeline-type--progress { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+        .timeline-type--exchange { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .timeline-type--intl { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+        .timeline-type--ba { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+
+        .ba-connector {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f0fdfa;
+            border: 1px dashed #5eead4;
+            font-size: 0.82rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        .ba-connector a { color: var(--primary); }
+
+        .not-degree-banner {
+            margin: 0 0 14px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            font-size: 0.86rem;
+            color: #1e40af;
+            line-height: 1.45;
+        }
 
         .section-block {
             background: var(--card);
@@ -382,10 +463,12 @@
 <div class="page-wrap">
 
     <header class="hero">
-        <h1>Kurser & ferdigheter — oversikt</h1>
-        <p class="tagline">Ivana Jovic — utdanning, kurs, sertifikater og ferdigheter</p>
+        <h1>Emner og ferdigheter</h1>
+        <p class="tagline">Ivana Jovic — utdanning, emner, sertifikater og ferdigheter</p>
         <p class="purpose">
-            Denne siden er det <strong>detaljerte supplementet</strong> til hoved-CV-en min. Den lister opp grader, individuelle universitetsemner, profesjonelle sertifikater og ferdigheter — organisert etter type og tid. Dette er <strong>ikke</strong> et offisielt vitnemål fra universitetet.
+            Les i rekkefølge: <strong>① fullførte grader</strong> (hva jeg har fullført) → <strong>② BA-emner</strong> (kursene i graden) →
+            <strong>③ IT-emner</strong> (enkeltstående IT-kurs, ikke en full CS-grad) → <strong>④ sertifikater og ferdigheter</strong>.
+            Ikke et offisielt vitnemål — for det se <a href="/transcript/" style="color:#bae6fd;font-weight:700;">den akademiske oversikten</a>.
         </p>
         <div class="hero-meta">
             <span>ivanatjovic@gmail.com</span>
@@ -393,55 +476,70 @@
             <span>Frankfurt am Main, Tyskland</span>
         </div>
         <div class="hero-links">
-            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Samlet akademisk oversikt (transkript-stil)</a>
+            <a href="/transcript/" target="_blank" rel="noopener noreferrer">Akademisk oversikt (oppsummeringstabeller)</a>
         </div>
     </header>
 
     <nav class="page-nav" aria-label="Sideinndeling">
-        <a href="#degrees">Grader</a>
-        <a href="#ba-modules">BA-emner</a>
-        <a href="#it-coursework">IT-emner</a>
-        <a href="#certificates">Sertifikater</a>
-        <a href="#skills">Ferdigheter</a>
+        <a href="#degrees">① Fullførte grader</a>
+        <a href="#ba-modules">② BA-emner</a>
+        <a href="#it-coursework">③ IT-emner</a>
+        <a href="#certificates">④ Sertifikater</a>
+        <a href="#skills">⑤ Ferdigheter</a>
         <a href="#awards">Priser</a>
     </nav>
 
-    <div class="overview-grid" aria-label="Hva denne siden inneholder">
+    <div class="page-guide" aria-label="Hvordan lese denne siden">
+        <h2>Hvordan siden er organisert</h2>
+        <ol>
+            <li><strong>Fullførte grader og programmer</strong> — fullverdige universitetsgrader (nyeste først).</li>
+            <li><strong>BA-emner</strong> — alle emnene i OsloMets BA (UTVBA); ikke separate grader.</li>
+            <li><strong>IT-emner</strong> — enkeltstående kurs fra Linnaeus, Uppsala, Luleå og UiO; <strong>ikke</strong> en informatikkgrad.</li>
+            <li><strong>Sertifikater og ferdigheter</strong> — korte yrkesrettede kurs, IBM-legitimasjoner, språk og verktøy.</li>
+        </ol>
+    </div>
+
+    <div class="overview-grid" aria-label="Hva som er på siden">
         <article class="overview-card">
-            <h3>1 · Grader</h3>
-            <p>Fullstendige universitetsprogram og autorisert undervisningskompetanse — kronologisk oversikt.</p>
+            <h3>① Fullførte grader</h3>
+            <p>Fullverdige universitetsprogrammer og autorisert lærerkompetanse.</p>
+        </article>
+        <article class="overview-card overview-card--ba">
+            <h3>② BA-emner</h3>
+            <p>Emneliste i utviklingsstudier BA — totalt 180 studiepoeng.</p>
         </article>
         <article class="overview-card overview-card--it">
-            <h3>2 · IT-emner</h3>
-            <p>Individuelle informatikk/IT-emner fra norske og svenske universiteter — ikke en fullstendig informatikkgrad.</p>
+            <h3>③ IT-emner</h3>
+            <p>Enkeltstående IT-universitetskurs — ikke en full CS-grad.</p>
         </article>
         <article class="overview-card overview-card--cert">
-            <h3>3 · Sertifikater</h3>
-            <p>Profesjonelle kortkurs, IBM SkillsBuild-kompetanser og treningsbevis.</p>
+            <h3>④ Sertifikater</h3>
+            <p>IBM SkillsBuild, Røde Kors-kurs og andre korte kurs.</p>
         </article>
         <article class="overview-card overview-card--skills">
-            <h3>4 · Ferdigheter</h3>
-            <p>Språk, undervisning, kontorsystemer og verktøy for karriere/programmering.</p>
+            <h3>⑤ Ferdigheter</h3>
+            <p>Språk, undervisning, kontorsystemer og karriereverktøy.</p>
         </article>
     </div>
 
-    <!-- ═══ GRADER (kronologisk, nyeste først) ═══ -->
+    <!-- ═══ FULLFØRTE GRADER (kronologisk, nyeste først) ═══ -->
     <section class="section-block" id="degrees">
         <div class="section-head">
-            <h2 class="section-title">Grader & programmer</h2>
+            <h2 class="section-title"><span class="section-index">1</span> Fullførte grader og programmer</h2>
             <span class="section-badge">Høyere utdanning</span>
         </div>
         <p class="section-lead">
-            <strong>Fullførte grader og formelle programmer kun.</strong> Individuelle IT-emner og sertifikater listes opp i egne seksjoner nedenfor.
+            <strong>Fullførte grader og formelle programmer.</strong> Enkeltstående IT-emner og sertifikater listes i egne seksjoner lenger ned.
         </p>
 
         <div class="timeline">
             <article class="timeline-item">
                 <div class="timeline-date">2020 –<br>nå</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--progress">Pågående · ikke en grad</span>
                     <h4><a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Labor law (one-semester unit)</a></h4>
                     <p class="timeline-org">Universitetet i Oslo, Norge</p>
-                    <p class="timeline-desc">Pågår — individuelle emner i arbeidsrett.</p>
+                    <p class="timeline-desc">Pågående — enkeltstående arbeidsrettskurs.</p>
                     <div class="syllabus-links">
                         <a href="https://www.uio.no/studier/emner/jus/jus/JUR1511/index.html" target="_blank" rel="noopener noreferrer">Emneside</a>
                     </div>
@@ -450,9 +548,10 @@
             <article class="timeline-item">
                 <div class="timeline-date">2014 –<br>2015</div>
                 <div class="timeline-card">
+                    <span class="timeline-type">Lærerkompetanse</span>
                     <h4><a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Practical-Pedagogical Education</a></h4>
                     <p class="timeline-org">Universitetet i Oslo, Norge</p>
-                    <p class="timeline-desc">Autorisert lærer: barnehage, grunnskole, videregående og voksne. Praksis ved Kongshavn videregående skole — spansk og norsk for minoritetsspråklige elever.</p>
+                    <p class="timeline-desc">Autorisert lærer: barnetrinn, ungdomstrinn, videregående og voksne. Praksis ved Kongshavn videregående skole — spansk og norsk for minoritetsspråklige elever.</p>
                     <div class="syllabus-links">
                         <a href="https://www.uio.no/english/studies/programmes/ppu/" target="_blank" rel="noopener noreferrer">Programside</a>
                     </div>
@@ -461,26 +560,30 @@
             <article class="timeline-item">
                 <div class="timeline-date">2013 –<br>2014</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--exchange">Utreiseprogram</span>
                     <h4><a href="https://www.usn.no/studier/arsstudium-i-spansk/" target="_blank" rel="noopener noreferrer">Spanish language and culture in Latin America</a></h4>
                     <p class="timeline-org">Høgskolen i Telemark (USN), Norge</p>
-                    <p class="timeline-desc">Utveksling ved Costa Rican Language Academy, San José (6 måneder).</p>
+                    <p class="timeline-desc">Utreise ved Costa Rican Language Academy, San José (6 måneder).</p>
                 </div>
             </article>
             <article class="timeline-item">
                 <div class="timeline-date">2010 –<br>2013</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--ba">Bachelorgrad · 180 studiepoeng</span>
                     <h4><a href="https://student.oslomet.no/en/bachelor-utviklingsstudier" target="_blank" rel="noopener noreferrer">BA International Development</a></h4>
-                    <p class="timeline-org">Høgskolen i Oslo og Akershus (OsloMet), Norge</p>
-                    <p class="timeline-desc">Bachelorprogram i utviklingsstudier (<strong>UTVBA</strong>, 180 studiepoeng). Avhandling om utnyttelse av migrantarbeidere i Golfstatene. <a href="#ba-modules">Se fullførte BA-emner ↓</a></p>
+                    <p class="timeline-org">Høgskolen i Oslo og Akershus (HiOA), Norge</p>
+                    <p class="timeline-desc">Bachelorprogram i utviklingsstudier (<strong>UTVBA</strong>, 180 studiepoeng). Avhandling om utnyttelse av migrantarbeidere i Golfstatene.</p>
+                    <div class="ba-connector">↓ Alle BA-emner listes i <a href="#ba-modules">seksjon ② nedenfor</a> — ikke blandet med annen utdanning.</div>
                     <div class="syllabus-links">
                         <a href="https://student.oslomet.no/en/studier/-/studieinfo/programplan/UTVBA/2026/H%C3%98ST" target="_blank" rel="noopener noreferrer">Programplan</a>
-                        <a href="#ba-modules">BA-emner</a>
+                        <a href="#ba-modules">BA-emnemoduler</a>
                     </div>
                 </div>
             </article>
             <article class="timeline-item">
                 <div class="timeline-date">2000 –<br>2008</div>
                 <div class="timeline-card">
+                    <span class="timeline-type timeline-type--intl">Internasjonal grad · Serbia</span>
                     <h4><a href="https://www.fil.bg.ac.rs/en/departments/department-of-germanic-studies/scandinavian-languages-literatures-and-cultures" target="_blank" rel="noopener noreferrer">Scandinavian Languages and Literature (Norwegian)</a></h4>
                     <p class="timeline-org">Universitetet i Beograd, Serbia</p>
                     <p class="timeline-desc">Filologisk fakultet — norsk språk og skandinavisk litteratur.</p>
@@ -492,7 +595,7 @@
     <!-- ═══ BA-EMNER (under graden, ikke blandet med annen utdanning) ═══ -->
     <section class="section-block" id="ba-modules">
         <div class="section-head">
-            <h2 class="section-title">BA i utviklingsstudier — programemner</h2>
+            <h2 class="section-title"><span class="section-index">2</span> Utviklingsstudier BA — Programemner</h2>
             <span class="section-badge">Del av BA 2010–2013</span>
         </div>
         <p class="section-lead">
@@ -543,17 +646,18 @@
     <!-- ═══ IT COURSEWORK (individual courses, not a degree) ═══ -->
     <section class="section-block" id="it-coursework">
         <div class="section-head">
-            <h2 class="section-title">University IT &amp; Programming Coursework</h2>
+            <h2 class="section-title"><span class="section-index">3</span> University IT &amp; Programming Coursework</h2>
             <span class="section-badge section-badge--course">Individual courses</span>
         </div>
+        <div class="not-degree-banner"><strong>Not a computer science degree.</strong> These are standalone university courses from Sweden and Norway, listed separately from degrees above.</div>
         <p class="section-lead">
             <strong>Standalone university courses</strong> from Linnaeus, Uppsala, Luleå, and Oslo — listed newest first.
             These are <strong>not</strong> a completed computer science degree; they supplement my BA and teaching background for IT roles.
         </p>
 
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – aug 2023</span></div>
-            <p class="course-institution">Linnéuniversitetet, Sverige</p>
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Introduction to App Development with Flutter <span class="course-code">1DV535</span></a></h4><span class="course-date">Jun – Aug 2023</span></div>
+            <p class="course-institution">Linnaeus Universitet, Sverige</p>
             <p class="course-desc">Kryssplattform mobilapper med Flutter og Dart.</p>
             <div class="syllabus-links">
                 <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV535-1.pdf" target="_blank" rel="noopener noreferrer">Emneplan</a>
@@ -561,31 +665,31 @@
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming (Java) <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – mar 2023</span></div>
-            <p class="course-institution">Linnéuniversitetet, Sverige</p>
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Object-Oriented Programming (Java) <span class="course-code">1DV502</span></a></h4><span class="course-date">Jan – Mar 2023</span></div>
+            <p class="course-institution">Linnaeus Universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">Emneplan</a>
                 <a href="/course-syllabus/syllabus-1DV502-2.000.pdf" target="_blank" rel="noopener noreferrer">PDF-sikkerhetskopi</a>
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – jan 2023</span></div>
-            <p class="course-institution">Linnéuniversitetet, Sverige</p>
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Computer Security <span class="course-code">1DV700</span></a></h4><span class="course-date">Nov 2022 – Jan 2023</span></div>
+            <p class="course-institution">Linnaeus Universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">Emneplan</a>
                 <a href="/course-syllabus/syllabus-1DV700-1.pdf" target="_blank" rel="noopener noreferrer">PDF-sikkerhetskopi</a>
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – jan 2023</span></div>
-            <p class="course-institution">Linnéuniversitetet, Sverige</p>
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Current Topics within Computer Science <span class="course-code">2DV505</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
+            <p class="course-institution">Linnaeus Universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://kursplan.lnu.se/kursplaner/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">Emneplan</a>
                 <a href="/course-syllabus/syllabus-2DV505-1.pdf" target="_blank" rel="noopener noreferrer">PDF-sikkerhetskopi</a>
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial Programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – jan 2023</span></div>
+            <div class="course-header"><h4><a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Initial Programming in Java <span class="course-code">D0017D</span></a></h4><span class="course-date">Aug 2022 – Jan 2023</span></div>
             <p class="course-institution">Luleå tekniska universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://www.ltu.se/en/education/syllabuses/course-syllabus?id=D0017D" target="_blank" rel="noopener noreferrer">Emneplan</a>
@@ -593,15 +697,15 @@
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – aug 2022</span></div>
-            <p class="course-institution">Uppsala universitet, Sverige</p>
+            <div class="course-header"><h4><a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Information Technology: Possibilities and Challenges <span class="course-code">1DT110</span></a></h4><span class="course-date">Jun – Aug 2022</span></div>
+            <p class="course-institution">Uppsala Universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://www.uu.se/en/study/syllabus?query=50973" target="_blank" rel="noopener noreferrer">Emneplan</a>
             </div>
         </div>
         <div class="course-card course-card--it">
-            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – jan 2021</span></div>
-            <p class="course-institution">Linnéuniversitetet, Sverige</p>
+            <div class="course-header"><h4><a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Technical Information and Communication <span class="course-code">1DV510</span></a></h4><span class="course-date">Nov 2020 – Jan 2021</span></div>
+            <p class="course-institution">Linnaeus Universitet, Sverige</p>
             <div class="syllabus-links">
                 <a href="https://kursplan.lnu.se/kursplaner/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">Emneplan</a>
                 <a href="/course-syllabus/syllabus-1DV510-1.pdf" target="_blank" rel="noopener noreferrer">PDF-sikkerhetskopi</a>
@@ -620,15 +724,15 @@
     <!-- ═══ SERTIFIKATER ═══ -->
     <section class="section-block" id="certificates">
         <div class="section-head">
-            <h2 class="section-title">Profesjonelle sertifikater & opplæring</h2>
-            <span class="section-badge section-badge--cert">Kortkurs</span>
+            <h2 class="section-title"><span class="section-index">4</span> Yrkesrettede sertifikater og kurs</h2>
+            <span class="section-badge section-badge--cert">Korte kurs</span>
         </div>
-        <p class="section-lead">Profesjonelle og yrkesrettede sertifikater — nyeste først. PDF-kopier lagret på denne siden der tilgjengelig.</p>
+        <p class="section-lead">Yrkesrettede sertifikater — nyeste først. PDF-kopier lagret på denne nettsiden der tilgjengelig.</p>
 
         <div class="course-card course-card--cert">
             <div class="course-header"><h4><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">[[KEEP_13]]</a></h4><span class="course-date">Jun 2026</span></div>
             <p class="course-institution">IBM SkillsBuild</p>
-            <p class="course-desc"><a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly-verifisering</a> · <a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Sertifikat-PDF</a></p>
+            <p class="course-desc"><a href="https://www.credly.com/badges/64ac8e71-d275-4cef-b3b1-7169c3dc83db" target="_blank" rel="noopener noreferrer">Credly-verifisering</a> · <a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">Sertifikat PDF</a></p>
         </div>
         <div class="course-card course-card--cert">
             <div class="course-header"><h4><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">[[KEEP_14]]</a></h4><span class="course-date">Jun 2026</span></div>
@@ -647,7 +751,7 @@
             <p class="course-institution">Oslo Røde Kors</p>
         </div>
         <div class="course-card course-card--cert">
-            <div class="course-header"><h4>Røde Kors historie og verdier</h4><span class="course-date">Feb 2014</span></div>
+            <div class="course-header"><h4>Røde Kors' historie og verdier</h4><span class="course-date">Feb 2014</span></div>
             <p class="course-institution">Oslo Røde Kors</p>
         </div>
         <div class="course-card course-card--cert">
@@ -663,24 +767,24 @@
     <!-- ═══ FERDIGHETER ═══ -->
     <section class="section-block" id="skills">
         <div class="section-head">
-            <h2 class="section-title">Ferdigheter & språk</h2>
+            <h2 class="section-title"><span class="section-index">5</span> Ferdigheter og språk</h2>
         </div>
         <div class="skills-grid">
             <div class="skill-box">
                 <h5>Språk</h5>
-                <p>Serbokroatisk (morsmål); norsk, engelsk, spansk (flytende); russisk (godt mellomnivå); makedonsk (grunnleggende)</p>
+                <p>Serbokroatisk (morsmål); norsk, engelsk, spansk (flytende); russisk (godt middels nivå); makedonsk (grunnleggende)</p>
             </div>
             <div class="skill-box">
-                <h5>Undervisning & veiledning</h5>
-                <p>Karriereveiledning, undervisning i norsk og spansk, voksenopplæring, klasseromsledelse</p>
+                <h5>Undervisning og veiledning</h5>
+                <p>Karriereveiledning, norsk- og spanskundervisning, voksenopplæring, klasseromsledelse</p>
             </div>
             <div class="skill-box">
-                <h5>Kontor- & gjestehussystemer</h5>
+                <h5>Kontor- og gjesteprogrammer</h5>
                 <p>Microsoft Office, Protel, Opera booking-systemer, fakturering, korrespondanse</p>
             </div>
             <div class="skill-box">
-                <h5>Karriere- & programverktøy</h5>
-                <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (grunnleggende); Flutter/Dart (innføring); AI-grunnkunnskap (IBM SkillsBuild)</p>
+                <h5>Karriere- og programverktøy</h5>
+                <p>Ad Opus, Karriere Pro; Python, Java, JavaScript (grunnleggende); Flutter/Dart (introduksjon); AI-grunnlag (IBM SkillsBuild)</p>
             </div>
         </div>
     </section>
@@ -688,16 +792,16 @@
     <!-- ═══ PRISER ═══ -->
     <section class="section-block" id="awards">
         <div class="section-head">
-            <h2 class="section-title">Priser & anerkjennelse</h2>
+            <h2 class="section-title">Priser og anerkjennelser</h2>
         </div>
         <div class="course-card">
-            <div class="course-header"><h4>Studentrollemodell-stipend</h4><span class="course-date">2011</span></div>
-            <p class="course-desc">Reidar og Gunnar Holst' gave — studentrollemodell med minoritetsbakgrunn.</p>
+            <div class="course-header"><h4>Studentrollemodellstipend</h4><span class="course-date">2011</span></div>
+            <p class="course-desc">Reidar og Gunnar Holsts legat — studentrollemodell med minoritetsbakgrunn.</p>
         </div>
     </section>
 
     <footer class="footer">
-        <p><strong>Kurser & ferdigheter — oversikt</strong> for Ivana Jovic — komplementærside lenket fra CV-er. For en samlet oversikt i transkript-stil, se <a href="/transcript/">den akademiske oversikten</a>. Basert i Frankfurt am Main, Tyskland.</p>
+        <p><strong>Emner og ferdigheter</strong> for Ivana Jovic — følgeside lenket fra CV-er. For en samlet oversikt i vitnemålsstil, se <a href="/transcript/">den akademiske oversikten</a>. Basert i Frankfurt am Main, Tyskland.</p>
     </footer>
 </div>
 </body>

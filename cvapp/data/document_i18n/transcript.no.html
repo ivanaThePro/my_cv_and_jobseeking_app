@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Samlet utdanningsdokumentasjon for Ivana Jovic — norsk og internasjonal utdanning">
-    <title>Samlet akademisk dokumentasjon - Ivana Jovic</title>
+    <meta name="description" content="Konsolidert utdanningsdokumentasjon for Ivana Jovic — norsk og internasjonal utdanning">
+    <title>Konsolidert akademisk dokumentasjon - Ivana Jovic</title>
     <style>
         /* ========== Reset & Base Styles ========== */
         * {
@@ -313,6 +313,162 @@
             color: #475569;
             line-height: 1.35;
         }
+
+        .hero-transcript {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f766e 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 20px 18px 16px;
+            margin-bottom: 14px;
+        }
+        .hero-transcript h1 {
+            margin: 0 0 6px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+        .hero-transcript .tagline { margin: 0 0 10px; font-size: 0.92rem; opacity: 0.95; }
+        .hero-transcript .purpose { margin: 0 0 12px; font-size: 0.88rem; line-height: 1.5; opacity: 0.92; max-width: 46rem; }
+        .hero-transcript .hero-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .page-nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px 10px;
+            margin-bottom: 14px;
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(15,23,42,0.06);
+        }
+        .page-nav a {
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            text-decoration: none;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        .page-nav a:hover { background: #dbeafe; }
+        .read-order {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .read-order-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 11px;
+            border-left: 4px solid #1e3a5f;
+        }
+        .read-order-card--ba { border-left-color: #0f766e; }
+        .read-order-card--it { border-left-color: #0369a1; }
+        .read-order-card--cert { border-left-color: #6d28d9; }
+        .read-order-card h3 { margin: 0 0 4px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: #1e3a5f; }
+        .read-order-card p { margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.4; }
+        .degrees-timeline { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+        .degree-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+        .degree-date {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #1e3a5f;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 7px 8px;
+            text-align: center;
+            line-height: 1.35;
+        }
+        .degree-card {
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #0f766e;
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: #fafafa;
+        }
+        .degree-card h3 { margin: 0 0 3px; font-size: 0.95rem; }
+        .degree-card .org { margin: 0 0 4px; font-size: 0.78rem; font-weight: 700; color: #64748b; }
+        .degree-card p { margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.4; }
+        .degree-type {
+            display: inline-block;
+            margin-bottom: 4px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .degree-type--progress { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+        .degree-type--intl { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+        .section-block-wrap {
+            margin-bottom: 16px;
+            padding: 12px 12px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .section-head-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 999px;
+            background: #1e3a5f;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-right: 6px;
+        }
+        .section-kind {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .section-kind--degree { background: #ecfdf5; color: #065f46; border-color: #6ee7b7; }
+        .section-kind--course { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .section-kind--cert { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
 
         /* ========== Section Styles ========== */
         .section {
@@ -850,44 +1006,113 @@
 <body>
 <div class="page">
 
-    <!-- Header Section -->
-    <header class="header">
-        <h1>Samlet akademisk dokumentasjon</h1>
-        <p class="subtitle">Ivana Jovic — samlet utdanningsdokumentasjon (norsk og internasjonal utdanning)</p>
+    <header class="hero-transcript">
+        <h1>Konsolidert akademisk dokumentasjon</h1>
+        <p class="tagline">Ivana Jovic — sammendrag av utdanning (grader, fag og sertifikater)</p>
+        <p class="purpose">
+            Les ovenfra og ned: <strong>grader først</strong> (nyeste → eldste), deretter <strong>BA-fagoversikten</strong>,
+            deretter <strong>enkeltstående IT-fag</strong> (ikke en datagrade), og til slutt <strong>sertifikater</strong>.
+            For pensumlenker og ferdigheter, se <a href="/cv/html/professional/" style="color:#bae6fd;font-weight:700;">Fag- og ferdighetssiden</a>.
+        </p>
+        <div class="hero-links">
+            <a href="/cv/html/professional/" target="_blank" rel="noopener noreferrer">Fag- og ferdighetssiden (detaljert)</a>
+        </div>
     </header>
 
-    <!-- Student Meta -->
     <div class="student-meta">
         <div><strong>Student:</strong> Ivana Jovic</div>
         <div><strong>Sted:</strong> Frankfurt am Main, Tyskland</div>
     </div>
 
-    <!-- Key Stats Section -->
-    <section class="key-stats" aria-label="Akademisk sammendrag">
-        <div class="key-stat">
-            <div class="label">Høyere utdanning</div>
-            <div class="value">BA + Pedagogikk</div>
-            <div class="detail">Internasjonal utvikling, praktisk-pedagogisk utdanning, språklige studier</div>
-        </div>
-        <div class="key-stat">
-            <div class="label">IT- og programmeringskurs</div>
-            <div class="value">8 kurs</div>
-            <div class="detail">Python OOP (UiO), Java, Flutter, sikkerhet og teknisk kommunikasjon — Sverige og Norge</div>
-        </div>
-        <div class="key-stat">
-            <div class="label">Undervisningskompetanse</div>
-            <div class="value">Universitetet i Oslo</div>
-            <div class="detail">Kvalifisert for barnehage, grunnskole, videregående og voksenopplæring</div>
-        </div>
-    </section>
+    <nav class="page-nav no-print" aria-label="Sideinndeling">
+        <a href="#degrees">① Grader</a>
+        <a href="#ba-utvba">② BA-fag</a>
+        <a href="#it-coursework">③ IT-fag</a>
+        <a href="#certificates">④ Sertifikater</a>
+    </nav>
 
-    <!-- Computer Science & IT coursework (single register) -->
-    <section class="section sweden" aria-labelledby="cs-title">
-        <header class="section-header">
-            <h2 class="section-title" id="cs-title">IT- og programmeringskurs</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Samlet kursregister med karakterer og studiepoeng. Karakterer legges til når de foreligger.</p>
+    <div class="read-order no-print" aria-label="Hvordan lese denne siden">
+        <article class="read-order-card">
+            <h3>① Grader og studieprogram</h3>
+            <p>Fullverdige universitetsgrader og formelle studieprogram — kronologisk oversikt.</p>
+        </article>
+        <article class="read-order-card read-order-card--ba">
+            <h3>② BA-fagoversikt</h3>
+            <p>Alle emner innen OsloMet BA (UTVBA), 180 studiepoeng — samsvarer med vitnemål.</p>
+        </article>
+        <article class="read-order-card read-order-card--it">
+            <h3>③ IT-fag</h3>
+            <p>Enkeltstående fag fra svenske og norske universiteter — <strong>ikke</strong> en fullført datagrade.</p>
+        </article>
+        <article class="read-order-card read-order-card--cert">
+            <h3>④ Sertifikater</h3>
+            <p>Yrkesrettede kortkurs og IBM SkillsBuild-sertifikater.</p>
+        </article>
+    </div>
+
+    <!-- ① GRADER (kronologisk, nyeste først) -->
+    <div class="section-block-wrap" id="degrees">
+        <div class="section-head-row">
+            <h2 class="section-title"><span class="section-index">1</span> Grader og studieprogram</h2>
+            <span class="section-kind section-kind--degree">Høyere utdanning</span>
+        </div>
+        <p class="section-note">Fullførte grader og formelle studieprogram. Enkeltstående IT-fag og sertifikater er listet i avsnittene 3–4 nedenfor.</p>
+        <div class="degrees-timeline">
+            <article class="degree-row">
+                <div class="degree-date">2020 –<br>nå</div>
+                <div class="degree-card">
+                    <span class="degree-type degree-type--progress">Pågår</span>
+                    <h3>Arbeidsrett (ett-semester-enhet)</h3>
+                    <p class="org">Universitetet i Oslo, Norge</p>
+                    <p>Enkeltstående kurs i arbeidsrett.</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2014 –<br>2015</div>
+                <div class="degree-card">
+                    <span class="degree-type">Grad / kvalifikasjon</span>
+                    <h3>Praktisk-pedagogisk utdanning</h3>
+                    <p class="org">Universitetet i Oslo, Norge</p>
+                    <p>Autorisert lærer: barnehage, grunnskole, videregående og voksenopplæring.</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2013 –<br>2014</div>
+                <div class="degree-card">
+                    <span class="degree-type">Utreiseprogram</span>
+                    <h3>Spansk språk og kultur i Latin-Amerika</h3>
+                    <p class="org">Høgskolen i Telemark (USN), Norge</p>
+                    <p>Utreise ved Costa Rican Language Academy, San José (6 måneder).</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2010 –<br>2013</div>
+                <div class="degree-card">
+                    <span class="degree-type">Bachelorgrad</span>
+                    <h3>BA Internasjonal utvikling (UTVBA)</h3>
+                    <p class="org">Høgskolen i Oslo og Akershus (OsloMet), Norge</p>
+                    <p>180 studiepoeng. Avhandling om utnyttelse av migrantarbeidere i Golfstatene. <a href="#ba-utvba">Se full BA-fagoversikt i avsnitt ② ↓</a></p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2000 –<br>2008</div>
+                <div class="degree-card">
+                    <span class="degree-type degree-type--intl">Internasjonal grad</span>
+                    <h3>Skandinaviske språk og litteratur (norsk)</h3>
+                    <p class="org">Universitetet i Beograd, Serbia</p>
+                    <p>Filologisk fakultet — norsk språk og skandinavisk litteratur.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- ② BA Internasjonal utvikling (UTVBA programfag) -->
+    <div class="section-block-wrap" id="ba-utvba">
+        <div class="section-head-row">
+            <h2 class="section-title" id="utvba-title"><span class="section-index">2</span> BA Internasjonal utvikling — Fagoversikt (UTVBA)</h2>
+            <span class="section-kind section-kind--degree">Del av BA 2010–2013</span>
+        </div>
+        <p class="section-note">Offisiell fagoversikt fra vitnemål — OsloMet (HiOA), 2010–2013. Totalt 180 studiepoeng. Bacheloravhandling innen UTVB3300.</p>
             <table class="course-register record-table">
                 <colgroup>
                     <col class="w-code">
@@ -900,7 +1125,119 @@
                 <thead>
                     <tr>
                         <th class="col-code">Kode</th>
-                        <th class="col-title">Kurs</th>
+                        <th class="col-title">Emne</th>
+                        <th class="col-institution">Institusjon</th>
+                        <th class="col-term">Semester</th>
+                        <th class="col-credits">Studiepoeng</th>
+                        <th class="col-grade">Karakter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="programme-divider"><td colspan="6"><strong>Obligatoriske fag</strong></td></tr>
+                    <tr>
+                        <td class="col-code">QUTV2ÅR1</td>
+                        <td class="col-title">Utviklingsstudier — Mellomnivå — Makt og politikk</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Høst 2011</td>
+                        <td class="col-credits">30 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">QUTV2ÅR3</td>
+                        <td class="col-title">Internasjonal utvikling og utdanning, hjemmeeksamen</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Vår 2012</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">QUTV2ÅR5</td>
+                        <td class="col-title">Økonomi og bærekraft, hjemmeeksamen</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Vår 2012</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">UTVIÅR-OVERG</td>
+                        <td class="col-title">Utviklingsstudier — grunnnivå</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Høst 2012</td>
+                        <td class="col-credits">60 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">UTVB3200</td>
+                        <td class="col-title">Kjønn og politisk utvikling i Sør-Asia — Mellomnivå</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Høst 2012</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">UTVB2100</td>
+                        <td class="col-title">Utvikling og migrasjon — Mellomnivå</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Vår 2013</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">UTVB3300</td>
+                        <td class="col-title">Teorier om utvikling, globalisering og sosial endring — Mellomnivå (bacheloravhandling)</td>
+                        <td class="col-institution">OsloMet (HiOA)</td>
+                        <td class="col-term">Vår 2013</td>
+                        <td class="col-credits">30 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr class="programme-divider"><td colspan="6"><strong>Godkjent ekstern studie</strong></td></tr>
+                    <tr>
+                        <td class="col-code">KRIM2920</td>
+                        <td class="col-title">Øko-global kriminalitet</td>
+                        <td class="col-institution">Universitetet i Oslo</td>
+                        <td class="col-term">Høst 2012</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">KRIM2914</td>
+                        <td class="col-title">Økonomisk og organisert kriminalitet</td>
+                        <td class="col-institution">Universitetet i Oslo</td>
+                        <td class="col-term">Vår 2013</td>
+                        <td class="col-credits">10 studiepoeng</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-title" colspan="4">Gradens total (Bachelor i utviklingsstudier)</td>
+                        <td class="col-credits">180 studiepoeng</td>
+                        <td class="col-grade"></td>
+                    </tr>
+                </tfoot>
+            </table>
+    </div>
+
+    <!-- ③ IT-fag (enkeltstående fag — ikke en grad) -->
+    <div class="section-block-wrap" id="it-coursework">
+        <div class="section-head-row">
+            <h2 class="section-title" id="cs-title"><span class="section-index">3</span> Universitetets IT- og programmeringsfag</h2>
+            <span class="section-kind section-kind--course">Enkeltstående fag — ikke en datagrade</span>
+        </div>
+        <p class="section-note">Enkeltstående fag fra Linnaeus, Uppsala, Luleå og UiO. Nyeste først i den detaljerte <a href="/cv/html/professional/#it-coursework">Fag- og ferdighetssiden</a>.</p>
+            <table class="course-register record-table">
+                <colgroup>
+                    <col class="w-code">
+                    <col class="w-title">
+                    <col class="w-institution">
+                    <col class="w-term">
+                    <col class="w-credits">
+                    <col class="w-grade">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="col-code">Kode</th>
+                        <th class="col-title">Emne</th>
                         <th class="col-institution">Institusjon</th>
                         <th class="col-term">Periode</th>
                         <th class="col-credits">Studiepoeng</th>
@@ -911,7 +1248,7 @@
                     <tr>
                         <td class="col-code">1DV510</td>
                         <td class="col-title">Teknisk informasjon og kommunikasjon</td>
-                        <td class="col-institution">Linnaeus universitet</td>
+                        <td class="col-institution">Linnaeus Universitet</td>
                         <td class="col-term">Nov 2020 – Jan 2021</td>
                         <td class="col-credits">7,5 ECTS</td>
                         <td class="col-grade">—</td>
@@ -919,15 +1256,15 @@
                     <tr>
                         <td class="col-code">1DT110</td>
                         <td class="col-title">Informasjons- og kommunikasjonsteknologi: Muligheter og utfordringer</td>
-                        <td class="col-institution">Uppsala universitet</td>
+                        <td class="col-institution">Uppsala Universitet</td>
                         <td class="col-term">Jun – Aug 2022</td>
                         <td class="col-credits">10 hp</td>
                         <td class="col-grade">—</td>
                     </tr>
                     <tr>
                         <td class="col-code">2DV505</td>
-                        <td class="col-title">Aktuelle tema innen informatikk</td>
-                        <td class="col-institution">Linnaeus universitet</td>
+                        <td class="col-title">Aktuelle temaer innen informatikk</td>
+                        <td class="col-institution">Linnaeus Universitet</td>
                         <td class="col-term">Aug 2022 – Jan 2023</td>
                         <td class="col-credits">7,5 ECTS</td>
                         <td class="col-grade">—</td>
@@ -935,7 +1272,7 @@
                     <tr>
                         <td class="col-code">1DV700</td>
                         <td class="col-title">Datorsäkerhet</td>
-                        <td class="col-institution">Linnaeus universitet</td>
+                        <td class="col-institution">Linnaeus Universitet</td>
                         <td class="col-term">Nov 2022 – Jan 2023</td>
                         <td class="col-credits">7,5 ECTS</td>
                         <td class="col-grade">—</td>
@@ -943,7 +1280,7 @@
                     <tr>
                         <td class="col-code">D0017D</td>
                         <td class="col-title">Grundläggande programmering i Java</td>
-                        <td class="col-institution">Luleå tekniska universitet</td>
+                        <td class="col-institution">Luleå Tekniska Universitet</td>
                         <td class="col-term">Aug 2022 – Jan 2023</td>
                         <td class="col-credits">7,5 hp</td>
                         <td class="col-grade">—</td>
@@ -951,7 +1288,7 @@
                     <tr>
                         <td class="col-code">1DV502</td>
                         <td class="col-title">Objektorienterad programmering (Java)</td>
-                        <td class="col-institution">Linnaeus universitet</td>
+                        <td class="col-institution">Linnaeus Universitet</td>
                         <td class="col-term">Jan – Mar 2023</td>
                         <td class="col-credits">7,5 ECTS</td>
                         <td class="col-grade">—</td>
@@ -959,7 +1296,7 @@
                     <tr>
                         <td class="col-code">1DV535</td>
                         <td class="col-title">Introduktion till apputveckling med Flutter</td>
-                        <td class="col-institution">Linnaeus universitet</td>
+                        <td class="col-institution">Linnaeus Universitet</td>
                         <td class="col-term">Jun – Aug 2023</td>
                         <td class="col-credits">7,5 ECTS</td>
                         <td class="col-grade">—</td>
@@ -975,22 +1312,21 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="col-title" colspan="4">Totalt IT-kurs (blandede ECTS / hp / sp)</td>
+                        <td class="col-title" colspan="4">Total IT-fag (blandet ECTS / hp / sp)</td>
                         <td class="col-credits">65+</td>
                         <td class="col-grade"></td>
                     </tr>
                 </tfoot>
             </table>
-        </article>
-    </section>
+    </div>
 
-    <!-- Recent AI certificates -->
-    <section class="section sweden" aria-labelledby="ai-certs-title">
-        <header class="section-header">
-            <h2 class="section-title" id="ai-certs-title">Nylig fullførte AI-sertifikater</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Nylig fullførte sertifikater (PDF-kopier er lagret i dette CV-prosjektet for verifisering).</p>
+    <!-- ④ Sertifikater -->
+    <div class="section-block-wrap" id="certificates">
+        <div class="section-head-row">
+            <h2 class="section-title" id="ai-certs-title"><span class="section-index">4</span> Nylig fullførte AI- og databehandlingssertifikater</h2>
+            <span class="section-kind section-kind--cert">Kortkurs</span>
+        </div>
+        <p class="section-note">Nylig fullførte sertifikater (PDF-kopier er lagret med dette CV-prosjektet for verifisering).</p>
             <table class="course-register record-table">
                 <colgroup>
                     <col class="w-code">
@@ -1013,9 +1349,9 @@
                 <tbody>
                     <tr>
                         <td class="col-code">AI</td>
-                        <td class="col-title">Grunnleggende kunstig intelligens</td>
+                        <td class="col-title">Grunnleggende om kunstig intelligens</td>
                         <td class="col-institution">IBM SkillsBuild</td>
-                        <td class="col-term">Jun 29, 2026</td>
+                        <td class="col-term">29. jun 2026</td>
                         <td class="col-credits"><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
                         <td class="col-grade">Fullført</td>
                     </tr>
@@ -1023,7 +1359,7 @@
                         <td class="col-code">AI</td>
                         <td class="col-title">Introduksjon til moderne AI</td>
                         <td class="col-institution">Sertifikatutsteder</td>
-                        <td class="col-term">Apr 27, 2026</td>
+                        <td class="col-term">27. apr 2026</td>
                         <td class="col-credits"><a href="/assets/certificates/IntrotoModernAIUpdate20260629-32-ny21cn.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
                         <td class="col-grade">Fullført</td>
                     </tr>
@@ -1031,7 +1367,7 @@
                         <td class="col-code">CS</td>
                         <td class="col-title">Introduksjon til informatikk</td>
                         <td class="col-institution">Sertifikatutsteder</td>
-                        <td class="col-term">May 08, 2026</td>
+                        <td class="col-term">08. mai 2026</td>
                         <td class="col-credits"><a href="/assets/certificates/I2CSUpdate20260629-31-nzedla.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
                         <td class="col-grade">Fullført</td>
                     </tr>
@@ -1039,262 +1375,17 @@
                         <td class="col-code">Design</td>
                         <td class="col-title">IBM Design</td>
                         <td class="col-institution">IBM SkillsBuild</td>
-                        <td class="col-term">Jun 29, 2026</td>
+                        <td class="col-term">29. jun 2026</td>
                         <td class="col-credits"><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
                         <td class="col-grade">Fullført</td>
                     </tr>
                 </tbody>
             </table>
-        </article>
-    </section>
-
-    <!-- BA International Development (UTVBA programme courses) -->
-    <section class="section norway" aria-labelledby="utvba-title">
-        <header class="section-header">
-            <h2 class="section-title" id="utvba-title">Bachelor i utviklingsstudier (UTVBA)</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Offisiell kursliste fra vitnemål — <strong>Bachelor i utviklingsstudier</strong> (Bachelorprogram i utviklingsstudier, UTVBA), OsloMet (HiOA), 2010–2013. Totalt 180 ECTS. Individuell bacheloroppgave om utnyttelse av migrantarbeidere i Golfstatene (innenfor UTVB3300).</p>
-            <table class="course-register record-table">
-                <colgroup>
-                    <col class="w-code">
-                    <col class="w-title">
-                    <col class="w-institution">
-                    <col class="w-term">
-                    <col class="w-credits">
-                    <col class="w-grade">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th class="col-code">Kode</th>
-                        <th class="col-title">Kurs</th>
-                        <th class="col-institution">Institusjon</th>
-                        <th class="col-term">Semester</th>
-                        <th class="col-credits">Studiepoeng</th>
-                        <th class="col-grade">Karakter</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="programme-divider"><td colspan="6"><strong>Obligatoriske fag</strong></td></tr>
-                    <tr>
-                        <td class="col-code">QUTV2ÅR1</td>
-                        <td class="col-title">Utviklingsstudier — mellomnivå — makt og politikk</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Høst 2011</td>
-                        <td class="col-credits">30 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">QUTV2ÅR3</td>
-                        <td class="col-title">Internasjonal utvikling og utdanning, hjemmeeksamen</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Vår 2012</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">QUTV2ÅR5</td>
-                        <td class="col-title">Økonomi og bærekraft, hjemmeeksamen</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Vår 2012</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">UTVIÅR-OVERG</td>
-                        <td class="col-title">Utviklingsstudier — grunnnivå</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Høst 2012</td>
-                        <td class="col-credits">60 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">UTVB3200</td>
-                        <td class="col-title">Kjønn og politisk utvikling i Sør-Asia — mellomnivå</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Høst 2012</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">UTVB2100</td>
-                        <td class="col-title">Utvikling og migrasjon — mellomnivå</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Vår 2013</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">UTVB3300</td>
-                        <td class="col-title">Teorier om utvikling, globalisering og sosial endring — mellomnivå (bacheloroppgave)</td>
-                        <td class="col-institution">OsloMet (HiOA)</td>
-                        <td class="col-term">Vår 2013</td>
-                        <td class="col-credits">30 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr class="programme-divider"><td colspan="6"><strong>Godkjent ekstern studie</strong></td></tr>
-                    <tr>
-                        <td class="col-code">KRIM2920</td>
-                        <td class="col-title">Øko-global kriminologi</td>
-                        <td class="col-institution">Universitetet i Oslo</td>
-                        <td class="col-term">Høst 2012</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">KRIM2914</td>
-                        <td class="col-title">Økonomisk og organisert kriminalitet</td>
-                        <td class="col-institution">Universitetet i Oslo</td>
-                        <td class="col-term">Vår 2013</td>
-                        <td class="col-credits">10 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td class="col-title" colspan="4">Grad total (Bachelor i utviklingsstudier)</td>
-                        <td class="col-credits">180 ECTS</td>
-                        <td class="col-grade"></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </article>
-    </section>
-
-    <!-- Norwegian Higher Education Section -->
-    <section class="section norway" aria-labelledby="norwegian-title">
-        <header class="section-header">
-            <h2 class="section-title" id="norwegian-title">Norsk høyere utdanning</h2>
-        </header>
-        <article class="section-content">
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Universitetet i Oslo</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Program</th>
-                            <th class="col-title">Tittel</th>
-                            <th class="col-term">Periode</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">PED</td>
-                            <td class="col-title">Praktisk-pedagogisk utdanning (ettårig enhet)</td>
-                            <td class="col-term">2014–2015</td>
-                            <td class="col-status">Fullført — autorisert lærer</td>
-                        </tr>
-                        <tr>
-                            <td class="col-code">JUS</td>
-                            <td class="col-title">Arbeidsrett (halvårsenhet)</td>
-                            <td class="col-term">2020–nå</td>
-                            <td class="col-status">Pågår</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Høgskolen i Oslo og Akershus</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Program</th>
-                            <th class="col-title">Tittel</th>
-                            <th class="col-term">Periode</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">BA</td>
-                            <td class="col-title">Internasjonal utvikling (UTVBA) — se programsammendrag ovenfor</td>
-                            <td class="col-term">2010–2013</td>
-                            <td class="col-status">Fullført — 180 ECTS</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Høgskolen i Telemark</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Program</th>
-                            <th class="col-title">Tittel</th>
-                            <th class="col-term">Periode</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">SPA</td>
-                            <td class="col-title">Spansk språk og kultur i Latin-Amerika</td>
-                            <td class="col-term">2013–2014</td>
-                            <td class="col-status">Fullført — utveksling Costa Rica</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Universitetet i Beograd</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Program</th>
-                            <th class="col-title">Tittel</th>
-                            <th class="col-term">Periode</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">SCAN</td>
-                            <td class="col-title">Skandinaviske språk og litteratur (norsk)</td>
-                            <td class="col-term">2000–2008</td>
-                            <td class="col-status">Fullført</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-        </article>
-    </section>
+    </div>
 
     <footer class="footer">
-        <p><strong>Akademisk sammendrag:</strong><br>BA i internasjonal utvikling; praktisk-pedagogisk utdanning (autorisert lærer); studier i spansk og skandinaviske språk; IT- og programmeringskurs (Linnaeus, Uppsala, Luleå, UiO); arbeidsrett pågår.</p>
-        <p><strong>Verifisering:</strong> Samlet utdanningsdokumentasjon for Ivana Jovic. Norske grader fra Universitetet i Oslo, HiOA, Høgskolen i Telemark og Universitetet i Beograd.</p>
+        <p><strong>Akademisk sammendrag:</strong><br>BA Internasjonal utvikling; Praktisk-pedagogisk utdanning (autorisert lærer); Spansk og skandinaviske språkstudier; IT- og programmeringsfag (Linnaeus, Uppsala, Luleå, UiO); arbeidsrett pågår.</p>
+        <p><strong>Verifikasjon:</strong> Konsolidert utdanningsdokumentasjon for Ivana Jovic. Norske grader fra Universitetet i Oslo, HiOA, Høgskolen i Telemark og Universitetet i Beograd.</p>
     </footer>
 
 </div>

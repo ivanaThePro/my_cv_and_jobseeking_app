@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Zusammengefasster Bildungsnachweis für Ivana Jovic — Norwegische und internationale Studien">
-    <title>Zusammengefasster Akademischer Nachweis - Ivana Jovic</title>
+    <title>Zusammengefasster akademischer Nachweis - Ivana Jovic</title>
     <style>
         /* ========== Reset & Base Styles ========== */
         * {
@@ -313,6 +313,162 @@
             color: #475569;
             line-height: 1.35;
         }
+
+        .hero-transcript {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f766e 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 20px 18px 16px;
+            margin-bottom: 14px;
+        }
+        .hero-transcript h1 {
+            margin: 0 0 6px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+        .hero-transcript .tagline { margin: 0 0 10px; font-size: 0.92rem; opacity: 0.95; }
+        .hero-transcript .purpose { margin: 0 0 12px; font-size: 0.88rem; line-height: 1.5; opacity: 0.92; max-width: 46rem; }
+        .hero-transcript .hero-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .page-nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px 10px;
+            margin-bottom: 14px;
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(15,23,42,0.06);
+        }
+        .page-nav a {
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            text-decoration: none;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        .page-nav a:hover { background: #dbeafe; }
+        .read-order {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .read-order-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 11px;
+            border-left: 4px solid #1e3a5f;
+        }
+        .read-order-card--ba { border-left-color: #0f766e; }
+        .read-order-card--it { border-left-color: #0369a1; }
+        .read-order-card--cert { border-left-color: #6d28d9; }
+        .read-order-card h3 { margin: 0 0 4px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: #1e3a5f; }
+        .read-order-card p { margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.4; }
+        .degrees-timeline { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+        .degree-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+        .degree-date {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #1e3a5f;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 7px 8px;
+            text-align: center;
+            line-height: 1.35;
+        }
+        .degree-card {
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #0f766e;
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: #fafafa;
+        }
+        .degree-card h3 { margin: 0 0 3px; font-size: 0.95rem; }
+        .degree-card .org { margin: 0 0 4px; font-size: 0.78rem; font-weight: 700; color: #64748b; }
+        .degree-card p { margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.4; }
+        .degree-type {
+            display: inline-block;
+            margin-bottom: 4px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .degree-type--progress { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+        .degree-type--intl { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+        .section-block-wrap {
+            margin-bottom: 16px;
+            padding: 12px 12px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .section-head-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 999px;
+            background: #1e3a5f;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-right: 6px;
+        }
+        .section-kind {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .section-kind--degree { background: #ecfdf5; color: #065f46; border-color: #6ee7b7; }
+        .section-kind--course { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .section-kind--cert { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
 
         /* ========== Section Styles ========== */
         .section {
@@ -850,211 +1006,113 @@
 <body>
 <div class="page">
 
-    <!-- Header Section -->
-    <header class="header">
-        <h1>Zusammengefasster Akademischer Nachweis</h1>
-        <p class="subtitle">Ivana Jovic — Zusammengefasster Bildungsnachweis (Norwegische und internationale Studien)</p>
+    <header class="hero-transcript">
+        <h1>Zusammengefasster akademischer Nachweis</h1>
+        <p class="tagline">Ivana Jovic — Bildungsübersicht (Studiengänge, Kursarbeit & Zertifikate)</p>
+        <p class="purpose">
+            Lesen Sie von oben nach unten: <strong>Studiengänge zuerst</strong> (neueste → älteste), dann die <strong>BA-Kursliste</strong>,
+            dann <strong>einzelne IT-Kurse</strong> (kein Informatikstudium), dann <strong>Zertifikate</strong>.
+            Für Lehrplan-Links und Kompetenzen besuchen Sie die <a href="/cv/html/professional/" style="color:#bae6fd;font-weight:700;">Kurse & Kompetenzen-Seite</a>.
+        </p>
+        <div class="hero-links">
+            <a href="/cv/html/professional/" target="_blank" rel="noopener noreferrer">Kurse & Kompetenzen-Seite (detailliert)</a>
+        </div>
     </header>
 
-    <!-- Student Meta -->
     <div class="student-meta">
-        <div><strong>Studierende/r:</strong> Ivana Jovic</div>
+        <div><strong>Student:in:</strong> Ivana Jovic</div>
         <div><strong>Standort:</strong> Frankfurt am Main, Deutschland</div>
     </div>
 
-    <!-- Key Stats Section -->
-    <section class="key-stats" aria-label="Akademische Übersicht">
-        <div class="key-stat">
-            <div class="label">Hochschulbildung</div>
-            <div class="value">BA + Pädagogik</div>
-            <div class="detail">Internationale Entwicklungszusammenarbeit, Praktisch-Pädagogische Ausbildung, Sprachstudien</div>
-        </div>
-        <div class="key-stat">
-            <div class="label">IT- und Programmierkurse</div>
-            <div class="value">8 Kurse</div>
-            <div class="detail">Python OOP (UiO), Java, Flutter, Sicherheit und technische Kommunikation — Schweden & Norwegen</div>
-        </div>
-        <div class="key-stat">
-            <div class="label">Lehrbefugnis</div>
-            <div class="value">Universität Oslo</div>
-            <div class="detail">Qualifiziert für Vorschule, Primarstufe, Sekundarstufe und Erwachsenenbildung</div>
-        </div>
-    </section>
+    <nav class="page-nav no-print" aria-label="Seitenabschnitte">
+        <a href="#degrees">① Studiengänge</a>
+        <a href="#ba-utvba">② BA-Kurse</a>
+        <a href="#it-coursework">③ IT-Kurse</a>
+        <a href="#certificates">④ Zertifikate</a>
+    </nav>
 
-    <!-- Computer Science & IT coursework (single register) -->
-    <section class="section sweden" aria-labelledby="cs-title">
-        <header class="section-header">
-            <h2 class="section-title" id="cs-title">Kurse in Informatik & IT</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Zusammengefasster Kursnachweis für Noten und Credits. Noten werden hinzugefügt, sobald verfügbar.</p>
-            <table class="course-register record-table">
-                <colgroup>
-                    <col class="w-code">
-                    <col class="w-title">
-                    <col class="w-institution">
-                    <col class="w-term">
-                    <col class="w-credits">
-                    <col class="w-grade">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th class="col-code">Code</th>
-                        <th class="col-title">Kurs</th>
-                        <th class="col-institution">Hochschule</th>
-                        <th class="col-term">Zeitraum</th>
-                        <th class="col-credits">Credits</th>
-                        <th class="col-grade">Note</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="col-code">1DV510</td>
-                        <td class="col-title">Technische Information und Kommunikation</td>
-                        <td class="col-institution">Linnaeus University</td>
-                        <td class="col-term">Nov 2020 – Jan 2021</td>
-                        <td class="col-credits">7,5 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">1DT110</td>
-                        <td class="col-title">Informationstechnologie: Möglichkeiten und Herausforderungen</td>
-                        <td class="col-institution">Uppsala University</td>
-                        <td class="col-term">Jun – Aug 2022</td>
-                        <td class="col-credits">10 hp</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">2DV505</td>
-                        <td class="col-title">Aktuelle Themen der Informatik</td>
-                        <td class="col-institution">Linnaeus University</td>
-                        <td class="col-term">Aug 2022 – Jan 2023</td>
-                        <td class="col-credits">7,5 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">1DV700</td>
-                        <td class="col-title">Computersicherheit</td>
-                        <td class="col-institution">Linnaeus University</td>
-                        <td class="col-term">Nov 2022 – Jan 2023</td>
-                        <td class="col-credits">7,5 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">D0017D</td>
-                        <td class="col-title">Grundlagen der Programmierung in Java</td>
-                        <td class="col-institution">Luleå University of Technology</td>
-                        <td class="col-term">Aug 2022 – Jan 2023</td>
-                        <td class="col-credits">7,5 hp</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">1DV502</td>
-                        <td class="col-title">Objektorientierte Programmierung (Java)</td>
-                        <td class="col-institution">Linnaeus University</td>
-                        <td class="col-term">Jan – Mar 2023</td>
-                        <td class="col-credits">7,5 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">1DV535</td>
-                        <td class="col-title">Einführung in die App-Entwicklung mit Flutter</td>
-                        <td class="col-institution">Linnaeus University</td>
-                        <td class="col-term">Jun – Aug 2023</td>
-                        <td class="col-credits">7,5 ECTS</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">IN1000</td>
-                        <td class="col-title">Einführung in die objektorientierte Programmierung (Python)</td>
-                        <td class="col-institution">Universitaet Oslo (IFI)</td>
-                        <td class="col-term">—</td>
-                        <td class="col-credits">10 sp</td>
-                        <td class="col-grade">—</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td class="col-title" colspan="4">Gesamt IT-Kurse (gemischte ECTS / hp / sp)</td>
-                        <td class="col-credits">65+</td>
-                        <td class="col-grade"></td>
-                    </tr>
-                </tfoot>
-            </table>
+    <div class="read-order no-print" aria-label="So lesen Sie diese Seite">
+        <article class="read-order-card">
+            <h3>① Studiengänge & Programme</h3>
+            <p>Vollständige Hochschulabschlüsse und formale Programme — chronologische Übersicht.</p>
         </article>
-    </section>
-
-    <!-- Recent AI certificates -->
-    <section class="section sweden" aria-labelledby="ai-certs-title">
-        <header class="section-header">
-            <h2 class="section-title" id="ai-certs-title">Neu erworbene KI-Zertifikate</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Kürzlich abgeschlossene Zertifikate (PDF-Kopien sind in diesem CV-Projekt zur Überprüfung hinterlegt).</p>
-            <table class="course-register record-table">
-                <colgroup>
-                    <col class="w-code">
-                    <col class="w-title">
-                    <col class="w-institution">
-                    <col class="w-term">
-                    <col class="w-credits">
-                    <col class="w-grade">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th class="col-code">Typ</th>
-                        <th class="col-title">Zertifikat</th>
-                        <th class="col-institution">Aussteller</th>
-                        <th class="col-term">Ausgestellt</th>
-                        <th class="col-credits">Link</th>
-                        <th class="col-grade">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="col-code">AI</td>
-                        <td class="col-title">Grundlagen der Künstlichen Intelligenz</td>
-                        <td class="col-institution">IBM SkillsBuild</td>
-                        <td class="col-term">29. Jun 2026</td>
-                        <td class="col-credits"><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
-                        <td class="col-grade">Abgeschlossen</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">AI</td>
-                        <td class="col-title">Einführung in moderne KI</td>
-                        <td class="col-institution">Zertifikatsanbieter</td>
-                        <td class="col-term">27. Apr 2026</td>
-                        <td class="col-credits"><a href="/assets/certificates/IntrotoModernAIUpdate20260629-32-ny21cn.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
-                        <td class="col-grade">Abgeschlossen</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">CS</td>
-                        <td class="col-title">Einführung in die Informatik</td>
-                        <td class="col-institution">Zertifikatsanbieter</td>
-                        <td class="col-term">08. Mai 2026</td>
-                        <td class="col-credits"><a href="/assets/certificates/I2CSUpdate20260629-31-nzedla.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
-                        <td class="col-grade">Abgeschlossen</td>
-                    </tr>
-                    <tr>
-                        <td class="col-code">Design</td>
-                        <td class="col-title">IBM Design</td>
-                        <td class="col-institution">IBM SkillsBuild</td>
-                        <td class="col-term">29. Jun 2026</td>
-                        <td class="col-credits"><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
-                        <td class="col-grade">Abgeschlossen</td>
-                    </tr>
-                </tbody>
-            </table>
+        <article class="read-order-card read-order-card--ba">
+            <h3>② BA-Kursregister</h3>
+            <p>Alle Module des OsloMet-BA (UTVBA), 180 ECTS — entspricht dem Abschlusszeugnis.</p>
         </article>
-    </section>
+        <article class="read-order-card read-order-card--it">
+            <h3>③ IT-Kursarbeit</h3>
+            <p>Einzelne Kurse von schwedischen/norwegischen Hochschulen — <strong>kein</strong> abgeschlossenes Informatikstudium.</p>
+        </article>
+        <article class="read-order-card read-order-card--cert">
+            <h3>④ Zertifikate</h3>
+            <p>Berufliche Kurzlehrgänge und IBM SkillsBuild-Zertifikate.</p>
+        </article>
+    </div>
 
-    <!-- BA International Development (UTVBA programme courses) -->
-    <section class="section norway" aria-labelledby="utvba-title">
-        <header class="section-header">
-            <h2 class="section-title" id="utvba-title">Bachelor Entwicklungsstudien (UTVBA)</h2>
-        </header>
-        <article class="section-content">
-            <p class="section-note">Offizielle Kursliste aus dem Abschlusszeugnis — <strong>Bachelor Entwicklungsstudien</strong> (Bachelorstudiengang Entwicklungsstudien, UTVBA), OsloMet (HiOA), 2010–2013. Gesamt 180 ECTS. Individuelle Bachelorarbeit zur Ausbeutung von Wanderarbeitern in den Golfstaaten (innerhalb UTVB3300).</p>
+    <!-- ① STUDIENGÄNGE (chronologisch, neueste zuerst) -->
+    <div class="section-block-wrap" id="degrees">
+        <div class="section-head-row">
+            <h2 class="section-title"><span class="section-index">1</span> Studiengänge & Programme</h2>
+            <span class="section-kind section-kind--degree">Hochschulbildung</span>
+        </div>
+        <p class="section-note">Abgeschlossene Studiengänge und formale Programme. Einzelne IT-Kurse und Zertifikate finden Sie in den Abschnitten 3–4 unten.</p>
+        <div class="degrees-timeline">
+            <article class="degree-row">
+                <div class="degree-date">2020 –<br>laufend</div>
+                <div class="degree-card">
+                    <span class="degree-type degree-type--progress">Laufend</span>
+                    <h3>Arbeitsrecht (einsemestriges Modul)</h3>
+                    <p class="org">Universität Oslo, Norwegen</p>
+                    <p>Kursarbeit im individuellen Arbeitsrecht.</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2014 –<br>2015</div>
+                <div class="degree-card">
+                    <span class="degree-type">Abschluss / Qualifikation</span>
+                    <h3>Praktisch-Pädagogische Ausbildung</h3>
+                    <p class="org">Universität Oslo, Norwegen</p>
+                    <p>Staatlich anerkannte Lehrkraft: Vorschule, Grundschule, Sekundarstufe und Erwachsenenbildung.</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2013 –<br>2014</div>
+                <div class="degree-card">
+                    <span class="degree-type">Austauschprogramm</span>
+                    <h3>Spanische Sprache und Kultur in Lateinamerika</h3>
+                    <p class="org">Hochschule Telemark (USN), Norwegen</p>
+                    <p>Austausch an der Costa Rican Language Academy, San José (6 Monate).</p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2010 –<br>2013</div>
+                <div class="degree-card">
+                    <span class="degree-type">Bachelor-Abschluss</span>
+                    <h3>BA Internationale Entwicklung (UTVBA)</h3>
+                    <p class="org">Hochschule Oslo und Akershus (OsloMet), Norwegen</p>
+                    <p>180 ECTS. Abschlussarbeit zur Ausbeutung von Wanderarbeiter:innen in Golfstaaten. <a href="#ba-utvba">Vollständige BA-Kursliste in Abschnitt ② ↓</a></p>
+                </div>
+            </article>
+            <article class="degree-row">
+                <div class="degree-date">2000 –<br>2008</div>
+                <div class="degree-card">
+                    <span class="degree-type degree-type--intl">Internationaler Abschluss</span>
+                    <h3>Skandinavische Sprachen und Literatur (Norwegisch)</h3>
+                    <p class="org">Universität Belgrad, Serbien</p>
+                    <p>Philologische Fakultät — Norwegische Sprache und skandinavische Literatur.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- ② BA Internationale Entwicklung (UTVBA Programmkurse) -->
+    <div class="section-block-wrap" id="ba-utvba">
+        <div class="section-head-row">
+            <h2 class="section-title" id="utvba-title"><span class="section-index">2</span> BA Entwicklungsstudien — Kursregister (UTVBA)</h2>
+            <span class="section-kind section-kind--degree">Teil des BA 2010–2013</span>
+        </div>
+        <p class="section-note">Offizielle Kursliste aus dem Abschlusszeugnis — OsloMet (HiOA), 2010–2013. Insgesamt 180 ECTS. Bachelor-Abschlussarbeit innerhalb UTVB3300.</p>
             <table class="course-register record-table">
                 <colgroup>
                     <col class="w-code">
@@ -1102,7 +1160,7 @@
                     </tr>
                     <tr>
                         <td class="col-code">UTVIÅR-OVERG</td>
-                        <td class="col-title">Entwicklungsstudien — Grundlagen</td>
+                        <td class="col-title">Entwicklungsstudien — Grundstufe</td>
                         <td class="col-institution">OsloMet (HiOA)</td>
                         <td class="col-term">Herbst 2012</td>
                         <td class="col-credits">60 ECTS</td>
@@ -1126,13 +1184,13 @@
                     </tr>
                     <tr>
                         <td class="col-code">UTVB3300</td>
-                        <td class="col-title">Theorien zu Entwicklung, Globalisierung und sozialem Wandel — Mittelstufe (Bachelorarbeit)</td>
+                        <td class="col-title">Theorien zu Entwicklung, Globalisierung und sozialem Wandel — Mittelstufe (Bachelor-Abschlussarbeit)</td>
                         <td class="col-institution">OsloMet (HiOA)</td>
                         <td class="col-term">Frühjahr 2013</td>
                         <td class="col-credits">30 ECTS</td>
                         <td class="col-grade">—</td>
                     </tr>
-                    <tr class="programme-divider"><td colspan="6"><strong>Anerkannte externe Studien</strong></td></tr>
+                    <tr class="programme-divider"><td colspan="6"><strong>Anerkannte externe Studienleistungen</strong></td></tr>
                     <tr>
                         <td class="col-code">KRIM2920</td>
                         <td class="col-title">Öko-globale Kriminologie</td>
@@ -1158,143 +1216,176 @@
                     </tr>
                 </tfoot>
             </table>
-        </article>
-    </section>
+    </div>
 
-    <!-- Norwegian Higher Education Section -->
-    <section class="section norway" aria-labelledby="norwegian-title">
-        <header class="section-header">
-            <h2 class="section-title" id="norwegian-title">Norwegische Hochschulbildung</h2>
-        </header>
-        <article class="section-content">
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Universität Oslo</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Programm</th>
-                            <th class="col-title">Titel</th>
-                            <th class="col-term">Zeitraum</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">PED</td>
-                            <td class="col-title">Praktisch-Pädagogische Ausbildung (einjähriger Studiengang)</td>
-                            <td class="col-term">2014–2015</td>
-                            <td class="col-status">Abgeschlossen — Lehrbefugnis</td>
-                        </tr>
-                        <tr>
-                            <td class="col-code">JUS</td>
-                            <td class="col-title">Arbeitsrecht (einsemestriger Kurs)</td>
-                            <td class="col-term">2020–laufend</td>
-                            <td class="col-status">Laufend</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Hochschule Oslo und Akershus</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Programm</th>
-                            <th class="col-title">Titel</th>
-                            <th class="col-term">Zeitraum</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">BA</td>
-                            <td class="col-title">Internationale Entwicklung (UTVBA) — siehe Programmregister oben</td>
-                            <td class="col-term">2010–2013</td>
-                            <td class="col-status">Abgeschlossen — 180 ECTS</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Hochschule Telemark</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Programm</th>
-                            <th class="col-title">Titel</th>
-                            <th class="col-term">Zeitraum</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">SPA</td>
-                            <td class="col-title">Spanische Sprache und Kultur in Lateinamerika</td>
-                            <td class="col-term">2013–2014</td>
-                            <td class="col-status">Abgeschlossen — Austausch Costa Rica</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <article class="university">
-                <header class="university-header">
-                    <h3 class="university-name">Universität Belgrad</h3>
-                </header>
-                <table class="university-table record-table">
-                    <colgroup>
-                        <col class="w-code">
-                        <col class="w-title">
-                        <col class="w-term">
-                        <col class="w-meta">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="col-code">Programm</th>
-                            <th class="col-title">Titel</th>
-                            <th class="col-term">Zeitraum</th>
-                            <th class="col-status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-code">SCAN</td>
-                            <td class="col-title">Skandinavische Sprachen und Literatur (Norwegisch)</td>
-                            <td class="col-term">2000–2008</td>
-                            <td class="col-status">Abgeschlossen</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-        </article>
-    </section>
+    <!-- ③ IT-Kursarbeit (einzelne Kurse — kein Abschluss) -->
+    <div class="section-block-wrap" id="it-coursework">
+        <div class="section-head-row">
+            <h2 class="section-title" id="cs-title"><span class="section-index">3</span> Hochschul-IT- & Programmierkurse</h2>
+            <span class="section-kind section-kind--course">Einzelne Kurse — kein Informatikstudium</span>
+        </div>
+        <p class="section-note">Einzelne Kurse von Linnaeus, Uppsala, Luleå und UiO. Neueste zuerst in der detaillierten <a href="/cv/html/professional/#it-coursework">Kurse & Kompetenzen-Seite</a> aufgelistet.</p>
+            <table class="course-register record-table">
+                <colgroup>
+                    <col class="w-code">
+                    <col class="w-title">
+                    <col class="w-institution">
+                    <col class="w-term">
+                    <col class="w-credits">
+                    <col class="w-grade">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="col-code">Code</th>
+                        <th class="col-title">Kurs</th>
+                        <th class="col-institution">Hochschule</th>
+                        <th class="col-term">Zeitraum</th>
+                        <th class="col-credits">Credits</th>
+                        <th class="col-grade">Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-code">1DV510</td>
+                        <td class="col-title">Technische Information und Kommunikation</td>
+                        <td class="col-institution">Linnaeus Universität</td>
+                        <td class="col-term">Nov 2020 – Jan 2021</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DT110</td>
+                        <td class="col-title">Informationstechnologie: Möglichkeiten und Herausforderungen</td>
+                        <td class="col-institution">Universität Uppsala</td>
+                        <td class="col-term">Jun – Aug 2022</td>
+                        <td class="col-credits">10 hp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">2DV505</td>
+                        <td class="col-title">Aktuelle Themen der Informatik</td>
+                        <td class="col-institution">Linnaeus Universität</td>
+                        <td class="col-term">Aug 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV700</td>
+                        <td class="col-title">Computersicherheit</td>
+                        <td class="col-institution">Linnaeus Universität</td>
+                        <td class="col-term">Nov 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">D0017D</td>
+                        <td class="col-title">Einführung in die Programmierung mit Java</td>
+                        <td class="col-institution">Technische Universität Luleå</td>
+                        <td class="col-term">Aug 2022 – Jan 2023</td>
+                        <td class="col-credits">7,5 hp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV502</td>
+                        <td class="col-title">Objektorientierte Programmierung (Java)</td>
+                        <td class="col-institution">Linnaeus Universität</td>
+                        <td class="col-term">Jan – Mär 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">1DV535</td>
+                        <td class="col-title">Einführung in die App-Entwicklung mit Flutter</td>
+                        <td class="col-institution">Linnaeus Universität</td>
+                        <td class="col-term">Jun – Aug 2023</td>
+                        <td class="col-credits">7,5 ECTS</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">IN1000</td>
+                        <td class="col-title">Einführung in die objektorientierte Programmierung (Python)</td>
+                        <td class="col-institution">Universität Oslo (IFI)</td>
+                        <td class="col-term">—</td>
+                        <td class="col-credits">10 sp</td>
+                        <td class="col-grade">—</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-title" colspan="4">Gesamt IT-Kursarbeit (gemischte ECTS / hp / sp)</td>
+                        <td class="col-credits">65+</td>
+                        <td class="col-grade"></td>
+                    </tr>
+                </tfoot>
+            </table>
+    </div>
+
+    <!-- ④ Zertifikate -->
+    <div class="section-block-wrap" id="certificates">
+        <div class="section-head-row">
+            <h2 class="section-title" id="ai-certs-title"><span class="section-index">4</span> Aktuelle KI- & Informatik-Zertifikate</h2>
+            <span class="section-kind section-kind--cert">Kurzlehrgänge</span>
+        </div>
+        <p class="section-note">Neu abgeschlossene Zertifikate (PDF-Kopien werden im Rahmen dieses CV-Projekts zur Überprüfung gespeichert).</p>
+            <table class="course-register record-table">
+                <colgroup>
+                    <col class="w-code">
+                    <col class="w-title">
+                    <col class="w-institution">
+                    <col class="w-term">
+                    <col class="w-credits">
+                    <col class="w-grade">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="col-code">Typ</th>
+                        <th class="col-title">Zertifikat</th>
+                        <th class="col-institution">Herausgeber</th>
+                        <th class="col-term">Ausgestellt</th>
+                        <th class="col-credits">Link</th>
+                        <th class="col-grade">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-code">AI</td>
+                        <td class="col-title">Grundlagen der Künstlichen Intelligenz</td>
+                        <td class="col-institution">IBM SkillsBuild</td>
+                        <td class="col-term">29. Jun 2026</td>
+                        <td class="col-credits"><a href="/assets/certificates/AIFundamentalsUpdated20260629-31-kt09f6.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
+                        <td class="col-grade">Abgeschlossen</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">AI</td>
+                        <td class="col-title">Einführung in moderne KI</td>
+                        <td class="col-institution">Zertifikatsanbieter</td>
+                        <td class="col-term">27. Apr 2026</td>
+                        <td class="col-credits"><a href="/assets/certificates/IntrotoModernAIUpdate20260629-32-ny21cn.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
+                        <td class="col-grade">Abgeschlossen</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">CS</td>
+                        <td class="col-title">Einführung in die Informatik</td>
+                        <td class="col-institution">Zertifikatsanbieter</td>
+                        <td class="col-term">08. Mai 2026</td>
+                        <td class="col-credits"><a href="/assets/certificates/I2CSUpdate20260629-31-nzedla.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
+                        <td class="col-grade">Abgeschlossen</td>
+                    </tr>
+                    <tr>
+                        <td class="col-code">Design</td>
+                        <td class="col-title">IBM Design</td>
+                        <td class="col-institution">IBM SkillsBuild</td>
+                        <td class="col-term">29. Jun 2026</td>
+                        <td class="col-credits"><a href="/assets/certificates/IBMDesign20260629-32-ob3717.pdf" target="_blank" rel="noopener noreferrer">PDF</a></td>
+                        <td class="col-grade">Abgeschlossen</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
 
     <footer class="footer">
-        <p><strong>Akademische Übersicht:</strong><br>BA Entwicklungsstudien; Praktisch-Pädagogische Ausbildung (Lehrbefugnis); Spanisch- und Skandinavistikstudien; IT- und Programmierkurse (Linnaeus, Uppsala, Luleå, UiO); Arbeitsrecht laufend.</p>
-        <p><strong>Verifizierung:</strong> Zusammengefasster Bildungsnachweis für Ivana Jovic. Norwegische Abschlüsse von der Universität Oslo, HiOA, Hochschule Telemark und Universität Belgrad.</p>
+        <p><strong>Akademische Zusammenfassung:</strong><br>BA Internationale Entwicklung; Praktisch-Pädagogische Ausbildung (staatlich anerkannte Lehrkraft); Sprachstudien in Spanisch und Skandinavistik; IT- & Programmierkurse (Linnaeus, Uppsala, Luleå, UiO); laufendes Arbeitsrecht.</p>
+        <p><strong>Überprüfung:</strong> Zusammengefasster Bildungsnachweis für Ivana Jovic. Norwegische Abschlüsse von Universität Oslo, HiOA, Hochschule Telemark und Universität Belgrad.</p>
     </footer>
 
 </div>
