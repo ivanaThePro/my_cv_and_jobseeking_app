@@ -22,11 +22,25 @@ LANG_NAMES = {
 I18N_DIR = Path(__file__).resolve().parent / 'data' / 'document_i18n'
 
 # Swedish/Norwegian university course codes (e.g. 1DV501, 2MA402) and OsloMet UTVB modules.
-COURSE_CODE_RE = re.compile(r'\b(?:\d[A-Z]{2}\d{3,4}[A-Z]?|UTVB\d{4})\b')
+COURSE_CODE_RE = re.compile(r'\b(?:\d[A-Z]{2}\d{3,4}[A-Z]?|UTVB\d{4}|QUTV2ÅR\d|UTVIÅR-OVERG|KRIM\d{4})\b')
 COL_CODE_CELL_RE = re.compile(
     r'(<td[^>]*class="[^"]*col-code[^"]*"[^>]*>)(.*?)(</td>)',
     re.IGNORECASE | re.DOTALL,
 )
+TITLE_LINK_RE = re.compile(
+    r'(<(?:h4)\b[^>]*>\s*<a\b[^>]*\bhref="[^"]*"[^>]*>)(.*?)(</a>\s*</h4>)',
+    re.IGNORECASE | re.DOTALL,
+)
+CERT_TITLE_LINK_RE = re.compile(
+    r'(<div class="course-header"><h4><a\b[^>]*\bhref="/assets/[^"]*"[^>]*>)(.*?)(</a></h4>)',
+    re.IGNORECASE | re.DOTALL,
+)
+CLASS_TEXT_RE = re.compile(
+    r'(<[^>]+class="[^"]*course-code[^"]*"[^>]*>)(.*?)(</[^>]+>)',
+    re.IGNORECASE | re.DOTALL,
+)
+EMAIL_RE = re.compile(r'\b[\w.+-]+@[\w.-]+\.\w+\b')
+PHONE_RE = re.compile(r'\+\d[\d\s]{6,}\d')
 
 
 def source_hash(html: str) -> str:
@@ -76,7 +90,7 @@ def _write_cache(doc_kind: str, lang: str, html_hash: str, translated: str) -> N
 
 
 def protect_non_translatable(html: str) -> tuple[str, dict[str, str]]:
-    """Replace course codes and program-code cells with placeholders."""
+    """Replace course codes, official titles, and contact data with placeholders."""
     mapping: dict[str, str] = {}
     counter = 0
 
@@ -87,11 +101,27 @@ def protect_non_translatable(html: str) -> tuple[str, dict[str, str]]:
         counter += 1
         return key
 
+    def repl_title_link(match: re.Match[str]) -> str:
+        return match.group(1) + stash(match.group(2)) + match.group(3)
+
+    def repl_cert_title_link(match: re.Match[str]) -> str:
+        return match.group(1) + stash(match.group(2)) + match.group(3)
+
     def col_code_repl(match: re.Match[str]) -> str:
         return match.group(1) + stash(match.group(2)) + match.group(3)
 
+    def class_text_repl(match: re.Match[str]) -> str:
+        return match.group(1) + stash(match.group(2)) + match.group(3)
+
     protected = COL_CODE_CELL_RE.sub(col_code_repl, html)
+    protected = TITLE_LINK_RE.sub(repl_title_link, protected)
+    protected = CERT_TITLE_LINK_RE.sub(repl_cert_title_link, protected)
+    protected = CLASS_TEXT_RE.sub(class_text_repl, protected)
     protected = COURSE_CODE_RE.sub(lambda m: stash(m.group(0)), protected)
+    protected = EMAIL_RE.sub(lambda m: stash(m.group(0)), protected)
+    protected = PHONE_RE.sub(lambda m: stash(m.group(0)), protected)
+    protected = protected.replace('Ivana Jovic', stash('Ivana Jovic'))
+    protected = protected.replace('UTVBA', stash('UTVBA'))
     return protected, mapping
 
 
@@ -114,18 +144,43 @@ def _strip_markdown_fences(text: str) -> str:
     return stripped.strip()
 
 
-def mistral_translate_html(api_key: str, html: str, target_lang: str, *, retries: int = 3) -> str:
-    """Translate an HTML document via Mistral while preserving structure."""
+def _translation_system_prompt(target_lang: str) -> str:
     lang_name = LANG_NAMES.get(target_lang, target_lang)
-    protected, mapping = protect_non_translatable(html)
-    system = (
+    return (
         f'You translate HTML documents into {lang_name}. '
+        'The result must read as a single, consistent language throughout — no mixed English fragments. '
         'Preserve every HTML tag, attribute, class, id, href, and the overall structure exactly. '
-        'Only translate visible human-readable text (headings, paragraphs, labels, table headers, status text). '
-        'Do not translate or modify placeholder tokens like [[KEEP_0]], [[KEEP_1]], etc. '
-        'Do not translate email addresses, phone numbers, URLs, or personal names. '
+        'Translate all navigation labels, section headings, introductory paragraphs, skill summaries, '
+        'footer text, syllabus button labels (Course page, Syllabus, PDF backup, Programme plan), '
+        'and descriptive sentences in timeline-desc and course-desc blocks. '
+        'Do NOT translate or modify placeholder tokens like [[KEEP_0]], [[KEEP_1]], etc. — copy them unchanged. '
+        'Placeholders hide official degree/course titles, university names, course codes, emails, and personal names; '
+        'leave those tokens exactly as given — never mix a translated word into a placeholder title. '
+        f'Set <html lang="{target_lang}"> to the target language code ({target_lang}, not nb). '
         'Return only the full translated HTML document with no markdown fences or commentary.'
     )
+
+
+def _normalize_doc_lang(html: str, lang: str) -> str:
+    """Keep html lang aligned with site language codes."""
+    if lang == 'no':
+        html = re.sub(r'<html\s+lang="nb"', '<html lang="no"', html, count=1, flags=re.IGNORECASE)
+    return html
+
+
+def _finalize_translation(html: str, lang: str) -> str:
+    from .cv_i18n import DOC_UI_LABELS
+
+    html = _normalize_doc_lang(html, lang)
+    for src, dst in DOC_UI_LABELS.get(lang, {}).items():
+        html = html.replace(src, dst)
+    return html
+
+
+def mistral_translate_html(api_key: str, html: str, target_lang: str, *, retries: int = 3) -> str:
+    """Translate an HTML document via Mistral while preserving structure."""
+    protected, mapping = protect_non_translatable(html)
+    system = _translation_system_prompt(target_lang)
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {api_key}'}
     payload = {
         'model': TRANSLATE_MODEL,
@@ -150,46 +205,8 @@ def mistral_translate_html(api_key: str, html: str, target_lang: str, *, retries
                 continue
             raise RuntimeError(f'Mistral translation error: {result}')
         translated = _strip_markdown_fences(result['choices'][0]['message']['content'])
-        return restore_protected(translated, mapping)
+        return _finalize_translation(restore_protected(translated, mapping), target_lang)
     raise RuntimeError(f'Mistral translation failed: {last_error}')
-
-
-def _read_cached_html(doc_kind: str, lang: str) -> str | None:
-    """Return on-disk translation if present (even when source hash changed)."""
-    html_path, _ = _cache_paths(doc_kind, lang)
-    if not html_path.is_file():
-        return None
-    try:
-        return html_path.read_text(encoding='utf-8')
-    except OSError:
-        return None
-
-
-def _fallback_replacements(doc_kind: str, lang: str) -> dict[str, str]:
-    from .cv_i18n import PROFESSIONAL_REPLACEMENTS, TRANSCRIPT_REPLACEMENTS
-
-    if doc_kind == 'professional':
-        return PROFESSIONAL_REPLACEMENTS.get(lang, {})
-    if doc_kind == 'transcript':
-        return TRANSCRIPT_REPLACEMENTS.get(lang, {})
-    return {}
-
-
-def _apply_replacements(html: str, replacements: dict[str, str]) -> str:
-    out = html
-    for src, dst in replacements.items():
-        out = out.replace(src, dst)
-    return out
-
-
-def _doc_marker_present(html: str, doc_kind: str) -> bool:
-    """Only reuse saved translations for the matching source document."""
-    markers = {
-        'transcript': 'Consolidated Academic Record',
-        'professional': 'Courses & Skills Record',
-    }
-    marker = markers.get(doc_kind)
-    return bool(marker and marker in html)
 
 
 def translate_html_document(
@@ -200,7 +217,7 @@ def translate_html_document(
     api_key: str | None = None,
     allow_live: bool | None = None,
 ) -> str:
-    """Return translated HTML from saved files, optional live Mistral, or heading fallbacks."""
+    """Return translated HTML from saved cache, optional live Mistral, or English source."""
     from .cv_i18n import normalize_lang
 
     lang = normalize_lang(lang)
@@ -210,7 +227,7 @@ def translate_html_document(
     html_hash = source_hash(html)
     cached = _read_cache(doc_kind, lang, html_hash)
     if cached is not None:
-        return cached
+        return _finalize_translation(cached, lang)
 
     if allow_live is None:
         allow_live = os.getenv('DOCUMENT_I18N_ALLOW_LIVE', 'false').strip().lower() in (
@@ -223,7 +240,8 @@ def translate_html_document(
         _write_cache(doc_kind, lang, html_hash, translated)
         return translated
 
-    return _apply_replacements(html, _fallback_replacements(doc_kind, lang))
+    # Never serve partially translated pages — English only until a full cache exists.
+    return html
 
 
 def iter_documents_for_translation() -> list[tuple[str, str]]:

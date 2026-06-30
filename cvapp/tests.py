@@ -1214,23 +1214,34 @@ class CVAppTests(TestCase):
     def test_professional_page_translates_skills_to_german(self):
         response = self.client.get('/cv/html/professional/?lang=de')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Hochschulbildung')
-        self.assertContains(response, 'Faehigkeiten &amp; Sprachen')
-        self.assertContains(response, 'Abschluesse &amp; Studiengaenge')
+        content = response.content.decode('utf-8')
+        self.assertIn('lang="de"', content)
+        self.assertNotIn('This page is the <strong>detailed companion</strong>', content)
+        self.assertIn('Practical-Pedagogical Education', content)
+        self.assertNotIn('Degrees &amp; Programmes', content)
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_professional_page_translates_to_norwegian(self):
         response = self.client.get('/cv/html/professional/?lang=no')
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
-        # Full translation when cache exists; at minimum section headings switch.
-        self.assertTrue(
-            'Høyere utdanning' in content or 'Hoeyere utdanning' in content,
-            'Norwegian higher-education heading expected',
-        )
-        self.assertIn('Grader og studieprogram', content)
-        self.assertNotIn('Higher Education</div>', content)
+        self.assertIn('lang="no"', content)
+        self.assertNotIn('This page is the <strong>detailed companion</strong>', content)
+        self.assertIn('Practical-Pedagogical Education', content)
+        self.assertNotIn('Degrees &amp; Programmes', content)
         self.assertIn('@media print{.cv-lang-bar{display:none!important}}', content)
+
+    @override_settings(CV_ACCESS_PASSWORD='')
+    def test_professional_page_without_cache_stays_english(self):
+        from cvapp.document_translator import translate_html_document
+        from cvapp.standalone_cv import read_standalone_cv_html
+
+        html = read_standalone_cv_html('professional')
+        with patch.dict(os.environ, {'DOCUMENT_I18N_ALLOW_LIVE': 'false', 'MISTRAL_API_KEY': 'test-key'}):
+            with patch('cvapp.document_translator._read_cache', return_value=None):
+                out = translate_html_document(html, lang='de', doc_kind='professional', allow_live=False)
+        self.assertIn('Degrees &amp; Programmes', out)
+        self.assertNotIn('Abschluesse', out)
 
     @override_settings(CV_ACCESS_PASSWORD='')
     def test_transcript_german_uses_saved_translation_without_live_api(self):
@@ -1255,9 +1266,9 @@ class CVAppTests(TestCase):
         response = self.client.get('/transcript/?lang=no')
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
-        self.assertIn('Samlet akademisk oversikt', content)
+        self.assertIn('Samlet akademisk dokumentasjon', content)
         self.assertIn('QUTV2ÅR1', content)
-        self.assertIn('Norsk hoeyere utdanning', content)
+        self.assertIn('Norsk høyere utdanning', content)
         self.assertNotIn('Consolidated Academic Record</h1>', content)
 
     @patch.dict(os.environ, {'CRON_SECRET': 'cron-test-secret'})
